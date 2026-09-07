@@ -2,7 +2,7 @@
 category: about
 title: Honors & Learning
 order: 5
-itemTitle: UPV KomsaiHack finalist
+itemTitle: UPV KomsaiHack Finalist
 meta: '2026'
 ---
 

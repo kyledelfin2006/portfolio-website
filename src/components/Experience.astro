@@ -1,20 +1,13 @@
 ---
 import SectionHeading from './SectionHeading.astro';
+import { getEntries } from '../content/load';
+interface Props { heading: string; ariaLabel: string; }
+const { heading, ariaLabel } = Astro.props;
+const entries = await getEntries('experience');
 ---
-<section aria-label="Experience and leadership">
-  <SectionHeading title="Experience & Leadership" />
+<section aria-label={ariaLabel}>
+  <SectionHeading title={heading} />
   <div class="entries">
-    <article>
-      <div class="split-row"><h3>Backend AI Engineer Intern</h3><span class="meta">FlyRank</span></div>
-      <ul><li>Focus on autonomous AI agent engineering and prompt fine-tuning for reliable LLM outputs.</li></ul>
-    </article>
-    <article>
-      <div class="split-row"><h3>Co-Founder &amp; Chief Operations Officer</h3><span class="meta">DevGuild</span></div>
-      <ul><li>Lead a community of 25+ student developers building real-world software products in Aklan.</li><li>Help turn ideas into practical products through modern development workflows and industry tools.</li></ul>
-    </article>
-    <article>
-      <div class="split-row"><h3>Scholar</h3><span class="meta">DataCamp x Data Engineering Pilipinas</span></div>
-      <ul><li>Pursue continued technical learning through the DataCamp scholarship program.</li></ul>
-    </article>
+    {await Promise.all(entries.map(async ({ data, render }) => { const { Content } = await render(); return <article><div class="split-row"><h3>{data.title}</h3><span class="meta">{data.organization}</span></div><Content /></article>; }))}
   </div>
 </section>

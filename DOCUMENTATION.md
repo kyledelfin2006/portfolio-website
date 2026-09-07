@@ -9,19 +9,19 @@ This repository implements Aldrin Kyle Delfin’s portfolio according to `implem
 | Package | Purpose |
 | --- | --- |
 | Astro 5 | Generate HTML for every route at build time; no application server is required. |
-| TypeScript 5 | Strict component props, typed workshop data, and generated project types. |
+| TypeScript 5 | Strict component props and generated Markdown content types. |
 | `@astrojs/check` (development only) | Required to run the blueprint’s `astro check` validation. |
 
 Astro and TypeScript are the complete application dependency list. The checker is the single development dependency because Astro delegates its diagnostics to that package. Native CSS handles the reset, themes, layout, Markdown presentation, responsive behavior, and print output. `package-lock.json` pins the resolved dependency tree; use `npm ci` for reproducible installs.
 
 ### Rendering and content flow
 
-1. Astro validates `src/content/projects/*.md` against the Zod schema exported by `src/content/config.ts`.
-2. `Projects.astro` queries the collection and sorts entries by `order`. The same component serves the resume and project index.
-3. `[slug].astro` generates a static route for each Markdown entry and renders it through `BlogPostLayout.astro`.
-4. `ResumeLayout.astro` supplies the common document, metadata, header, stylesheet, and footer.
-5. `Workshops.astro` reads one typed array for both the resume and About page.
-6. `astro build` produces six HTML pages plus stylesheet and public assets in `dist/`.
+1. `src/content/text/` is the single publishable source of truth for visitor-facing text.
+2. Astro validates every Markdown file against the strict, category-discriminated Zod schema in `src/content/config.ts`.
+3. Components query repeatable categories, sort by numeric `order` and filename, and render Markdown bodies natively.
+4. `[slug].astro` creates one static case-study route per file in `src/content/text/projects/`; the filename is the route slug.
+5. Required singleton files are loaded by exact ID and fail the build with a named-file error when missing.
+6. `ResumeLayout.astro` supplies the common document and presentation while its metadata, header, controls, and footer labels come from Markdown.
 
 No React, component library, global state manager, backend, contact form service, animation library, analytics, remote fonts, or generated illustration is used. Navigation is native anchor navigation. Contact opens the visitor’s email client.
 
@@ -52,13 +52,17 @@ portfolio-website/
 │   └── resume.pdf                  One-page A4 export of the resume
 ├── src/
 │   ├── content/
-│   │   ├── config.ts              Zod schema and project collection declaration
-│   │   └── projects/
-│   │       ├── libro.md           Book API case study
-│   │       ├── tabang.md          Flood-response case study
-│   │       └── facelog.md         Offline attendance case study
-│   ├── data/
-│   │   └── workshops.ts           WorkshopEntry interface and editable array
+│   │   ├── config.ts              Strict schemas for every text category
+│   │   ├── load.ts                Required singleton and ordered-entry lookups
+│   │   └── text/                  All publishable visitor-facing text
+│   │       ├── site.md            Shared identity, navigation, controls, and link labels
+│   │       ├── pages/             Required home, About, and projects page copy
+│   │       ├── about/             Ordered About sections
+│   │       ├── education/         Ordered education entries
+│   │       ├── experience/        Ordered experience entries
+│   │       ├── skills/            Ordered skill groups
+│   │       ├── workshops/         Ordered workshops and certifications
+│   │       └── projects/          Ordered summaries and full case studies
 │   ├── components/
 │   │   ├── Header.astro           Navigation, name, contact links, portrait
 │   │   ├── ThemeToggle.astro      Optional theme preference control
@@ -87,55 +91,34 @@ portfolio-website/
 
 ## 3. Content editing
 
-### Add a project case study
+All published copy lives in `src/content/text/` as Markdown. Never add biography, labels, metadata descriptions, skills, bullets, or other editorial text to Astro or TypeScript files.
 
-1. Create `src/content/projects/my-project.md`. Use a lowercase, hyphen-separated filename; it becomes `/projects/my-project/`.
-2. Add frontmatter matching the schema. The following is a template, not a real credential or project:
+### Categories and required frontmatter
 
-```yaml
----
-title: My Project
-description: A concise, factual explanation of the project.
-category: Backend application
-date: '2026' # Optional; omit if unconfirmed.
-stack: [Java, PostgreSQL]
-repository: https://github.com/your-account/your-repository
-order: 4
-highlights:
-  - A verified capability or contribution.
-  - A second concrete implementation detail.
----
-```
+| Directory/file | `category` | Required fields beyond `category` |
+| --- | --- | --- |
+| `site.md` | `site` | `fullName`, `shortName`, `professionalSubtitle`, `location`, `email`, `portraitAlt`, `navigationAriaLabel`, `navigation`, `profiles`, `theme`, `skipLink`, `downloadResume`, `projectLinks`, `credentialLink` |
+| `pages/home.md` | `page-home` | `title`, `description`, `sections` |
+| `pages/about.md` | `page-about` | `title`, `description`, `workshopsHeading`, `workshopsAriaLabel`, `workshopsOrder` |
+| `pages/projects.md` | `page-projects` | `title`, `description`, `eyebrow`, `sectionHeading`, `sectionAriaLabel`; body is the introduction |
+| `about/*.md` | `about` | `title`, `order`; optional `itemTitle`, `meta`, `contactPrompt`, `resumeLink`; body is section prose |
+| `education/*.md` | `education` | `title`, `order`, `meta`, `subtitle`; body is supporting detail |
+| `experience/*.md` | `experience` | `title`, `order`, `organization`; body contains bullets |
+| `skills/*.md` | `skill` | `title`, `order`; body contains the skill list |
+| `workshops/*.md` | `workshop` | `title`, `order`, `issuerOrOrganizer`; optional `date`, `certificateUrl`; body contains takeaways |
+| `projects/*.md` | `project` | `title`, `order`, `description`, `projectCategory`, `stack`, `repository`, `highlights`; optional `date`; body is the case study |
 
-3. Below the frontmatter, write Markdown sections beginning with `##`. Explain the problem, workflow, architecture, and decisions. The layout already renders the project title; do not add another top-level heading.
-4. Set a distinct nonnegative integer `order` to control the sequence on both lists. `date` is display text, not a parsed date. `repository` must be a valid URL. All other fields are required.
-5. Run `npm run check` and `npm run build`. Verify the new route, both lists, mobile wrapping, and print pagination. No routing edits are needed.
+URLs must be absolute and valid. Orders are nonnegative integers. Required strings and arrays cannot be empty. Unknown optional facts should be omitted, not represented by empty strings. Invalid fields, misspelled categories, incompatible frontmatter, and missing singleton files fail `npm run check` or `npm run build`.
 
-Changing a filename changes the route. Preserve published filenames unless you also configure a redirect with your host. Use absolute external URLs and prefix site-local links with the deployment base path when authoring raw HTML.
+### Add, edit, reorder, rename, or delete
 
-### Add workshops or certifications
+- Edit shared identity, navigation, theme, footer, contact, and reusable action labels in `site.md`. Edit a page singleton in place for its title, SEO description, introduction, or section labels.
+- Add repeatable content by copying a file in the appropriate directory, giving it a lowercase kebab-case filename, changing its content, and setting `order`. No component or TypeScript edit is needed.
+- Reorder an item by changing `order`. Equal orders use filenames as a deterministic tie-breaker.
+- Delete an item by deleting its Markdown file. Its rendered entry disappears automatically.
+- Rename any repeatable file to change its stable content identifier. For projects, the filename is also the route slug: `projects/my-project.md` produces `/projects/my-project/`. Renaming or deleting it removes the old route at the next build, so arrange a host redirect for an already-published URL when needed.
 
-Edit `src/data/workshops.ts` and append an object to `workshops`:
-
-```typescript
-{
-  title: 'Exact title from the credential',
-  issuerOrOrganizer: 'Verified issuing organization',
-  date: 'September 2026',
-  certificateUrl: 'https://issuer.example/verify/credential-id',
-  keyTakeaways: ['One specific skill or learning outcome.'],
-},
-```
-
-Replace the example URL with a real credential before publishing. `title`, `issuerOrOrganizer`, and `date` are strings; use an empty date when it is unknown. `certificateUrl` and `keyTakeaways` are optional. An omitted URL produces no verification link; omitted or empty takeaways produce no list. Entries render in array order on both pages.
-
-Keep entries in simple split rows with optional bullets. Do not add filters, certificate galleries, or modals. A program homepage is not proof of an individual credential.
-
-### Update biography, experience, and skills
-
-Edit the narrative sections directly in `src/pages/about.astro`. Maintain the professional background, engineering philosophy, technical direction, workshops, honors, and contact structure. Edit `Education.astro`, `Experience.astro`, and `Skills.astro` for resume details. Update both biography and resume when a role or year changes.
-
-Identity/contact changes belong in `Header.astro`; check metadata in `ResumeLayout.astro` and each page as well. Use only **Aldrin Kyle Delfin** or **Kyle Delfin** in generated source, content, metadata, and documentation.
+After every content change, run `npm run check` and `npm run build`. For projects, verify the generated route and both project lists. For resume entries, inspect mobile wrapping and print pagination.
 
 ### Grounding decisions
 

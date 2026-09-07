@@ -1,17 +1,18 @@
 ---
-import { workshops } from '../data/workshops';
+import { getEntries, getRequiredEntry } from '../content/load';
 import SectionHeading from './SectionHeading.astro';
-interface Props { heading?: string; }
-const { heading = 'Workshops & Certifications' } = Astro.props;
+interface Props { heading: string; ariaLabel: string; }
+const { heading, ariaLabel } = Astro.props;
+const workshops = await getEntries('workshop');
+const { data: site } = await getRequiredEntry('site', 'site');
 ---
-<section aria-label={heading}>
+<section aria-label={ariaLabel}>
   <SectionHeading title={heading} />
   <div class="entries">
-    {workshops.map((workshop) => <article>
-      <div class="split-row"><h3>{workshop.title}</h3>{workshop.date && <span class="meta">{workshop.date}</span>}</div>
-      <p class="entry-subtitle">{workshop.issuerOrOrganizer}</p>
-      {workshop.keyTakeaways && workshop.keyTakeaways.length > 0 && <ul>{workshop.keyTakeaways.map((takeaway) => <li>{takeaway}</li>)}</ul>}
-      {workshop.certificateUrl && <a class="credential-link" href={workshop.certificateUrl} target="_blank" rel="noopener noreferrer">Verify credential ↗</a>}
-    </article>)}
+    {await Promise.all(workshops.map(async ({ data, render }) => { const { Content } = await render(); return <article>
+      <div class="split-row"><h3>{data.title}</h3>{data.date && <span class="meta">{data.date}</span>}</div>
+      <p class="entry-subtitle">{data.issuerOrOrganizer}</p><Content />
+      {data.certificateUrl && <a class="credential-link" href={data.certificateUrl} target="_blank" rel="noopener noreferrer">{site.credentialLink}</a>}
+    </article>; }))}
   </div>
 </section>

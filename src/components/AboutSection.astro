@@ -1,0 +1,15 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import type { TextEntryOf } from '../content/load';
+interface Props { entry: TextEntryOf<'about'>; email: string; }
+const { entry, email } = Astro.props;
+const { data } = entry;
+const { Content } = await entry.render();
+---
+<section>
+  <SectionHeading title={data.title} />
+  {data.itemTitle && <div class="split-row"><h3>{data.itemTitle}</h3>{data.meta && <span class="meta">{data.meta}</span>}</div>}
+  <Content />
+  {data.contactPrompt && <p>{data.contactPrompt} <a href={`mailto:${email}`}>{email}</a>.</p>}
+  {data.resumeLink && <p><a href={`${import.meta.env.BASE_URL}resume.pdf`}>{data.resumeLink}</a></p>}
+</section>

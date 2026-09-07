@@ -5,7 +5,16 @@ import Experience from '../components/Experience.astro';
 import Projects from '../components/Projects.astro';
 import Skills from '../components/Skills.astro';
 import Workshops from '../components/Workshops.astro';
+import { getRequiredEntry } from '../content/load';
+const pageEntry = await getRequiredEntry('pages/home', 'page-home');
+const page = pageEntry.data;
 ---
-<ResumeLayout title="Aldrin Kyle Delfin — Backend Developer" description="Aklan-based backend developer and Software Engineering student. Spring Boot, PostgreSQL, Docker, and practical software projects." resume>
-  <div class="resume-sections"><Education /><Experience /><Projects /><Skills /><Workshops /></div>
+<ResumeLayout title={page.title} description={page.description} resume>
+  <div class="resume-sections">
+    <Education {...page.sections.education} />
+    <Experience {...page.sections.experience} />
+    <Projects {...page.sections.projects} />
+    <Skills {...page.sections.skills} />
+    <Workshops {...page.sections.workshops} />
+  </div>
 </ResumeLayout>

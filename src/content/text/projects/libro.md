@@ -1,7 +1,8 @@
 ---
+category: project
 title: Libro
 description: A Spring Boot REST API for managing books, with a Docker-first workflow and a PostgreSQL database.
-category: Book management API
+projectCategory: Book management API
 stack: [Java, Spring Boot, PostgreSQL 18, Docker, Flyway]
 repository: https://github.com/kyledelfin2006/libro-library-system
 order: 1

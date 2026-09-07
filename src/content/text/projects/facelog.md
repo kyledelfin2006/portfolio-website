@@ -1,7 +1,8 @@
 ---
+category: project
 title: FaceLog
 description: A local, offline Python desktop application for face-based attendance, with SQLite storage and per-session CSV exports.
-category: Offline attendance
+projectCategory: Offline attendance
 stack: [Python, SQLite, Webcam, CSV]
 repository: https://github.com/DevGuild-ASU/FaceLog
 order: 3

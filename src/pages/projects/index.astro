@@ -1,8 +1,12 @@
 ---
 import ResumeLayout from '../../layouts/ResumeLayout.astro';
 import Projects from '../../components/Projects.astro';
+import { getRequiredEntry } from '../../content/load';
+const pageEntry = await getRequiredEntry('pages/projects', 'page-projects');
+const page = pageEntry.data;
+const { Content } = await pageEntry.render();
 ---
-<ResumeLayout title="Projects — Aldrin Kyle Delfin" description="Project notes on Libro, Tabang, and FaceLog: backend APIs, community flood response, and offline attendance.">
-  <div class="page-intro"><p class="eyebrow">Selected work</p><p>Practical software, from backend services to tools for the local community. Explore the problem, workflow, and engineering decisions behind each project.</p></div>
-  <Projects heading="Project Case Studies" />
+<ResumeLayout title={page.title} description={page.description}>
+  <div class="page-intro"><p class="eyebrow">{page.eyebrow}</p><Content /></div>
+  <Projects heading={page.sectionHeading} ariaLabel={page.sectionAriaLabel} />
 </ResumeLayout>

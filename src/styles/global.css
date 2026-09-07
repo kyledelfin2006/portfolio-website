@@ -40,6 +40,7 @@ li + li { margin-top: 3px; }
 .skills > div + div { margin-top: 5px; }
 .skills dt { display: inline; font-weight: 700; }
 .skills dd { display: inline; }
+.skills dd p { display: inline; }
 .credential-link { font-size: 14px; }
 footer { display: flex; justify-content: space-between; gap: 16px; border-top: 1px solid var(--rule); margin-top: 36px; padding-top: 18px; color: var(--muted); font-size: 14px; }
 .about-sections p { line-height: 1.6; }

@@ -1,9 +1,14 @@
 ---
 import SectionHeading from './SectionHeading.astro';
+import { getEntries } from '../content/load';
+interface Props { heading: string; ariaLabel: string; }
+const { heading, ariaLabel } = Astro.props;
+const entries = await getEntries('education');
 ---
-<section aria-label="Education">
-  <SectionHeading title="Education" />
-  <div class="split-row"><h3>Aklan State University</h3><span class="meta">2nd year</span></div>
-  <p class="entry-subtitle">Bachelor of Science in Information Technology</p>
-  <p>Major in Software Engineering</p>
+<section aria-label={ariaLabel}>
+  <SectionHeading title={heading} />
+  <div class="entries">{await Promise.all(entries.map(async ({ data, render }) => {
+    const { Content } = await render();
+    return <article><div class="split-row"><h3>{data.title}</h3><span class="meta">{data.meta}</span></div><p class="entry-subtitle">{data.subtitle}</p><Content /></article>;
+  }))}</div>
 </section>

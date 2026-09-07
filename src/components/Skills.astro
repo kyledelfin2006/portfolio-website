@@ -1,14 +1,11 @@
 ---
 import SectionHeading from './SectionHeading.astro';
-const skills = [
-  ['Languages', 'Java (21+), Python (3.x), SQL, Bash'],
-  ['Backend', 'Spring Boot (3.x), Spring MVC, Spring Data JPA, Spring Security, Hibernate, REST APIs'],
-  ['Databases', 'PostgreSQL, MySQL, SQLite, Flyway'],
-  ['Cloud & DevOps', 'Docker, AWS (learning), Linux (Mint / Ubuntu), Git, GitHub, Maven'],
-  ['Testing & Tools', 'JUnit 5, Mockito, Swagger / OpenAPI, Postman, IntelliJ IDEA, PyCharm'],
-];
+import { getEntries } from '../content/load';
+interface Props { heading: string; ariaLabel: string; }
+const { heading, ariaLabel } = Astro.props;
+const skills = await getEntries('skill');
 ---
-<section aria-label="Technical skills">
-  <SectionHeading title="Technical Skills" />
-  <dl class="skills">{skills.map(([label, value]) => <div><dt>{label}:</dt> <dd>{value}</dd></div>)}</dl>
+<section aria-label={ariaLabel}>
+  <SectionHeading title={heading} />
+  <dl class="skills">{await Promise.all(skills.map(async ({ data, render }) => { const { Content } = await render(); return <div><dt>{data.title}:</dt> <dd><Content /></dd></div>; }))}</dl>
 </section>

@@ -1,5 +1,11 @@
-<button id="theme-toggle" type="button" aria-label="Switch to light theme" aria-pressed="false" hidden>
-  <span aria-hidden="true">◐</span> <span id="theme-label">Light mode</span>
+---
+interface Props { labels: { lightMode: string; darkMode: string; switchToLight: string; switchToDark: string }; }
+const { labels } = Astro.props;
+---
+<button id="theme-toggle" type="button" aria-label={labels.switchToLight} aria-pressed="false" hidden
+  data-light-mode={labels.lightMode} data-dark-mode={labels.darkMode}
+  data-switch-light={labels.switchToLight} data-switch-dark={labels.switchToDark}>
+  <span aria-hidden="true">◐</span> <span id="theme-label">{labels.lightMode}</span>
 </button>
 
 <script>
@@ -8,8 +14,8 @@
   function syncThemeControl() {
     const light = !document.documentElement.classList.contains('dark');
     button?.setAttribute('aria-pressed', String(light));
-    button?.setAttribute('aria-label', `Switch to ${light ? 'dark' : 'light'} theme`);
-    if (label) label.textContent = light ? 'Dark mode' : 'Light mode';
+    button?.setAttribute('aria-label', light ? button.dataset.switchDark! : button.dataset.switchLight!);
+    if (label) label.textContent = light ? button?.dataset.darkMode ?? '' : button?.dataset.lightMode ?? '';
   }
   if (button) {
     button.hidden = false;

@@ -1,10 +1,10 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
 import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
+import { contentId, getEntries, type TextEntryOf } from '../../content/load';
 export async function getStaticPaths() {
-  return (await getCollection('projects')).map((project) => ({ params: { slug: project.slug }, props: { project } }));
+  return (await getEntries('project')).map((project) => ({ params: { slug: contentId(project).split('/').at(-1) }, props: { project } }));
 }
-interface Props { project: CollectionEntry<'projects'>; }
+interface Props { project: TextEntryOf<'project'>; }
 const { project } = Astro.props;
 const { Content } = await project.render();
 ---

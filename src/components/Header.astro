@@ -1,33 +1,32 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
+import { getRequiredEntry } from '../content/load';
+const { data: site } = await getRequiredEntry('site', 'site');
 const base = import.meta.env.BASE_URL;
 const current = Astro.url.pathname.replace(/\/$/, '');
 const links = [
-  { label: 'Resume', href: base },
-  { label: 'About', href: `${base}about/` },
-  { label: 'Projects', href: `${base}projects/` },
+  { label: site.navigation.resume, href: base },
+  { label: site.navigation.about, href: `${base}about/` },
+  { label: site.navigation.projects, href: `${base}projects/` },
 ];
 ---
 <header class="resume-header">
   <div class="toolbar no-print">
-    <nav aria-label="Main navigation">
+    <nav aria-label={site.navigationAriaLabel}>
       {links.map(({ label, href }) => <a href={href} aria-current={current === href.replace(/\/$/, '') ? 'page' : undefined}>[{label}]</a>)}
     </nav>
-    <ThemeToggle />
+    <ThemeToggle labels={site.theme} />
   </div>
   <div class="identity">
     <div class="identity-copy">
-      <h1>Aldrin Kyle Delfin</h1>
-      <p class="subtitle">Backend Developer · Spring Boot · Cloud &amp; DevOps Enthusiast</p>
-      <p class="location">Aklan, Philippines</p>
+      <h1>{site.fullName}</h1>
+      <p class="subtitle">{site.professionalSubtitle}</p>
+      <p class="location">{site.location}</p>
       <div class="contact-links">
-        <a href="mailto:kyle.delfin.dev@gmail.com">kyle.delfin.dev@gmail.com</a>
-        <span aria-hidden="true">·</span>
-        <a href="https://github.com/kyledelfin2006" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-        <span aria-hidden="true">·</span>
-        <a href="https://github.com/DevGuild-ASU" target="_blank" rel="noopener noreferrer">DevGuild ↗</a>
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+        {site.profiles.map((profile) => <><span aria-hidden="true">·</span><a href={profile.url} target="_blank" rel="noopener noreferrer">{profile.label}</a></>)}
       </div>
     </div>
-    <img class="portrait" src={`${base}1x1-bw.jpg`} alt="Aldrin Kyle Delfin" width="112" height="112" loading="eager" />
+    <img class="portrait" src={`${base}1x1-bw.jpg`} alt={site.portraitAlt} width="112" height="112" loading="eager" />
   </div>
 </header>

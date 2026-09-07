@@ -1,0 +1,17 @@
+---
+import { workshops } from '../data/workshops';
+import SectionHeading from './SectionHeading.astro';
+interface Props { heading?: string; }
+const { heading = 'Workshops & Certifications' } = Astro.props;
+---
+<section aria-label={heading}>
+  <SectionHeading title={heading} />
+  <div class="entries">
+    {workshops.map((workshop) => <article>
+      <div class="split-row"><h3>{workshop.title}</h3>{workshop.date && <span class="meta">{workshop.date}</span>}</div>
+      <p class="entry-subtitle">{workshop.issuerOrOrganizer}</p>
+      {workshop.keyTakeaways && workshop.keyTakeaways.length > 0 && <ul>{workshop.keyTakeaways.map((takeaway) => <li>{takeaway}</li>)}</ul>}
+      {workshop.certificateUrl && <a class="credential-link" href={workshop.certificateUrl} target="_blank" rel="noopener noreferrer">Verify credential ↗</a>}
+    </article>)}
+  </div>
+</section>

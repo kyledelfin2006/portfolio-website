@@ -1,14 +1,11 @@
 # References & Private notes
-references/
-
-# Implementation Agentic Guidelines
-implementations/
 
 # Dependencies
 node_modules/
 
 # Production build output
 dist/
+tmp/
 
 # Astro cache & generated types
 .astro/

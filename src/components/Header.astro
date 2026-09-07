@@ -1,0 +1,33 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+const base = import.meta.env.BASE_URL;
+const current = Astro.url.pathname.replace(/\/$/, '');
+const links = [
+  { label: 'Resume', href: base },
+  { label: 'About', href: `${base}about/` },
+  { label: 'Projects', href: `${base}projects/` },
+];
+---
+<header class="resume-header">
+  <div class="toolbar no-print">
+    <nav aria-label="Main navigation">
+      {links.map(({ label, href }) => <a href={href} aria-current={current === href.replace(/\/$/, '') ? 'page' : undefined}>[{label}]</a>)}
+    </nav>
+    <ThemeToggle />
+  </div>
+  <div class="identity">
+    <div class="identity-copy">
+      <h1>Aldrin Kyle Delfin</h1>
+      <p class="subtitle">Backend Developer · Spring Boot · Cloud &amp; DevOps Enthusiast</p>
+      <p class="location">Aklan, Philippines</p>
+      <div class="contact-links">
+        <a href="mailto:kyle.delfin.dev@gmail.com">kyle.delfin.dev@gmail.com</a>
+        <span aria-hidden="true">·</span>
+        <a href="https://github.com/kyledelfin2006" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        <span aria-hidden="true">·</span>
+        <a href="https://github.com/DevGuild-ASU" target="_blank" rel="noopener noreferrer">DevGuild ↗</a>
+      </div>
+    </div>
+    <img class="portrait" src={`${base}1x1.jpg`} alt="Aldrin Kyle Delfin" width="112" height="112" loading="eager" />
+  </div>
+</header>

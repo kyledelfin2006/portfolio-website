@@ -1,0 +1,23 @@
+<button id="theme-toggle" type="button" aria-label="Switch to light theme" aria-pressed="false" hidden>
+  <span aria-hidden="true">◐</span> <span id="theme-label">Light mode</span>
+</button>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>('#theme-toggle');
+  const label = document.querySelector<HTMLElement>('#theme-label');
+  function syncThemeControl() {
+    const light = !document.documentElement.classList.contains('dark');
+    button?.setAttribute('aria-pressed', String(light));
+    button?.setAttribute('aria-label', `Switch to ${light ? 'dark' : 'light'} theme`);
+    if (label) label.textContent = light ? 'Dark mode' : 'Light mode';
+  }
+  if (button) {
+    button.hidden = false;
+    syncThemeControl();
+    button.addEventListener('click', () => {
+      const dark = document.documentElement.classList.toggle('dark');
+      try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch { /* Storage is optional. */ }
+      syncThemeControl();
+    });
+  }
+</script>

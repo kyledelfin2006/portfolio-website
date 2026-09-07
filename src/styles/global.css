@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light; --canvas: #ffffff; --ink: #111111; --muted: #525252; --rule: #d4d4d4; --link: #262626; }
+:root.dark { color-scheme: dark; --canvas: #0a0a0a; --ink: #f5f5f5; --muted: #a3a3a3; --rule: #262626; --link: #e5e5e5; }
+html { background: var(--canvas); color: var(--ink); font-family: "Times New Roman", Times, "Nimbus Roman No9 L", serif; }
+body { margin: 0; font-size: 16px; line-height: 1.45; }
+a { color: var(--link); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; transition: opacity 150ms; }
+a:hover { opacity: .72; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 5px; }
+button { font: inherit; color: var(--link); cursor: pointer; }
+[hidden] { display: none !important; }
+.document-shell { max-width: 896px; margin: 0 auto; padding: 32px 16px; }
+.toolbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 30px; font-size: 14px; }
+.toolbar nav { display: flex; gap: 20px; }
+.toolbar nav a { text-decoration: none; }
+.toolbar nav a:hover, .toolbar nav a[aria-current="page"] { text-decoration: underline; }
+#theme-toggle { white-space: nowrap; min-height: 32px; }
+#theme-toggle:hover { text-decoration: underline; }
+.resume-header { padding-bottom: 24px; border-bottom: 1px solid var(--rule); }
+.identity { display: flex; justify-content: space-between; gap: 24px; align-items: flex-start; }
+.identity-copy { min-width: 0; }
+h1 { font-size: 32px; line-height: 1.15; font-weight: 700; letter-spacing: -.025em; margin: 0 0 7px; }
+.subtitle { font-size: 15px; font-style: italic; color: var(--muted); }
+.location { margin-top: 12px; font-size: 14px; color: var(--muted); }
+.contact-links { display: flex; flex-wrap: wrap; gap: 3px 9px; font-size: 14px; margin-top: 3px; overflow-wrap: anywhere; }
+.portrait { width: 112px; height: 112px; flex-shrink: 0; object-fit: cover; border: 1px solid var(--rule); }
+main { margin-top: 30px; }
+.resume-sections, .about-sections { display: flex; flex-direction: column; gap: 34px; }
+.section-heading { font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; padding-bottom: 5px; margin: 0 0 12px; border-bottom: 1px solid var(--rule); }
+.split-row { display: flex; justify-content: space-between; align-items: baseline; gap: 6px 24px; }
+h3 { font-size: 16px; font-weight: 700; }
+.meta { color: var(--muted); font-size: 14px; text-align: right; flex-shrink: 0; }
+.entry-subtitle { color: var(--muted); font-style: italic; font-size: 14px; margin-top: 2px; }
+.entries { display: flex; flex-direction: column; gap: 20px; }
+ul { list-style: disc; padding-left: 20px; margin-top: 5px; }
+li + li { margin-top: 3px; }
+.project-category { font-weight: 400; }
+.project-links { display: flex; gap: 22px; margin-top: 7px; font-size: 14px; }
+.skills > div + div { margin-top: 5px; }
+.skills dt { display: inline; font-weight: 700; }
+.skills dd { display: inline; }
+.credential-link { font-size: 14px; }
+footer { display: flex; justify-content: space-between; gap: 16px; border-top: 1px solid var(--rule); margin-top: 36px; padding-top: 18px; color: var(--muted); font-size: 14px; }
+.about-sections p { line-height: 1.6; }
+.about-sections p + p { margin-top: 12px; }
+.eyebrow { color: var(--muted); text-transform: uppercase; letter-spacing: .08em; font-size: 13px; margin-bottom: 8px; }
+.page-intro { margin-bottom: 30px; line-height: 1.6; }
+.back-link { font-size: 14px; }
+.case-header { margin: 28px 0; padding-bottom: 24px; border-bottom: 1px solid var(--rule); }
+.case-header h2 { font-size: 36px; font-weight: 700; line-height: 1.2; margin-bottom: 12px; }
+.case-description { font-size: 18px; line-height: 1.6; margin-bottom: 16px; }
+.source-link { display: inline-block; font-size: 14px; margin-top: 16px; }
+.prose { color: var(--ink); line-height: 1.6; --tw-prose-headings: var(--ink); --tw-prose-body: var(--ink); --tw-prose-links: var(--link); --tw-prose-bold: var(--ink); --tw-prose-bullets: var(--muted); }
+.prose :where(h2) { font-size: 22px; }
+.skip-link { position: absolute; left: 16px; top: -80px; padding: 10px 16px; background: var(--canvas); z-index: 1; }
+.skip-link:focus { top: 8px; }
+@media (min-width: 640px) { .document-shell { padding: 48px 32px; } }
+@media (min-width: 768px) { .document-shell { padding-top: 64px; padding-bottom: 64px; } }
+@media (max-width: 639px) {
+  .toolbar { gap: 10px; margin-bottom: 24px; }
+  .toolbar nav { gap: 14px; }
+  .identity { flex-direction: column-reverse; gap: 14px; }
+  .portrait { align-self: flex-end; width: 80px; height: 80px; }
+  h1 { font-size: 28px; }
+  .split-row { flex-direction: column; gap: 1px; }
+  .meta { text-align: left; flex-shrink: 1; }
+  footer { flex-wrap: wrap; }
+}
+@media (prefers-reduced-motion: reduce) { a { transition: none; } }
+@page { size: A4; margin: 12mm 14mm; }
+@media print {
+  :root, :root.dark { color-scheme: light; --canvas: #ffffff; --ink: #000000; --muted: #333333; --rule: #777777; --link: #000000; }
+  html, body { background: white !important; color: black !important; }
+  body { font-size: 10pt; line-height: 1.25; }
+  .no-print, .skip-link { display: none !important; }
+  .document-shell { max-width: none; padding: 0; margin: 0; }
+  .resume-header { padding-bottom: 10px; }
+  .identity { flex-direction: row; gap: 18px; }
+  .portrait { width: 25.4mm; height: 25.4mm; align-self: flex-start; }
+  h1 { font-size: 22pt; }
+  .subtitle, .location, .contact-links { font-size: 9pt; }
+  .location { margin-top: 8px; }
+  main { margin-top: 14px; }
+  .resume-sections, .about-sections { gap: 15px; }
+  .section-heading { font-size: 11pt; margin-bottom: 6px; padding-bottom: 3px; break-after: avoid; }
+  h3 { font-size: 10pt; }
+  .split-row { flex-direction: row; }
+  .meta, .entry-subtitle, .credential-link { font-size: 9pt; }
+  .meta { text-align: right; }
+  .entries { gap: 9px; }
+  ul { margin-top: 3px; padding-left: 16px; }
+  li + li, .skills > div + div { margin-top: 2px; }
+  a { color: black !important; text-decoration: none; }
+  article, .resume-sections section { break-inside: avoid; }
+  .case-study { break-inside: auto; }
+  .prose, .dark .prose { color: black; --tw-prose-headings: #000; --tw-prose-invert-headings: #000; --tw-prose-invert-body: #000; --tw-prose-invert-bold: #000; --tw-prose-invert-links: #000; }
+  .prose h2, .prose h3 { break-after: avoid; }
+  p, li { orphans: 2; widows: 2; }
+}

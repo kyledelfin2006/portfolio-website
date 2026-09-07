@@ -1,15 +1,14 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 :root { color-scheme: light; --canvas: #ffffff; --ink: #111111; --muted: #525252; --rule: #d4d4d4; --link: #262626; }
 :root.dark { color-scheme: dark; --canvas: #0a0a0a; --ink: #f5f5f5; --muted: #a3a3a3; --rule: #262626; --link: #e5e5e5; }
+*, *::before, *::after { box-sizing: border-box; }
 html { background: var(--canvas); color: var(--ink); font-family: "Times New Roman", Times, "Nimbus Roman No9 L", serif; }
 body { margin: 0; font-size: 16px; line-height: 1.45; }
+h1, h2, h3, p, dl, dd { margin: 0; }
+img { display: block; max-width: 100%; }
 a { color: var(--link); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; transition: opacity 150ms; }
 a:hover { opacity: .72; }
 :focus-visible { outline: 2px solid var(--ink); outline-offset: 5px; }
-button { font: inherit; color: var(--link); cursor: pointer; }
+button { padding: 0; border: 0; background: none; font: inherit; color: var(--link); cursor: pointer; }
 [hidden] { display: none !important; }
 .document-shell { max-width: 896px; margin: 0 auto; padding: 32px 16px; }
 .toolbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 30px; font-size: 14px; }
@@ -34,7 +33,7 @@ h3 { font-size: 16px; font-weight: 700; }
 .meta { color: var(--muted); font-size: 14px; text-align: right; flex-shrink: 0; }
 .entry-subtitle { color: var(--muted); font-style: italic; font-size: 14px; margin-top: 2px; }
 .entries { display: flex; flex-direction: column; gap: 20px; }
-ul { list-style: disc; padding-left: 20px; margin-top: 5px; }
+ul { list-style: disc; padding-left: 20px; margin: 5px 0 0; }
 li + li { margin-top: 3px; }
 .project-category { font-weight: 400; }
 .project-links { display: flex; gap: 22px; margin-top: 7px; font-size: 14px; }
@@ -52,8 +51,11 @@ footer { display: flex; justify-content: space-between; gap: 16px; border-top: 1
 .case-header h2 { font-size: 36px; font-weight: 700; line-height: 1.2; margin-bottom: 12px; }
 .case-description { font-size: 18px; line-height: 1.6; margin-bottom: 16px; }
 .source-link { display: inline-block; font-size: 14px; margin-top: 16px; }
-.prose { color: var(--ink); line-height: 1.6; --tw-prose-headings: var(--ink); --tw-prose-body: var(--ink); --tw-prose-links: var(--link); --tw-prose-bold: var(--ink); --tw-prose-bullets: var(--muted); }
-.prose :where(h2) { font-size: 22px; }
+.case-body { color: var(--ink); line-height: 1.6; }
+.case-body h2 { margin-top: 32px; font-size: 22px; line-height: 1.35; font-weight: 700; }
+.case-body p, .case-body ul { margin-top: 16px; }
+.case-body h2 + p, .case-body h2 + ul, .case-body > :first-child { margin-top: 0; }
+.case-body li + li { margin-top: 8px; }
 .skip-link { position: absolute; left: 16px; top: -80px; padding: 10px 16px; background: var(--canvas); z-index: 1; }
 .skip-link:focus { top: 8px; }
 @media (min-width: 640px) { .document-shell { padding: 48px 32px; } }
@@ -95,7 +97,7 @@ footer { display: flex; justify-content: space-between; gap: 16px; border-top: 1
   a { color: black !important; text-decoration: none; }
   article, .resume-sections section { break-inside: avoid; }
   .case-study { break-inside: auto; }
-  .prose, .dark .prose { color: black; --tw-prose-headings: #000; --tw-prose-invert-headings: #000; --tw-prose-invert-body: #000; --tw-prose-invert-bold: #000; --tw-prose-invert-links: #000; }
-  .prose h2, .prose h3 { break-after: avoid; }
+  .case-body { color: black; }
+  .case-body h2 { break-after: avoid; }
   p, li { orphans: 2; widows: 2; }
 }

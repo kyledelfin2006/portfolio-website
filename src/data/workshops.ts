@@ -1,7 +1,7 @@
 export interface WorkshopEntry {
   title: string;
   issuerOrOrganizer: string;
-  date: string;
+  date?: string;
   certificateUrl?: string;
   keyTakeaways?: string[];
 }
@@ -12,7 +12,6 @@ export const workshops: WorkshopEntry[] = [
   {
     title: 'DataCamp Scholarship Program',
     issuerOrOrganizer: 'DataCamp x Data Engineering Pilipinas',
-    date: '',
     keyTakeaways: ['Scholarship supporting continued learning in data and engineering.'],
   },
   // Add verified workshops and certifications here.

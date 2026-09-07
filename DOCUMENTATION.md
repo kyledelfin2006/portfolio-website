@@ -1,6 +1,6 @@
 # Portfolio developer and maintainer manual
 
-This repository implements Aldrin Kyle Delfin’s portfolio according to `implementation.md`: a dark-first Harvard-style resume, an About page, and Markdown project case studies. The site is static, immediately readable, and usable without JavaScript. The only application browser behavior is the optional light/dark toggle.
+This repository implements Aldrin Kyle Delfin’s portfolio according to `implementations/implementation.md`: a dark-first Harvard-style resume, an About page, and Markdown project case studies. The site is static, immediately readable, and usable without JavaScript. The only application browser behavior is the optional light/dark toggle.
 
 ## 1. Architecture and decisions
 
@@ -10,14 +10,9 @@ This repository implements Aldrin Kyle Delfin’s portfolio according to `implem
 | --- | --- |
 | Astro 5 | Generate HTML for every route at build time; no application server is required. |
 | TypeScript 5 | Strict component props, typed workshop data, and generated project types. |
-| `@astrojs/tailwind` 6 | The Tailwind integration explicitly requested by the blueprint. |
-| Tailwind CSS 3 | Base reset, utilities, and class-based dark mode. |
-| `@tailwindcss/typography` | Readable Markdown prose on project pages. |
 | `@astrojs/check` (development only) | Required to run the blueprint’s `astro check` validation. |
 
-The five requested packages remain the complete application dependency list. The checker is the single additional development dependency because Astro delegates its diagnostics to that package. `package-lock.json` pins the resolved dependency tree; use `npm ci` for reproducible installs.
-
-Astro 5 and Tailwind 3 deliberately match the specified integration and `src/content/config.ts` API. The Tailwind integration’s declared peer range supports Astro 3–5 and Tailwind 3. Do not blindly run the current `astro add tailwind` command: newer Astro tooling uses a different Tailwind integration. See [Astro styling documentation](https://docs.astro.build/en/guides/styling/) and the [Astro 5 migration guide](https://docs.astro.build/en/guides/upgrade-to/v5/).
+Astro and TypeScript are the complete application dependency list. The checker is the single development dependency because Astro delegates its diagnostics to that package. Native CSS handles the reset, themes, layout, Markdown presentation, responsive behavior, and print output. `package-lock.json` pins the resolved dependency tree; use `npm ci` for reproducible installs.
 
 ### Rendering and content flow
 
@@ -40,14 +35,15 @@ The toggle has a descriptive accessible name and `aria-pressed` state. The page 
 
 ```text
 portfolio-website/
-├── implementation.md              Original implementation blueprint
+├── implementations/
+│   ├── implementation.md          Root implementation guidelines
+│   └── ponytail-refactor.md       Tailwind-removal refactor record
 ├── DOCUMENTATION.md               This maintainer manual
 ├── README.md                      Quick start
 ├── .gitignore                     Excludes references, dependencies, builds, and QA scratch files
 ├── package.json                   Dependencies and four npm commands
 ├── package-lock.json              Reproducible dependency versions
-├── astro.config.mjs               Static output, base path, site origin, Tailwind
-├── tailwind.config.mjs            Class dark mode, serif stack, Typography plugin
+├── astro.config.mjs               Static output, base path, and site origin
 ├── tsconfig.json                  Strict Astro TypeScript settings
 ├── references/                    Original biography, project notes, photo; ignored by Git
 ├── public/
@@ -215,11 +211,9 @@ On September 8, 2026:
 
 Temporary QA outputs are in ignored `tmp/qa/` locally. Future editors should repeat relevant checks after content or layout changes; they need not add a browser testing dependency to the production project.
 
-### Dependency audit limitation
+### Dependency audit
 
-The install-time audit reported four affected packages: Astro and Sharp (high aggregate severity), esbuild and the Tailwind integration (low). Several Astro advisories concern server rendering, islands, or dynamic attribute inputs that this static site does not use. That observation is not a clean security audit. Keep preview/development servers local and deploy only `dist/` as static files.
-
-The audit’s available Astro fix was a major upgrade outside the specified integration’s peer range. No forced upgrade or security suppression was applied. Before adopting the current Astro major, replace the legacy Tailwind integration and migrate the collection API together, then repeat build, theme, base-path, and print checks. Re-run `npm audit` to assess the latest state; do not assume these counts remain current.
+The September 8, 2026 dependency refactor removed Tailwind, its Astro integration, its Typography plugin, and 73 transitive packages. `npm audit` then reported zero known vulnerabilities. Re-run the audit when dependencies change; do not assume that result remains current.
 
 ## 6. Design and print standards
 
@@ -233,7 +227,7 @@ The audit’s available Astro fix was a major upgrade outside the specified inte
 | Rules | `#262626` | `#d4d4d4` | `#777777` |
 | Links | `#e5e5e5` | `#262626` | `#000000` |
 
-All visible typography uses `"Times New Roman", Times, "Nimbus Roman No9 L", serif`; no web font requests. The container is 896px including padding (Tailwind’s `max-w-4xl`), providing an 832px desktop reading area. Padding is 16px horizontally/32px vertically on small screens, 32px/48px at 640px, and 64px vertically at 768px.
+All visible typography uses `"Times New Roman", Times, "Nimbus Roman No9 L", serif`; no web font requests. The container is 896px including padding, providing an 832px desktop reading area. Padding is 16px horizontally/32px vertically on small screens, 32px/48px at 640px, and 64px vertically at 768px.
 
 | Element | Screen typography |
 | --- | --- |

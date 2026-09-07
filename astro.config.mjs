@@ -1,5 +1,4 @@
 import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
   output: 'static',
@@ -7,5 +6,4 @@ export default defineConfig({
   base: process.env.BASE_PATH || '/',
   trailingSlash: 'always',
   devToolbar: { enabled: false },
-  integrations: [tailwind({ applyBaseStyles: false })],
 });

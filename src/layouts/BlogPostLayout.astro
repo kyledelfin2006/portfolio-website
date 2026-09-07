@@ -15,6 +15,6 @@ const { project: { data } } = Astro.props;
       {data.date && <p class="meta">{data.date}</p>}
       <a class="source-link" href={data.repository} target="_blank" rel="noopener noreferrer">View source on GitHub ↗</a>
     </header>
-    <div class="prose dark:prose-invert font-serif max-w-none"><slot /></div>
+    <div class="case-body"><slot /></div>
   </article>
 </ResumeLayout>

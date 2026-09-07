@@ -51,7 +51,7 @@ portfolio-website/
 ├── tsconfig.json                  Strict Astro TypeScript settings
 ├── references/                    Original biography, project notes, photo; ignored by Git
 ├── public/
-│   ├── 1x1.jpg                     Supplied authentic portrait, copied without alteration
+│   ├── 1x1-bw.jpg                  Clean black-and-white portfolio portrait
 │   ├── favicon.ico                 Small icon derived from the supplied portrait
 │   └── resume.pdf                  One-page A4 export of the resume
 ├── src/
@@ -151,7 +151,7 @@ The Tabang tags describe its responsibilities rather than inventing a framework 
 
 ### Portrait and favicon
 
-Replace `public/1x1.jpg` with an authentic portrait. The current source is portrait-oriented; CSS displays a centered square crop using `object-fit: cover`. It renders at 80 × 80 CSS pixels below 640px and 112 × 112 above that breakpoint. On paper it is 25.4 × 25.4mm, or one inch square. Check that the face remains within the crop. Keep explicit width and height attributes in the header.
+Replace `public/1x1-bw.jpg` with an authentic, square black-and-white portrait. Keep the treatment neutral and restrained: clear facial detail, balanced exposure, natural skin texture, and no dramatic filters or decorative effects. CSS renders it at 80 × 80 CSS pixels below 640px and 112 × 112 above that breakpoint. On paper it is 25.4 × 25.4mm, or one inch square. Check that the face remains clearly visible at every size, and keep explicit width and height attributes in the header.
 
 The favicon is derived from the same photo. Replace `public/favicon.ico` when changing the portrait, or provide another authentic icon. No font download or external image service is involved.
 

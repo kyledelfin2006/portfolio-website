@@ -3,7 +3,7 @@ Gmail: kyle.delfin.dev@gmail.com
 Major: Software Engineering
 
 <!-- Header -->
-<h1 align="center">Hi, I'm Elyk! </h1>
+<h1 align="center">Hi, I'm Kyle! </h1>
 <h3 align="center">Backend Developer · Spring Boot · Cloud & DevOps Enthusiast</h3>
 
 <p align="center">

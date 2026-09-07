@@ -1,0 +1,32 @@
+---
+import ResumeLayout from '../layouts/ResumeLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Workshops from '../components/Workshops.astro';
+---
+<ResumeLayout title="About — Aldrin Kyle Delfin" description="Kyle Delfin’s background, engineering principles, technical focus, and work with DevGuild in Aklan.">
+  <div class="about-sections">
+    <section><SectionHeading title="About Me" />
+      <p>I’m Kyle, a second-year BSIT student majoring in Software Engineering at Aklan State University. I focus on robust, maintainable backend systems and am working toward cloud-native architectures.</p>
+      <p>My practical experience includes a Backend AI Engineer internship at FlyRank. I also co-founded DevGuild, a student-led developer community in Aklan. As Chief Operations Officer, I help lead 25+ student developers as we turn ideas into real-world software and learn modern engineering workflows together.</p>
+    </section>
+    <section><SectionHeading title="Engineering Philosophy" />
+      <p>I value simple systems that are easy to understand and maintain. I apply YAGNI: build what the problem needs today, and introduce complexity only when there is a concrete reason for it.</p>
+      <p>For backend services, that means modular Spring Boot REST APIs, clear layers, decoupled components, and explicit PostgreSQL schemas with Flyway migrations. Docker helps keep development and deployment environments reproducible. For a local desktop tool, a small Python modular monolith can be the right fit.</p>
+      <p>My AI engineering focus is autonomous agents and prompt fine-tuning for reliable outputs. I’m continuing to learn how to integrate AI responsibly into production systems.</p>
+    </section>
+    <section><SectionHeading title="Technical Focus & Direction" />
+      <p>My core tools are Java 21+, Spring Boot, PostgreSQL, MySQL, SQLite, and Docker. I also work with Python for desktop applications and use automated testing and API documentation to make services easier to maintain.</p>
+      <p>I’m actively learning AWS cloud services and infrastructure, secure DevOps pipelines, and deployment automation. My aim is to carry the same emphasis on clarity and reliability from application code into the systems that run it.</p>
+    </section>
+    <Workshops heading="Certifications & Workshops" />
+    <section><SectionHeading title="Honors & Learning" />
+      <div class="split-row"><h3>UPV KomsaiHack finalist</h3><span class="meta">2026</span></div>
+      <p>Tabang, our flood reporting and response application for Aklan, placed 7th among 25+ teams.</p>
+      <p>At Aklan State University, I’m in my second year of the BSIT Software Engineering major. Alongside my studies, the DataCamp x Data Engineering Pilipinas scholarship supports my continuing technical development.</p>
+    </section>
+    <section><SectionHeading title="Resume & Contact" />
+      <p>For opportunities and collaboration, reach me at <a href="mailto:kyle.delfin.dev@gmail.com">kyle.delfin.dev@gmail.com</a>.</p>
+      <p><a href={`${import.meta.env.BASE_URL}resume.pdf`}>View printable resume (PDF) ↗</a></p>
+    </section>
+  </div>
+</ResumeLayout>

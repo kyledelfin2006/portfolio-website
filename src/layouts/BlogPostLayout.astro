@@ -1,0 +1,20 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ResumeLayout from './ResumeLayout.astro';
+interface Props { project: CollectionEntry<'projects'>; }
+const { project: { data } } = Astro.props;
+---
+<ResumeLayout title={`${data.title} — Aldrin Kyle Delfin`} description={data.description}>
+  <article class="case-study">
+    <a class="back-link no-print" href={import.meta.env.BASE_URL}>← Return to Resume</a>
+    <header class="case-header">
+      <p class="eyebrow">Project notes / {data.category}</p>
+      <h2>{data.title}</h2>
+      <p class="case-description">{data.description}</p>
+      <p class="entry-subtitle">{data.stack.join(' · ')}</p>
+      {data.date && <p class="meta">{data.date}</p>}
+      <a class="source-link" href={data.repository} target="_blank" rel="noopener noreferrer">View source on GitHub ↗</a>
+    </header>
+    <div class="prose dark:prose-invert font-serif max-w-none"><slot /></div>
+  </article>
+</ResumeLayout>

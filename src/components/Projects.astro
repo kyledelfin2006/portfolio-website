@@ -1,0 +1,19 @@
+---
+import { getCollection } from 'astro:content';
+import SectionHeading from './SectionHeading.astro';
+interface Props { heading?: string; }
+const { heading = 'Selected Projects' } = Astro.props;
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const base = import.meta.env.BASE_URL;
+---
+<section aria-label={heading}>
+  <SectionHeading title={heading} />
+  <div class="entries">
+    {projects.map(({ data, slug }) => <article>
+      <div class="split-row"><h3><a href={`${base}projects/${slug}/`}>{data.title}</a><span class="project-category"> — {data.category}</span></h3>{data.date && <span class="meta">{data.date}</span>}</div>
+      <p class="entry-subtitle">{data.stack.join(' · ')}</p>
+      <ul>{data.highlights.map((highlight) => <li>{highlight}</li>)}</ul>
+      <div class="project-links no-print"><a href={`${base}projects/${slug}/`}>Read case study →</a><a href={data.repository} target="_blank" rel="noopener noreferrer">Source code ↗</a></div>
+    </article>)}
+  </div>
+</section>

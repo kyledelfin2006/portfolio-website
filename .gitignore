@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Production build output
+dist/
+tmp/
+
+# Astro cache & generated types
+.astro/
+
+# Environment variables & local secrets
+.env
+.env.production
+.env.local
+.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# System & Editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json

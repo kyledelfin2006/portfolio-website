@@ -1,0 +1,37 @@
+---
+import Header from '../components/Header.astro';
+import '../styles/global.css';
+interface Props { title: string; description: string; resume?: boolean; }
+const { title, description, resume = false } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefined;
+---
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="author" content="Aldrin Kyle Delfin" />
+    <meta name="color-scheme" content="dark light" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    {canonical && <><link rel="canonical" href={canonical} /><meta property="og:url" content={canonical} /></>}
+    <link rel="icon" href={`${base}favicon.ico`} sizes="any" />
+    <title>{title}</title>
+    <script is:inline>
+      try {
+        document.documentElement.classList.toggle('dark', localStorage.getItem('theme') !== 'light');
+      } catch { /* Keep the default dark theme when storage is unavailable. */ }
+    </script>
+  </head>
+  <body class:list={[{ 'resume-page': resume }]}>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="document-shell">
+      <Header />
+      <main id="main-content" tabindex="-1"><slot /></main>
+      <footer class="no-print"><span>Aldrin Kyle Delfin</span><a href={`${base}resume.pdf`} download>Download resume (PDF) ↓</a></footer>
+    </div>
+  </body>
+</html>

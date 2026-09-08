@@ -1,6 +1,6 @@
 # Portfolio developer and maintainer manual
 
-This repository implements Aldrin Kyle Delfin’s portfolio according to `implementations/implementation.md`: a dark-first Harvard-style resume, an About page, and Markdown project case studies. The site is static, immediately readable, and usable without JavaScript. The only application browser behavior is the optional light/dark toggle.
+This repository implements Aldrin Kyle Delfin’s portfolio according to `implementations/implementation.md`: a dark-first cyber-brutalist editorial resume, an About page, and Markdown project case studies. The site is static, immediately readable, and usable without JavaScript. The only application browser behavior is the optional light/dark toggle.
 
 ## 1. Architecture and decisions
 
@@ -202,6 +202,15 @@ On POSIX shells use `export ASTRO_TELEMETRY_DISABLED=1`. A Windows `spawn EPERM`
 
 ### Verification completed
 
+On September 9, 2026, after the cyber-brutalist redesign:
+
+- `astro check`: 0 errors, 0 warnings, and 0 hints across 19 Astro/TypeScript files; the static build generated all six HTML routes.
+- Resume, About, Projects, all three case studies, and `resume.pdf` returned HTTP 200 from the production preview.
+- Browser review at 320px and desktop widths found no horizontal overflow; resume, About, and project case-study navigation exposed the correct non-color-only active state.
+- Theme toggling and persistence across reload passed, with no browser console errors.
+- Automated WCAG contrast calculations for ink, muted text, and accent text ranged from 6.85:1 to 18.20:1 across light and dark panel surfaces.
+- The print stylesheet was reviewed to confirm screen texture, navigation, accent fills, controls, and panel decoration are removed while A4 sizing, monochrome text, portrait, reading order, and break rules remain.
+
 On September 8, 2026:
 
 - `astro check`: 0 errors, 0 warnings, 0 hints across 19 Astro/TypeScript files.
@@ -222,41 +231,48 @@ The September 8, 2026 dependency refactor removed Tailwind, its Astro integratio
 
 ## 6. Design and print standards
 
+The site uses a raw cyber-brutalist/editorial resume system: a dark-first near-black canvas, warm off-white text, muted metadata, and one flat acid-green accent. Red is reserved for future warning or error states. Exposed grids, modular panels, hard rules, monospace metadata, and a restrained CSS scanline layer clarify structure without competing with the CV content. Avoid generic neon glows, glossy 3D, holographic effects, stock imagery, decorative AI artwork, and excessive glitch noise. Keep the document-like hierarchy and A4 print behavior.
+
+Navigation stays limited to Resume, About, and Projects, with numbered monospace labels, a high-contrast active tab, `aria-current="page"`, and all destinations reachable from every route. A project case study marks Projects active. Hover, focus, pressed, and theme feedback is brief and purposeful; no essential information depends on hover. Do not add simulated loading, scroll-jacking, remote fonts, runtime UI dependencies, or motion without a reduced-motion fallback.
+
 ### Exact tokens
 
 | Token | Dark | Light | Print |
 | --- | --- | --- | --- |
-| Canvas | `#0a0a0a` | `#ffffff` | `#ffffff` |
-| Main ink | `#f5f5f5` | `#111111` | `#000000` |
-| Muted text | `#a3a3a3` | `#525252` | `#333333` |
-| Rules | `#262626` | `#d4d4d4` | `#777777` |
-| Links | `#e5e5e5` | `#262626` | `#000000` |
+| Canvas | `#090b09` | `#f4f1e8` | `#ffffff` |
+| Panel surface | `#10130f` | `#fffdf6` | `#ffffff` |
+| Strong surface | `#1a1e18` | `#e7e2d4` | `#ffffff` |
+| Main ink | `#f1eee4` | `#121411` | `#000000` |
+| Muted text | `#a8aea1` | `#565b51` | `#333333` |
+| Rules | `#4b5148` / `#e2dfd5` | `#74796d` / `#121411` | `#777777` / `#000000` |
+| Acid accent | `#b8ff3d` | `#314800` for text, `#b8ff3d` for fills | removed |
+| Reserved error | `#ff665a` | `#a5261f` | `#000000` |
 
-All visible typography uses `"Times New Roman", Times, "Nimbus Roman No9 L", serif`; no web font requests. The container is 896px including padding, providing an 832px desktop reading area. Padding is 16px horizontally/32px vertically on small screens, 32px/48px at 640px, and 64px vertically at 768px.
+Long-form content uses `"Times New Roman", Times, "Nimbus Roman No9 L", serif`. Navigation, dates, labels, metadata, and actions use the local system stack `"Cascadia Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace`. No font is downloaded. The screen container is capped at 1080px; panels use square corners, flat fills, and centralized spacing and rule tokens in `src/styles/global.css`.
 
 | Element | Screen typography |
 | --- | --- |
-| Main resume body | 16px, line-height 1.45 |
-| About and case-study prose | 16px, line-height 1.6 |
-| Name | 32px desktop / 28px mobile, bold, line-height 1.15 |
-| Identity subtitle | 15px italic |
-| Section title | 16px bold uppercase, letter-spacing .07em |
-| Role/project title | 16px bold |
-| Date, links, metadata | 14px |
-| Eyebrow | 13px uppercase, letter-spacing .08em |
-| Case-study title | 36px bold |
-| Case-study introduction | 18px, line-height 1.6 |
-| Markdown section heading | 22px |
+| Main resume body | 16px, line-height 1.5 |
+| About and case-study prose | 16px, line-height 1.65–1.68 |
+| Name | fluid 36–68px desktop; fluid 32–48px mobile |
+| Identity subtitle | 17px desktop / 15px mobile, italic |
+| Section title | 13px monospace, uppercase, letter-spacing .08em |
+| Role/project title | 17px bold |
+| Dates, links, metadata | 11–12px monospace |
+| Eyebrow | 11px monospace, uppercase |
+| Case-study title | fluid 38–64px |
+| Case-study introduction | 19px, line-height 1.55 |
+| Markdown section heading | 18px monospace uppercase |
 
-Resume sections have 34px gaps; list entries have 20px gaps. Rules are 1px. Links use a 3px underline offset and a 150ms opacity transition. Reduced-motion preference removes that transition. There are no entrance animations, hidden sections, carousels, or synthetic visual assets.
+Resume sections use a responsive exposed grid: Experience and Projects span both columns at 860px and above, while every section becomes a single reading column below that breakpoint. Section panels have 16px gaps and entries have 24px gaps. Rules are 1px. Link feedback uses acid-green underline/fill changes and a 1px pressed offset over 150ms. Theme cross-dissolve is 180ms. Reduced motion reduces all transitions and animations to an effectively static state. There are no entrance animations, hidden sections, carousels, or synthetic loading states.
 
-Below 640px, the header stacks with the portrait above the identity and aligned right. Split rows become columns so labels and metadata cannot collide. At larger widths the portrait anchors upper right and row metadata aligns right.
+Below 640px, primary navigation remains a three-column row, the theme control moves below it, and the identity keeps a compact two-column arrangement with a narrow portrait. Split rows and skill grids become a single column so labels and metadata cannot collide. At larger widths the portrait anchors the right-hand grid boundary and row metadata aligns right. Content and navigation are tested against a 320px minimum viewport without intentional horizontal scrolling.
 
 ### Print engine
 
-The `@media print` block in `global.css` overrides both themes with a white canvas and black text. It hides `.no-print` and the skip link, removes outer screen padding, preserves the photo, restores horizontal split rows, and removes link decoration. `@page` sets A4 and 12mm top/bottom, 14mm side margins.
+The `@media print` block in `global.css` overrides both themes with a white canvas and black text. It removes the scanline layer, toolbar, accent fills, panel backgrounds, screen-only controls, outer padding, and most panel borders. It preserves the authentic portrait, restores horizontal split rows, and removes link decoration. `@page` sets A4 and 12mm top/bottom, 14mm side margins.
 
-Print body type is 10pt with 1.25 line height; section headings are 11pt, name 22pt, and metadata 9pt. Section gaps reduce to 15px and entry gaps to 9px. Resume sections and entries avoid internal page breaks; headings avoid separation from following content. Blog articles remain allowed to span pages. Paragraphs and list items use two-line widow/orphan control.
+Print body type is 10pt with 1.25 line height; section headings are 11pt, the name is 22pt, and metadata is 9pt. Section gaps reduce to 4mm and entry gaps to 2.5mm. Resume sections and entries avoid internal page breaks; headings avoid separation from following content. Blog articles remain allowed to span pages. Paragraphs and list items use two-line widow/orphan control.
 
 ## 7. Deployment and CI/CD
 

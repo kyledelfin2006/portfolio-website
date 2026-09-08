@@ -11,19 +11,64 @@ const { labels } = Astro.props;
 <script>
   const button = document.querySelector<HTMLButtonElement>('#theme-toggle');
   const label = document.querySelector<HTMLElement>('#theme-label');
+  const root = document.documentElement;
+  const shell = document.querySelector<HTMLElement>('.document-shell');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const transitionDuration = 220;
+  let transitionActive = false;
+  let queuedToggle = false;
+
   function syncThemeControl() {
-    const light = !document.documentElement.classList.contains('dark');
+    const light = !root.classList.contains('dark');
     button?.setAttribute('aria-pressed', String(light));
     button?.setAttribute('aria-label', light ? button.dataset.switchDark! : button.dataset.switchLight!);
     if (label) label.textContent = light ? button?.dataset.darkMode ?? '' : button?.dataset.lightMode ?? '';
   }
+
+  function applyThemeToggle() {
+    const dark = root.classList.toggle('dark');
+    try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch { /* Storage is optional. */ }
+    syncThemeControl();
+  }
+
+  function finishTransition() {
+    root.classList.remove('theme-transition');
+    transitionActive = false;
+    if (queuedToggle) {
+      queuedToggle = false;
+      toggleTheme();
+    }
+  }
+
+  function toggleTheme() {
+    if (transitionActive) {
+      queuedToggle = !queuedToggle;
+      return;
+    }
+
+    if (reducedMotion.matches || !shell) {
+      applyThemeToggle();
+      return;
+    }
+
+    transitionActive = true;
+    root.classList.add('theme-transition');
+
+    let fallbackTimer: number;
+    const completeTransition = () => {
+      shell.removeEventListener('animationend', completeTransition);
+      window.clearTimeout(fallbackTimer);
+      finishTransition();
+    };
+    fallbackTimer = window.setTimeout(completeTransition, transitionDuration + 80);
+    shell.addEventListener('animationend', completeTransition, { once: true });
+
+    requestAnimationFrame(() => applyThemeToggle());
+  }
+
   if (button) {
     button.hidden = false;
     syncThemeControl();
-    button.addEventListener('click', () => {
-      const dark = document.documentElement.classList.toggle('dark');
-      try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch { /* Storage is optional. */ }
-      syncThemeControl();
-    });
+    button.addEventListener('click', toggleTheme);
   }
 </script>

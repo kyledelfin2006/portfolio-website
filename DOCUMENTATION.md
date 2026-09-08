@@ -29,7 +29,9 @@ No React, component library, global state manager, backend, contact form service
 
 The HTML starts with `class="dark"`. A small inline script reads the saved `theme` preference before body rendering to avoid a light-theme flash. The button writes only `dark` or `light` to local storage. Storage failures are caught; the toggle still works for the current page. The button is hidden when JavaScript is unavailable, while all content and navigation remain available.
 
-The toggle has a descriptive accessible name and `aria-pressed` state. The page includes a keyboard skip link, visible focus outlines, semantic sections, image alternative text, and an active navigation indication. Links that open a new tab use `noopener noreferrer`. The portrait reserves its dimensions to prevent layout shift.
+Theme changes use a temporary `theme-transition` class for a 220ms CSS cross-dissolve and palette transition. Rapid clicks are parity-queued, and an `animationend` listener with a bounded fallback always clears the temporary state. In light mode, the portrait uses `brightness(1.12) contrast(.94)`; dark mode and print explicitly restore the unfiltered image. Visitors who prefer reduced motion receive the final theme immediately with animation and transitions disabled.
+
+The toggle has a descriptive accessible name and `aria-pressed` state, both synchronized as soon as the theme changes. The page includes a keyboard skip link, visible focus outlines, semantic sections, image alternative text, and an active navigation indication. Links that open a new tab use `noopener noreferrer`. The portrait reserves its dimensions to prevent layout shift.
 
 ## 2. Repository anatomy
 

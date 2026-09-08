@@ -7,8 +7,8 @@ stack: [Java, Spring Boot, PostgreSQL 18, Docker, Flyway]
 repository: https://github.com/kyledelfin2006/libro-library-system
 order: 1
 highlights:
-  - Built book CRUD operations with search, pagination, sorting, range filtering, genre analytics, and statistics.
-  - Used DTO-driven validation, centralized exception handling, and Flyway migrations in a Docker-first workflow.
+  - Developed a containerized Library REST API with 15+ endpoints for search, pagination, and data aggregation using Java 25, Spring Boot 4.1, and PostgreSQL.
+  - Automated database schema migrations with Flyway and standardized API error handling through a centralized global exception handler, improving deployment consistency and preventing unhandled application errors across all REST endpoints..
 ---
 
 ## The problem

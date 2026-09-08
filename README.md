@@ -1,6 +1,6 @@
 # Aldrin Kyle Delfin — Portfolio
 
-Static Astro portfolio with a Harvard-style resume, light/dark themes, an About page, and project case studies.
+Static Astro portfolio with a cyber-brutalist editorial resume, light/dark themes, an About page, and project case studies.
 
 ```sh
 npm ci
@@ -13,4 +13,4 @@ See [DOCUMENTATION.md](DOCUMENTATION.md) for content editing, PDF updates, desig
 
 Canonical facts live in [references/INFO.md](references/INFO.md) and [references/PROJECTS.md](references/PROJECTS.md); update those before changing related portfolio copy.
 
-All feature work is governed by the root [implementation guidelines](implementations/implementation.md) together with a feature-specific plan stored in `implementations/`.
+The visual system is documented in [DOCUMENTATION.md](DOCUMENTATION.md). All feature work remains governed by the root [implementation guidelines](implementations/implementation.md) together with a feature-specific plan stored in `implementations/`.

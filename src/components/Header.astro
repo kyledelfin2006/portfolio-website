@@ -5,15 +5,22 @@ const { data: site } = await getRequiredEntry('site', 'site');
 const base = import.meta.env.BASE_URL;
 const current = Astro.url.pathname.replace(/\/$/, '');
 const links = [
-  { label: site.navigation.resume, href: base },
-  { label: site.navigation.about, href: `${base}about/` },
-  { label: site.navigation.projects, href: `${base}projects/` },
+  { label: site.navigation.resume, href: base, active: current === base.replace(/\/$/, '') },
+  { label: site.navigation.about, href: `${base}about/`, active: current === `${base}about`.replace(/\/\/$/, '/') },
+  { label: site.navigation.projects, href: `${base}projects/`, active: current === `${base}projects`.replace(/\/\/$/, '/') || current.startsWith(`${base}projects/`) },
 ];
 ---
 <header class="resume-header">
   <div class="toolbar no-print">
     <nav aria-label={site.navigationAriaLabel}>
-      {links.map(({ label, href }) => <a href={href} aria-current={current === href.replace(/\/$/, '') ? 'page' : undefined}>[{label}]</a>)}
+      <ul>
+        {links.map(({ label, href, active }, index) => <li>
+          <a href={href} aria-current={active ? 'page' : undefined}>
+            <span class="nav-index" aria-hidden="true">0{index + 1}</span>
+            <span class="nav-label">{label}</span>
+          </a>
+        </li>)}
+      </ul>
     </nav>
     <ThemeToggle labels={site.theme} />
   </div>

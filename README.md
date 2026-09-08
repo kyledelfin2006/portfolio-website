@@ -11,4 +11,6 @@ Validate with `npm run check` and `npm run build`. Serve the production output w
 
 See [DOCUMENTATION.md](DOCUMENTATION.md) for content editing, PDF updates, design standards, dependency limitations, and GitHub Pages / Cloudflare Pages deployment.
 
+Canonical facts live in [references/INFO.md](references/INFO.md) and [references/PROJECTS.md](references/PROJECTS.md); update those before changing related portfolio copy.
+
 All feature work is governed by the root [implementation guidelines](implementations/implementation.md) together with a feature-specific plan stored in `implementations/`.

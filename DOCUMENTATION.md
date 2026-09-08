@@ -16,12 +16,13 @@ Astro and TypeScript are the complete application dependency list. The checker i
 
 ### Rendering and content flow
 
-1. `src/content/text/` is the single publishable source of truth for visitor-facing text.
-2. Astro validates every Markdown file against the strict, category-discriminated Zod schema in `src/content/config.ts`.
-3. Components query repeatable categories, sort by numeric `order` and filename, and render Markdown bodies natively.
-4. `[slug].astro` creates one static case-study route per file in `src/content/text/projects/`; the filename is the route slug.
-5. Required singleton files are loaded by exact ID and fail the build with a named-file error when missing.
-6. `ResumeLayout.astro` supplies the common document and presentation while its metadata, header, controls, and footer labels come from Markdown.
+1. `references/INFO.md` and `references/PROJECTS.md` are the factual sources of truth for personal and project claims. Update them before publishing a new claim.
+2. `src/content/text/` is the source of truth for the visitor-facing wording derived from those facts.
+3. Astro validates every publishable Markdown file against the strict, category-discriminated Zod schema in `src/content/config.ts`.
+4. Components query repeatable categories, sort by numeric `order` and filename, and render Markdown bodies natively.
+5. `[slug].astro` creates one static case-study route per file in `src/content/text/projects/`; the filename is the route slug.
+6. Required singleton files are loaded by exact ID and fail the build with a named-file error when missing.
+7. `ResumeLayout.astro` supplies the common document and presentation while its metadata, header, controls, and footer labels come from Markdown.
 
 No React, component library, global state manager, backend, contact form service, animation library, analytics, remote fonts, or generated illustration is used. Navigation is native anchor navigation. Contact opens the visitor’s email client.
 
@@ -42,12 +43,15 @@ portfolio-website/
 │   └── ponytail-refactor.md       Tailwind-removal refactor record
 ├── DOCUMENTATION.md               This maintainer manual
 ├── README.md                      Quick start
-├── .gitignore                     Excludes references, dependencies, builds, and QA scratch files
+├── .gitignore                     Excludes dependencies, builds, local settings, and QA scratch files
 ├── package.json                   Dependencies and four npm commands
 ├── package-lock.json              Reproducible dependency versions
 ├── astro.config.mjs               Static output, base path, and site origin
 ├── tsconfig.json                  Strict Astro TypeScript settings
-├── references/                    Original biography, project notes, photo; ignored by Git
+├── references/                    Canonical personal/project facts and the source photo
+│   ├── INFO.md                    Personal identity, roles, skills, and learning goals
+│   ├── PROJECTS.md                Extensible catalog of verified project facts
+│   └── 1x1.png                    Original supplied portrait
 ├── public/
 │   ├── 1x1-bw.jpg                  Clean black-and-white portfolio portrait
 │   ├── favicon.ico                 Small icon derived from the supplied portrait

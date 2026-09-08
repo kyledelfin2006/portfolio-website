@@ -48,14 +48,17 @@ portfolio-website/
 ├── package-lock.json              Reproducible dependency versions
 ├── astro.config.mjs               Static output, base path, and site origin
 ├── tsconfig.json                  Strict Astro TypeScript settings
-├── references/                    Canonical personal/project facts and the source photo
+├── assets/                        Immutable owner-supplied source media
+│   └── DELFIN_DWIA_AWARD.jpg      Original DWIA award photo
+├── references/                    Canonical personal/project facts and evidence
 │   ├── INFO.md                    Personal identity, roles, skills, and learning goals
 │   ├── PROJECTS.md                Extensible catalog of verified project facts
-│   ├── certificates/              Original certificate PDFs used as evidence
+│   ├── certificates/              Original certificate PDFs and images used as evidence
 │   └── 1x1.png                    Original supplied portrait
 ├── public/
 │   ├── 1x1-bw.jpg                  Clean black-and-white portfolio portrait
-│   ├── certificates/              Public certificate PDFs linked from content
+│   ├── certificates/              Public certificate PDFs and images linked from content
+│   ├── images/                    Publishable copies of supporting content images
 │   ├── favicon.ico                 Small icon derived from the supplied portrait
 │   └── resume.pdf                  One-page A4 export of the resume
 ├── src/
@@ -109,12 +112,12 @@ All published copy lives in `src/content/text/` as Markdown. Never add biography
 | `pages/home.md` | `page-home` | `title`, `description`, `sections` |
 | `pages/about.md` | `page-about` | `title`, `description`, `workshopsHeading`, `workshopsAriaLabel`, `workshopsOrder` |
 | `pages/projects.md` | `page-projects` | `title`, `description`, `eyebrow`, `sectionHeading`, `sectionAriaLabel`; body is the introduction |
-| `about/*.md` | `about` | `title`, `order`; optional `itemTitle`, `meta`, `certificatePath`, `contactPrompt`, `resumeLink`; body is section prose |
+| `about/*.md` | `about` | `title`, `order`; optional `itemTitle`, `meta`, `items`, `contactPrompt`, `resumeLink`; body is section prose. Each `items` entry requires `title` and `summary`, and may include `meta`, `certificatePath`, and an `image` with `path`, `alt`, `width`, and `height`. |
 | `education/*.md` | `education` | `title`, `order`, `meta`, `subtitle`; body is supporting detail |
 | `experience/*.md` | `experience` | `title`, `order`, `organization`; body contains bullets |
 | `skills/*.md` | `skill` | `title`, `order`; body contains the skill list |
 | `workshops/*.md` | `workshop` | `title`, `order`, `issuerOrOrganizer`; optional `date`, `certificatePath`; body contains takeaways |
-| `projects/*.md` | `project` | `title`, `order`, `description`, `projectCategory`, `stack`, `repository`, `highlights`; optional `date`; body is the case study |
+| `projects/*.md` | `project` | `title`, `order`, `description`, `projectCategory`, `stack`, `repository`, `highlights`; optional `date` and `certificatePath`; body is the case study |
 
 URLs must be absolute and valid. Orders are nonnegative integers. Required strings and arrays cannot be empty. Unknown optional facts should be omitted, not represented by empty strings. Invalid fields, misspelled categories, incompatible frontmatter, and missing singleton files fail `npm run check` or `npm run build`.
 
@@ -141,6 +144,17 @@ The Tabang tags describe its responsibilities rather than inventing a framework 
 Replace `public/1x1-bw.jpg` with an authentic, square black-and-white portrait. Keep the treatment neutral and restrained: clear facial detail, balanced exposure, natural skin texture, and no dramatic filters or decorative effects. CSS renders it at 80 × 80 CSS pixels below 640px and 112 × 112 above that breakpoint. On paper it is 25.4 × 25.4mm, or one inch square. Check that the face remains clearly visible at every size, and keep explicit width and height attributes in the header.
 
 The favicon is derived from the same photo. Replace `public/favicon.ico` when changing the portrait, or provide another authentic icon. No font download or external image service is involved.
+
+### Honors and project evidence
+
+The Honors & Learning section supports repeated structured `items`, which keeps each honor’s summary, media, and certificate together. Public paths are relative to Astro’s configured base path. Keep originals immutable and publish copies under `public/`:
+
+- `assets/DELFIN_DWIA_AWARD.jpg` → `public/images/dwia-most-analytical-programmer.jpg`
+- `references/certificates/TABANG.RISKREADY.CERTIFICATE.png` → `public/certificates/tabang-komsaihack-2026.png`
+
+The DWIA image is rendered uncropped at a maximum width of 420px using its intrinsic 2048 × 1365 dimensions. Its CSS treatment is `saturate(.96)` in light mode and `brightness(.9) saturate(.9)` in dark mode, with a 5% soft-light SVG grain overlay. Only the filter participates in the existing 220ms theme transition, which is disabled by the reduced-motion rule. The figure and certificate actions are omitted from print.
+
+When replacing supporting media, update the immutable source first, copy it to the documented public path without cropping or recompression, retain explicit intrinsic dimensions and descriptive alternative text in content, then check both themes and narrow layouts. Project `certificatePath` is optional; Tabang uses it on the project list and case-study header, while projects that omit it render no certificate action.
 
 ### Generate or replace the PDF
 

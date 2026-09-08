@@ -63,6 +63,7 @@ No internship dates, scholarship dates, or completed DataCamp tracks are current
 - Date: June 19, 2026
 - Basis: Strong analytical skills, logical reasoning, and effective problem-solving
 - Certificate: `certificates/DWIA-MOST-ANALYTICAL-PROGRAMMER.pdf`
+- Award photo: `../assets/DELFIN_DWIA_AWARD.jpg`
 
 ### Python Programming Essentials Training
 

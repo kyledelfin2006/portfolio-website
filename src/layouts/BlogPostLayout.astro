@@ -14,7 +14,10 @@ const { data: site } = await getRequiredEntry('site', 'site');
       <p class="case-description">{data.description}</p>
       <p class="entry-subtitle">{data.stack.join(' · ')}</p>
       {data.date && <p class="meta">{data.date}</p>}
-      <a class="source-link" href={data.repository} target="_blank" rel="noopener noreferrer">{site.projectLinks.viewSource}</a>
+      <div class="case-actions no-print">
+        <a href={data.repository} target="_blank" rel="noopener noreferrer">{site.projectLinks.viewSource}</a>
+        {data.certificatePath && <a href={`${import.meta.env.BASE_URL}${data.certificatePath}`} target="_blank" rel="noopener noreferrer">{site.credentialLink}</a>}
+      </div>
     </header>
     <div class="case-body"><slot /></div>
   </article>

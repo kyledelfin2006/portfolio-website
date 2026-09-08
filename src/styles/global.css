@@ -38,6 +38,12 @@ ul { list-style: disc; padding-left: 20px; margin: 5px 0 0; }
 li + li { margin-top: 3px; }
 .project-category { font-weight: 400; }
 .project-links { display: flex; gap: 22px; margin-top: 7px; font-size: 14px; }
+.honor-items { display: flex; flex-direction: column; gap: 22px; }
+.honor-item p { margin-top: 4px; }
+.honor-figure { position: relative; width: min(100%, 420px); margin: 12px 0 8px; overflow: hidden; border: 1px solid var(--rule); }
+.honor-figure::after { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E"); opacity: .05; mix-blend-mode: soft-light; }
+.honor-figure img { width: 100%; height: auto; filter: saturate(.96); }
+:root.dark .honor-figure img { filter: brightness(.9) saturate(.9); }
 .skills > div + div { margin-top: 5px; }
 .skills dt { display: inline; font-weight: 700; }
 .skills dd { display: inline; }
@@ -52,7 +58,7 @@ footer { display: flex; justify-content: space-between; gap: 16px; border-top: 1
 .case-header { margin: 28px 0; padding-bottom: 24px; border-bottom: 1px solid var(--rule); }
 .case-header h2 { font-size: 36px; font-weight: 700; line-height: 1.2; margin-bottom: 12px; }
 .case-description { font-size: 18px; line-height: 1.6; margin-bottom: 16px; }
-.source-link { display: inline-block; font-size: 14px; margin-top: 16px; }
+.case-actions { display: flex; flex-wrap: wrap; gap: 22px; margin-top: 16px; font-size: 14px; }
 .case-body { color: var(--ink); line-height: 1.6; }
 .case-body h2 { margin-top: 32px; font-size: 22px; line-height: 1.35; font-weight: 700; }
 .case-body p, .case-body ul { margin-top: 16px; }
@@ -83,6 +89,7 @@ footer { display: flex; justify-content: space-between; gap: 16px; border-top: 1
 :root.theme-transition footer {
   transition: border-color 220ms ease, color 220ms ease, filter 220ms ease;
 }
+:root.theme-transition .honor-figure img { transition: filter 220ms ease; }
 :root.theme-transition .document-shell { animation: theme-cross-dissolve 220ms ease both; }
 @media (min-width: 640px) { .document-shell { padding: 48px 32px; } }
 @media (min-width: 768px) { .document-shell { padding-top: 64px; padding-bottom: 64px; } }
@@ -94,6 +101,7 @@ footer { display: flex; justify-content: space-between; gap: 16px; border-top: 1
   h1 { font-size: 28px; }
   .split-row { flex-direction: column; gap: 1px; }
   .meta { text-align: left; flex-shrink: 1; }
+  .honor-items { gap: 20px; }
   footer { flex-wrap: wrap; }
 }
 @media (prefers-reduced-motion: reduce) {

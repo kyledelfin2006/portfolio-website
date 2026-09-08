@@ -2,6 +2,18 @@ import { defineCollection, z } from 'astro:content';
 
 const copy = z.string().min(1);
 const ordered = { title: copy, order: z.number().int().nonnegative() };
+const aboutItem = z.object({
+  title: copy,
+  meta: copy.optional(),
+  summary: copy,
+  certificatePath: copy.optional(),
+  image: z.object({
+    path: copy,
+    alt: copy,
+    width: z.number().int().positive(),
+    height: z.number().int().positive(),
+  }).strict().optional(),
+}).strict();
 
 const text = defineCollection({
   type: 'content',
@@ -28,12 +40,12 @@ const text = defineCollection({
     }).strict(),
     z.object({ category: z.literal('page-about'), title: copy, description: copy, workshopsHeading: copy, workshopsAriaLabel: copy, workshopsOrder: z.number().int().nonnegative() }).strict(),
     z.object({ category: z.literal('page-projects'), title: copy, description: copy, eyebrow: copy, sectionHeading: copy, sectionAriaLabel: copy }).strict(),
-    z.object({ category: z.literal('about'), ...ordered, itemTitle: copy.optional(), meta: copy.optional(), certificatePath: copy.optional(), contactPrompt: copy.optional(), resumeLink: copy.optional() }).strict(),
+    z.object({ category: z.literal('about'), ...ordered, itemTitle: copy.optional(), meta: copy.optional(), items: z.array(aboutItem).min(1).optional(), contactPrompt: copy.optional(), resumeLink: copy.optional() }).strict(),
     z.object({ category: z.literal('education'), ...ordered, meta: copy, subtitle: copy }).strict(),
     z.object({ category: z.literal('experience'), ...ordered, organization: copy }).strict(),
     z.object({ category: z.literal('skill'), ...ordered }).strict(),
     z.object({ category: z.literal('workshop'), ...ordered, issuerOrOrganizer: copy, date: copy.optional(), certificatePath: copy.optional() }).strict(),
-    z.object({ category: z.literal('project'), ...ordered, description: copy, projectCategory: copy, date: copy.optional(), stack: z.array(copy).min(1), repository: z.string().url(), highlights: z.array(copy).min(1) }).strict(),
+    z.object({ category: z.literal('project'), ...ordered, description: copy, projectCategory: copy, date: copy.optional(), stack: z.array(copy).min(1), repository: z.string().url(), certificatePath: copy.optional(), highlights: z.array(copy).min(1) }).strict(),
   ]),
 });
 

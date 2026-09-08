@@ -14,7 +14,7 @@ const base = import.meta.env.BASE_URL;
       <div class="split-row"><h3><a href={`${base}projects/${contentId(project).split('/').at(-1)}/`}>{project.data.title}</a><span class="project-category"> — {project.data.projectCategory}</span></h3>{project.data.date && <span class="meta">{project.data.date}</span>}</div>
       <p class="entry-subtitle">{project.data.stack.join(' · ')}</p>
       <ul>{project.data.highlights.map((highlight) => <li>{highlight}</li>)}</ul>
-      <div class="project-links no-print"><a href={`${base}projects/${contentId(project).split('/').at(-1)}/`}>{site.projectLinks.caseStudy}</a><a href={project.data.repository} target="_blank" rel="noopener noreferrer">{site.projectLinks.sourceCode}</a></div>
+      <div class="project-links no-print"><a href={`${base}projects/${contentId(project).split('/').at(-1)}/`}>{site.projectLinks.caseStudy}</a><a href={project.data.repository} target="_blank" rel="noopener noreferrer">{site.projectLinks.sourceCode}</a>{project.data.certificatePath && <a href={`${base}${project.data.certificatePath}`} target="_blank" rel="noopener noreferrer">{site.credentialLink}</a>}</div>
     </article>)}
   </div>
 </section>

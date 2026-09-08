@@ -15,5 +15,5 @@ theme: { lightMode: Light mode, darkMode: Dark mode, switchToLight: Switch to li
 skipLink: Skip to content
 downloadResume: Download resume (PDF) ↓
 projectLinks: { caseStudy: Read case study →, sourceCode: Source code ↗, viewSource: View source on GitHub ↗, returnToResume: ← Return to Resume, notes: Project notes }
-credentialLink: Verify credential ↗
+credentialLink: View certificate ↗
 ---

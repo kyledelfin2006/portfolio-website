@@ -28,11 +28,11 @@ const text = defineCollection({
     }).strict(),
     z.object({ category: z.literal('page-about'), title: copy, description: copy, workshopsHeading: copy, workshopsAriaLabel: copy, workshopsOrder: z.number().int().nonnegative() }).strict(),
     z.object({ category: z.literal('page-projects'), title: copy, description: copy, eyebrow: copy, sectionHeading: copy, sectionAriaLabel: copy }).strict(),
-    z.object({ category: z.literal('about'), ...ordered, itemTitle: copy.optional(), meta: copy.optional(), contactPrompt: copy.optional(), resumeLink: copy.optional() }).strict(),
+    z.object({ category: z.literal('about'), ...ordered, itemTitle: copy.optional(), meta: copy.optional(), certificatePath: copy.optional(), contactPrompt: copy.optional(), resumeLink: copy.optional() }).strict(),
     z.object({ category: z.literal('education'), ...ordered, meta: copy, subtitle: copy }).strict(),
     z.object({ category: z.literal('experience'), ...ordered, organization: copy }).strict(),
     z.object({ category: z.literal('skill'), ...ordered }).strict(),
-    z.object({ category: z.literal('workshop'), ...ordered, issuerOrOrganizer: copy, date: copy.optional(), certificateUrl: z.string().url().optional() }).strict(),
+    z.object({ category: z.literal('workshop'), ...ordered, issuerOrOrganizer: copy, date: copy.optional(), certificatePath: copy.optional() }).strict(),
     z.object({ category: z.literal('project'), ...ordered, description: copy, projectCategory: copy, date: copy.optional(), stack: z.array(copy).min(1), repository: z.string().url(), highlights: z.array(copy).min(1) }).strict(),
   ]),
 });

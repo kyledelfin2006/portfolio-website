@@ -1,7 +1,7 @@
 ---
 category: workshop
 title: DataCamp Scholarship Program
-order: 1
+order: 2
 issuerOrOrganizer: DataCamp x Data Engineering Pilipinas
 ---
 

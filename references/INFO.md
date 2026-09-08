@@ -54,6 +54,24 @@ No graduation date, GPA, or academic distinction is currently established.
 
 No internship dates, scholarship dates, or completed DataCamp tracks are currently established.
 
+## Honors and training
+
+### Most Analytical Programmer Award
+
+- Awarded by: Department of Information and Communications Technology Region VI
+- Program: Python Programming Essentials Training
+- Date: June 19, 2026
+- Basis: Strong analytical skills, logical reasoning, and effective problem-solving
+- Certificate: `certificates/DWIA-MOST-ANALYTICAL-PROGRAMMER.pdf`
+
+### Python Programming Essentials Training
+
+- Organizer: Department of Information and Communications Technology Region VI, ICT Literacy and Competency Development Bureau
+- Duration: 40 hours
+- Dates: June 15–19, 2026
+- Location: Digital Transformation Center – Aklan Tourism and Trade Investment Promotions Center, Capitol Site, Kalibo, Aklan
+- Certificate: `certificates/DWIA-CERT-AKLAN_DELFIN.pdf`
+
 ## Technical focus
 
 - Modular Spring Boot REST APIs

@@ -51,9 +51,11 @@ portfolio-website/
 ├── references/                    Canonical personal/project facts and the source photo
 │   ├── INFO.md                    Personal identity, roles, skills, and learning goals
 │   ├── PROJECTS.md                Extensible catalog of verified project facts
+│   ├── certificates/              Original certificate PDFs used as evidence
 │   └── 1x1.png                    Original supplied portrait
 ├── public/
 │   ├── 1x1-bw.jpg                  Clean black-and-white portfolio portrait
+│   ├── certificates/              Public certificate PDFs linked from content
 │   ├── favicon.ico                 Small icon derived from the supplied portrait
 │   └── resume.pdf                  One-page A4 export of the resume
 ├── src/
@@ -107,11 +109,11 @@ All published copy lives in `src/content/text/` as Markdown. Never add biography
 | `pages/home.md` | `page-home` | `title`, `description`, `sections` |
 | `pages/about.md` | `page-about` | `title`, `description`, `workshopsHeading`, `workshopsAriaLabel`, `workshopsOrder` |
 | `pages/projects.md` | `page-projects` | `title`, `description`, `eyebrow`, `sectionHeading`, `sectionAriaLabel`; body is the introduction |
-| `about/*.md` | `about` | `title`, `order`; optional `itemTitle`, `meta`, `contactPrompt`, `resumeLink`; body is section prose |
+| `about/*.md` | `about` | `title`, `order`; optional `itemTitle`, `meta`, `certificatePath`, `contactPrompt`, `resumeLink`; body is section prose |
 | `education/*.md` | `education` | `title`, `order`, `meta`, `subtitle`; body is supporting detail |
 | `experience/*.md` | `experience` | `title`, `order`, `organization`; body contains bullets |
 | `skills/*.md` | `skill` | `title`, `order`; body contains the skill list |
-| `workshops/*.md` | `workshop` | `title`, `order`, `issuerOrOrganizer`; optional `date`, `certificateUrl`; body contains takeaways |
+| `workshops/*.md` | `workshop` | `title`, `order`, `issuerOrOrganizer`; optional `date`, `certificatePath`; body contains takeaways |
 | `projects/*.md` | `project` | `title`, `order`, `description`, `projectCategory`, `stack`, `repository`, `highlights`; optional `date`; body is the case study |
 
 URLs must be absolute and valid. Orders are nonnegative integers. Required strings and arrays cannot be empty. Unknown optional facts should be omitted, not represented by empty strings. Invalid fields, misspelled categories, incompatible frontmatter, and missing singleton files fail `npm run check` or `npm run build`.
@@ -128,7 +130,7 @@ After every content change, run `npm run check` and `npm run build`. For project
 
 ### Grounding decisions
 
-The source notes confirm the second-year degree status, internship title, COO position, 25+ community size, scholarship, and project capabilities. They do not provide employment dates, scholarship dates, completed DataCamp tracks, individual verification URLs, GPA, or academic distinctions. Those claims are omitted. The sample scholarship dates and completion claim in the blueprint were placeholders, not verified personal records.
+The source notes confirm the second-year degree status, internship title, COO position, 25+ community size, scholarship, project capabilities, completion of DICT Region VI’s 40-hour Python Programming Essentials Training, and the Most Analytical Programmer award. They do not provide employment dates, scholarship dates, completed DataCamp tracks, individual verification URLs, GPA, or academic distinctions. Those claims are omitted. The sample scholarship dates and completion claim in the blueprint were placeholders, not verified personal records.
 
 The Tabang tags describe its responsibilities rather than inventing a framework stack. Case-study explanations expand the supplied capabilities with engineering rationale; they do not claim repository code inspection, performance benchmarks, or production adoption. Add deeper implementation details when the owner supplies evidence.
 

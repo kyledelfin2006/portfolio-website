@@ -12,8 +12,8 @@ items:
       alt: Aldrin Kyle Delfin receiving the Most Analytical Programmer award at the Python Programming Essentials Training.
       width: 2048
       height: 1365
-  - title: UPV KomsaiHack Finalist
-    meta: '2026'
+  - title: UPV KomsaiHack 2026 Finalist
+    meta: 'April 2026'
     summary: Tabang, our flood reporting and response application for Aklan, placed seventh among more than 25 teams at UPV KomsaiHack 2026.
     certificatePath: certificates/tabang-komsaihack-2026.png
 ---

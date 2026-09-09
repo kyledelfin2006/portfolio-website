@@ -207,10 +207,16 @@ On POSIX shells use `export ASTRO_TELEMETRY_DISABLED=1`. A Windows `spawn EPERM`
 
 ### Verification completed
 
+On September 9, 2026, after correcting the project stack accent:
+
+- Project stacks render with the requested `rgb(109, 179, 63)` in both themes and use a flat near-black field to maintain 7.21:1 or better contrast.
+- Desktop and 320px browser review covered the project list and case-study header in dark and light themes with no clipping, horizontal overflow, or browser errors.
+- Print removes the stack field and maps stack text to black; no component, content, dependency, or JavaScript change was required.
+
 On September 9, 2026, after the semantic neon text refinement:
 
 - `astro check`: 0 errors, 0 warnings, and 0 hints across 19 Astro/TypeScript files; the static build generated all six HTML routes.
-- Dark and light browser review confirmed acid project signals, chartreuse descriptions, and mint technology stacks remain distinct without recoloring body copy or changing hierarchy.
+- Dark and light browser review confirmed acid project signals, chartreuse descriptions, and green technology stacks remain distinct without recoloring body copy or changing hierarchy.
 - Contrast across the three project-text accents measured from 6.38:1 to 16.54:1 on their themed panel surfaces; the 320px project list and case-study layout had no horizontal overflow.
 - Print maps every accent-text token to black, and the production preview reported no browser warnings or errors.
 
@@ -250,7 +256,7 @@ The September 8, 2026 dependency refactor removed Tailwind, its Astro integratio
 
 ## 6. Design and print standards
 
-The site uses a raw cyber-brutalist/editorial resume system: a dark-first near-black canvas, warm off-white text, muted metadata, and a tight analogous family of flat acid, chartreuse, and mint accents. Acid marks structural signals and emphasis, chartreuse identifies project descriptions, and mint identifies technology stacks. Red is reserved for future warning or error states. Exposed grids, modular panels, hard rules, monospace metadata, and a restrained CSS scanline layer clarify structure without competing with the CV content. Avoid generic neon glows, gradients, rainbow or per-project color cycling, glossy 3D, holographic effects, stock imagery, decorative AI artwork, and excessive glitch noise. Keep the document-like hierarchy and A4 print behavior.
+The site uses a raw cyber-brutalist/editorial resume system: a dark-first near-black canvas, warm off-white text, muted metadata, and a tight analogous family of flat acid, chartreuse, and leaf-green accents. Acid marks structural signals and emphasis, chartreuse identifies project descriptions, and `rgb(109, 179, 63)` identifies technology stacks. Stack metadata uses a flat near-black field in both themes so that exact green remains readable; print returns it to plain black text. Red is reserved for future warning or error states. Exposed grids, modular panels, hard rules, monospace metadata, and a restrained CSS scanline layer clarify structure without competing with the CV content. Avoid generic neon glows, gradients, rainbow or per-project color cycling, glossy 3D, holographic effects, stock imagery, decorative AI artwork, and excessive glitch noise. Keep the document-like hierarchy and A4 print behavior.
 
 Navigation stays limited to Resume, About, and Projects, with numbered monospace labels, a high-contrast active tab, `aria-current="page"`, and all destinations reachable from every route. A project case study marks Projects active. Hover, focus, pressed, and theme feedback is brief and purposeful; no essential information depends on hover. Do not add simulated loading, scroll-jacking, remote fonts, runtime UI dependencies, or motion without a reduced-motion fallback.
 
@@ -266,7 +272,8 @@ Navigation stays limited to Resume, About, and Projects, with numbered monospace
 | Rules | `#4b5148` / `#e2dfd5` | `#74796d` / `#121411` | `#777777` / `#000000` |
 | Acid accent | `#b8ff3d` | `#314800` for text, `#b8ff3d` for fills | removed |
 | Soft chartreuse | `#d7ff8a` | `#425f00` | `#000000` |
-| Cool mint | `#68ffd2` | `#006b55` | `#000000` |
+| Stack green | `#6db33f` / `rgb(109, 179, 63)` | `#6db33f` / `rgb(109, 179, 63)` | `#000000` |
+| Stack field | `#090b09` | `#121411` | removed |
 | Reserved error | `#ff665a` | `#a5261f` | `#000000` |
 
 Long-form content uses `"Times New Roman", Times, "Nimbus Roman No9 L", serif`. Navigation, dates, labels, metadata, and actions use the local system stack `"Cascadia Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace`. No font is downloaded. The screen container is capped at 1080px; panels use square corners, flat fills, and centralized spacing and rule tokens in `src/styles/global.css`.

@@ -159,6 +159,8 @@ The DWIA image is rendered uncropped at a maximum width of 520px using its intri
 
 When replacing supporting media, update the immutable source first, copy it to the documented public path without cropping or recompression, retain explicit intrinsic dimensions and descriptive alternative text in content, then check both themes and narrow layouts. Project `logo` and `certificatePath` are optional; projects that omit either field render no placeholder or corresponding action.
 
+Project logos are fully contained in compact 128 × 96px framed `surface-strong` panels, reduced to 112 × 84px below 640px. The hard rule, restrained dark-theme filter, and grayscale print treatment follow the site’s existing visual system; logos are never cropped, stretched, linked, or used in place of project titles.
+
 ### Generate or replace the PDF
 
 `public/resume.pdf` is a static asset; rebuilding the website does **not** regenerate it. The included PDF was exported from this site’s print stylesheet and visually reviewed as one A4 page.

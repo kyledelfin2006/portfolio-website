@@ -8,7 +8,7 @@ repository: https://github.com/kyledelfin2006/libro-library-system
 logo:
   path: images/libro-logo.png
   alt: Libro library system logo
-  width: 2816
+  width: 1779
   height: 1536
 order: 1
 highlights:

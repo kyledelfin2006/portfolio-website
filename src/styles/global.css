@@ -13,7 +13,7 @@
   color-scheme: dark;
   --canvas: #090b09; --surface: #10130f; --surface-strong: #1a1e18;
   --ink: #f1eee4; --muted: #a8aea1; --rule: #4b5148; --rule-strong: #e2dfd5;
-  --accent-ink: #b8ff3d; --accent-soft: #d7ff8a; --stack-surface: #090b09; --danger: #ff665a;
+  --accent-ink: #b8ff3d; --accent-soft: #d7ff8a; --stack-surface: transparent; --danger: #ff665a;
 }
 *, *::before, *::after { box-sizing: border-box; }
 html { background: var(--canvas); color: var(--ink); font-family: var(--serif); }

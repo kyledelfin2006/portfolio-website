@@ -63,6 +63,7 @@ main { margin-top: var(--space-6); }
 .section-heading::before { margin-right: var(--space-2); color: var(--accent-ink); content: "//"; }
 .split-row { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-2) var(--space-5); }
 h3 { font-size: 17px; font-weight: 700; line-height: 1.3; }
+.experience h3 { color: var(--accent-ink); }
 .meta { flex-shrink: 0; color: var(--muted); font-size: 11px; letter-spacing: .03em; text-align: right; text-transform: uppercase; }
 .entry-subtitle { margin-top: var(--space-1); color: var(--muted); font-size: 12px; }
 .entries { display: grid; gap: var(--space-5); }
@@ -71,8 +72,8 @@ ul { margin: var(--space-2) 0 0; padding-left: 20px; list-style: square; }
 li::marker { color: var(--accent-ink); }
 li + li { margin-top: var(--space-1); }
 .project-summary, .case-header-grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: var(--space-5); }
-.project-category { font-weight: 400; }
-.project-category, .case-body strong { color: var(--accent-ink); }
+.project-category { color: var(--ink); font-weight: 400; }
+.case-body strong { color: var(--accent-ink); }
 :root.dark .subtitle, :root.dark .project-summary h3 > a, :root.dark .case-header h2 { color: var(--accent-ink); }
 .project-stack { color: var(--stack-accent); }
 .project-logo { display: flex; align-items: center; justify-content: center; width: 128px; height: 96px; padding: var(--space-2); border: var(--rule-width) solid var(--rule-strong); background: var(--surface-strong); }
@@ -85,9 +86,10 @@ li + li { margin-top: var(--space-1); }
 .project-links a:hover::before, .case-actions a:hover::before, .credential-link:hover::before, .back-link:hover::before { color: #111; }
 .honor-items { display: grid; gap: var(--space-5); }
 .honor-item p { margin-top: var(--space-2); }
-.honor-figure { position: relative; width: min(100%, 520px); margin: var(--space-4) 0 var(--space-3); overflow: hidden; border: var(--rule-width) solid var(--rule-strong); background: var(--canvas); }
+.honor-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); width: 100%; margin: var(--space-4) 0 var(--space-3); }
+.honor-figure { position: relative; aspect-ratio: 3 / 2; overflow: hidden; border: var(--rule-width) solid var(--rule-strong); background: var(--canvas); }
 .honor-figure::after { position: absolute; inset: 0; content: ""; pointer-events: none; background: repeating-linear-gradient(to bottom, transparent 0, transparent 3px, rgb(0 0 0 / 8%) 4px); }
-.honor-figure img { width: 100%; height: auto; filter: saturate(.88) contrast(1.04); }
+.honor-figure img { width: 100%; height: 100%; object-fit: contain; filter: saturate(.88) contrast(1.04); }
 :root.dark .honor-figure img { filter: brightness(.86) saturate(.8) contrast(1.08); }
 .skills { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: var(--rule-width) solid var(--rule); border-left: var(--rule-width) solid var(--rule); }
 .skills > div { padding: var(--space-3); border-right: var(--rule-width) solid var(--rule); border-bottom: var(--rule-width) solid var(--rule); }
@@ -154,6 +156,7 @@ footer { display: flex; justify-content: space-between; gap: var(--space-4); mar
   .meta { flex-shrink: 1; text-align: left; }
   .project-summary, .case-header-grid { grid-template-columns: 1fr; }
   .project-logo { grid-row: 1; width: 112px; height: 84px; }
+  .honor-gallery { grid-template-columns: 1fr; }
   .skills { grid-template-columns: 1fr; }
   .page-intro, .case-header, .case-body { padding: var(--space-5) var(--space-4); }
   footer { flex-wrap: wrap; }

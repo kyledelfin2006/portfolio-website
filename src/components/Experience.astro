@@ -5,7 +5,7 @@ interface Props { heading: string; ariaLabel: string; }
 const { heading, ariaLabel } = Astro.props;
 const entries = await getEntries('experience');
 ---
-<section aria-label={ariaLabel}>
+<section class="experience" aria-label={ariaLabel}>
   <SectionHeading title={heading} />
   <div class="entries">
     {await Promise.all(entries.map(async ({ data, render }) => { const { Content } = await render(); return <article><div class="split-row"><h3>{data.title}</h3><span class="meta">{data.organization}</span></div><Content /></article>; }))}

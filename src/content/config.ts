@@ -2,17 +2,18 @@ import { defineCollection, z } from 'astro:content';
 
 const copy = z.string().min(1);
 const ordered = { title: copy, order: z.number().int().nonnegative() };
+const image = z.object({
+  path: copy,
+  alt: copy,
+  width: z.number().int().positive(),
+  height: z.number().int().positive(),
+}).strict();
 const aboutItem = z.object({
   title: copy,
   meta: copy.optional(),
   summary: copy,
   certificatePath: copy.optional(),
-  image: z.object({
-    path: copy,
-    alt: copy,
-    width: z.number().int().positive(),
-    height: z.number().int().positive(),
-  }).strict().optional(),
+  images: z.array(image).min(1).optional(),
 }).strict();
 
 const text = defineCollection({
@@ -48,7 +49,7 @@ const text = defineCollection({
     z.object({
       category: z.literal('project'), ...ordered, description: copy, projectCategory: copy,
       date: copy.optional(), stack: z.array(copy).min(1), repository: z.string().url(), certificatePath: copy.optional(),
-      logo: z.object({ path: copy, alt: copy, width: z.number().int().positive(), height: z.number().int().positive() }).strict().optional(),
+      logo: image.optional(),
       highlights: z.array(copy).min(1),
     }).strict(),
   ]),

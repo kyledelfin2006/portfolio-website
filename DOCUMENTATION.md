@@ -113,7 +113,7 @@ All published copy lives in `src/content/text/` as Markdown. Never add biography
 | `pages/home.md` | `page-home` | `title`, `description`, `sections` |
 | `pages/about.md` | `page-about` | `title`, `description`, `workshopsHeading`, `workshopsAriaLabel`, `workshopsOrder` |
 | `pages/projects.md` | `page-projects` | `title`, `description`, `eyebrow`, `sectionHeading`, `sectionAriaLabel`; body is the introduction |
-| `about/*.md` | `about` | `title`, `order`; optional `itemTitle`, `meta`, `items`, `contactPrompt`, `resumeLink`; body is section prose. Each `items` entry requires `title` and `summary`, and may include `meta`, `certificatePath`, and an `image` with `path`, `alt`, `width`, and `height`. |
+| `about/*.md` | `about` | `title`, `order`; optional `itemTitle`, `meta`, `items`, `contactPrompt`, `resumeLink`; body is section prose. Each `items` entry requires `title` and `summary`, and may include `meta`, `certificatePath`, and `images`, whose entries provide `path`, `alt`, `width`, and `height`. |
 | `education/*.md` | `education` | `title`, `order`, `meta`, `subtitle`; body is supporting detail |
 | `experience/*.md` | `experience` | `title`, `order`, `organization`; body contains bullets |
 | `skills/*.md` | `skill` | `title`, `order`; body contains the skill list |
@@ -151,11 +151,12 @@ The favicon is derived from the same photo. Replace `public/favicon.ico` when ch
 The Honors & Learning section supports repeated structured `items`, which keeps each honor’s summary, media, and certificate together. Public paths are relative to Astro’s configured base path. Keep originals immutable and publish copies under `public/`:
 
 - `assets/DELFIN_DWIA_AWARD.jpg` → `public/images/dwia-most-analytical-programmer.jpg`
+- `assets/DWIA_PICTURE_POSTER.jpg` → `public/images/dwia-python-training-poster.jpg`
 - `assets/LIBRO_LOGO.png` → `public/images/libro-logo.png`
 - `assets/TABANG_LOGO.png` → `public/images/tabang-logo.png`
 - `references/certificates/TABANG.RISKREADY.CERTIFICATE.png` → `public/certificates/tabang-komsaihack-2026.png`
 
-The DWIA image is rendered uncropped at a maximum width of 520px using its intrinsic 2048 × 1365 dimensions. Its CSS treatment is `saturate(.96)` in light mode and `brightness(.9) saturate(.9)` in dark mode, with a 5% soft-light SVG grain overlay. Only the filter participates in the existing 180ms theme transition, which is disabled by the reduced-motion rule. The figure and certificate actions are omitted from print.
+The DWIA award and Python training images render uncropped in equal 3:2 containers, side by side on wider screens and stacked on narrow screens. Their CSS treatment uses restrained saturation and contrast in light mode and reduced brightness and saturation in dark mode. The figures and certificate actions are omitted from print.
 
 When replacing supporting media, update the immutable source first, copy it to the documented public path without cropping or recompression, retain explicit intrinsic dimensions and descriptive alternative text in content, then check both themes and narrow layouts. Project `logo` and `certificatePath` are optional; projects that omit either field render no placeholder or corresponding action.
 
@@ -256,7 +257,7 @@ The September 8, 2026 dependency refactor removed Tailwind, its Astro integratio
 
 ## 6. Design and print standards
 
-The site uses a raw cyber-brutalist/editorial resume system: a dark-first near-black canvas, warm off-white text, muted metadata, and a tight analogous family of flat acid, chartreuse, and leaf-green accents. In dark mode, acid marks the professional subtitle, project names, structural signals, and emphasis; project descriptions use warm-white ink; and `rgb(109, 179, 63)` identifies technology stacks. Light mode keeps chartreuse descriptions and uses the darker related `#3f6f24` for stacks so both remain readable without background fields. Print returns accent text to black. Red is reserved for future warning or error states. Exposed grids, modular panels, hard rules, monospace metadata, and a restrained CSS scanline layer clarify structure without competing with the CV content. Avoid generic neon glows, gradients, rainbow or per-project color cycling, glossy 3D, holographic effects, stock imagery, decorative AI artwork, and excessive glitch noise. Keep the document-like hierarchy and A4 print behavior.
+The site uses a raw cyber-brutalist/editorial resume system: a dark-first near-black canvas, warm off-white text, muted metadata, and a tight analogous family of flat acid, chartreuse, and leaf-green accents. Acid marks the professional subtitle, project names, experience titles, structural signals, and emphasis; project categories stay neutral ink on project listings and case-study headers across themes; dark project descriptions use warm-white ink; and `rgb(109, 179, 63)` identifies dark-mode technology stacks. Light mode keeps chartreuse descriptions and uses the darker related `#3f6f24` for stacks so both remain readable without background fields. Print returns accent text to black. Red is reserved for future warning or error states. Exposed grids, modular panels, hard rules, monospace metadata, and a restrained CSS scanline layer clarify structure without competing with the CV content. Avoid generic neon glows, gradients, rainbow or per-project color cycling, glossy 3D, holographic effects, stock imagery, decorative AI artwork, and excessive glitch noise. Keep the document-like hierarchy and A4 print behavior.
 
 Navigation stays limited to Resume, About, and Projects, with numbered monospace labels, a high-contrast active tab, `aria-current="page"`, and all destinations reachable from every route. A project case study marks Projects active. Hover, focus, pressed, and theme feedback is brief and purposeful; no essential information depends on hover. Do not add simulated loading, scroll-jacking, remote fonts, runtime UI dependencies, or motion without a reduced-motion fallback.
 

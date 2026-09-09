@@ -11,7 +11,7 @@ const { data: site } = await getRequiredEntry('site', 'site');
     <header class="case-header">
       <div class="case-header-grid">
         <div>
-          <p class="eyebrow">{site.projectLinks.notes} / {data.projectCategory}</p>
+          <p class="eyebrow">{site.projectLinks.notes} / <span class="project-category">{data.projectCategory}</span></p>
           <h2>{data.title}</h2>
           <p class="case-description">{data.description}</p>
           <p class="entry-subtitle project-stack">{data.stack.join(' · ')}</p>

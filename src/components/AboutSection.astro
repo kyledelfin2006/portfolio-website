@@ -14,16 +14,18 @@ const { Content } = await entry.render();
     {data.items.map((item) => <article class="honor-item">
       <div class="split-row"><h3>{item.title}</h3>{item.meta && <span class="meta">{item.meta}</span>}</div>
       <p>{item.summary}</p>
-      {item.image && <figure class="honor-figure no-print">
-        <img
-          src={`${import.meta.env.BASE_URL}${item.image.path}`}
-          alt={item.image.alt}
-          width={item.image.width}
-          height={item.image.height}
-          loading="lazy"
-          decoding="async"
-        />
-      </figure>}
+      {item.images && <div class="honor-gallery no-print">
+        {item.images.map((image) => <figure class="honor-figure">
+          <img
+            src={`${import.meta.env.BASE_URL}${image.path}`}
+            alt={image.alt}
+            width={image.width}
+            height={image.height}
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>)}
+      </div>}
       {item.certificatePath && <a class="credential-link no-print" href={`${import.meta.env.BASE_URL}${item.certificatePath}`} target="_blank" rel="noopener noreferrer">{certificateLabel}</a>}
     </article>)}
   </div>}

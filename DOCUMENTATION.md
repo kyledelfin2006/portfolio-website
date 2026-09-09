@@ -1,6 +1,6 @@
 # Portfolio developer and maintainer manual
 
-This repository implements Aldrin Kyle Delfin’s portfolio according to `implementations/implementation.md`: a dark-first cyber-brutalist editorial resume, an About page, and Markdown project case studies. The site is static, immediately readable, and usable without JavaScript. The only application browser behavior is the optional light/dark toggle.
+This repository implements Aldrin Kyle Delfin’s dark-first cyber-brutalist editorial resume, About page, and Markdown project case studies. The site is static, immediately readable, and usable without JavaScript. The only scripted browser behavior is the optional light/dark toggle.
 
 ## 1. Architecture and decisions
 
@@ -24,13 +24,15 @@ Astro and TypeScript are the complete application dependency list. The checker i
 6. Required singleton files are loaded by exact ID and fail the build with a named-file error when missing.
 7. `ResumeLayout.astro` supplies the common document and presentation while its metadata, header, controls, and footer labels come from Markdown.
 
-No React, component library, global state manager, backend, contact form service, animation library, analytics, remote fonts, or generated illustration is used. Navigation is native anchor navigation. Contact opens the visitor’s email client.
+No React, component library, global state manager, backend, contact form service, animation library, analytics, remote fonts, or generated illustration is used. Navigation uses native anchors, progressive CSS view transitions, and a CSS-only arrival fallback. Contact opens the visitor’s email client.
 
 ### Theme and accessibility
 
 The HTML starts with `class="dark"`. A small inline script reads the saved `theme` preference before body rendering to avoid a light-theme flash. The button writes only `dark` or `light` to local storage. Storage failures are caught; the toggle still works for the current page. The button is hidden when JavaScript is unavailable, while all content and navigation remain available.
 
-Theme changes use a temporary `theme-transition` class for a 220ms CSS cross-dissolve and palette transition. Rapid clicks are parity-queued, and an `animationend` listener with a bounded fallback always clears the temporary state. In light mode, the portrait uses `brightness(1.12) contrast(.94)`; dark mode and print explicitly restore the unfiltered image. Visitors who prefer reduced motion receive the final theme immediately with animation and transitions disabled.
+Theme changes use a temporary `theme-transition` class for a 180ms CSS cross-dissolve and palette transition. Rapid clicks are parity-queued, and an `animationend` listener with a bounded fallback always clears the temporary state. In light mode, the portrait uses `brightness(1.12) contrast(.94)`; dark mode and print explicitly restore the unfiltered image. Visitors who prefer reduced motion receive the final theme immediately with animation and transitions disabled.
+
+Page navigation uses the native cross-document View Transitions API where supported and a 160ms CSS-only document arrival elsewhere. Both are disabled when reduced motion is preferred, and neither adds client-side routing or changes native link behavior.
 
 The toggle has a descriptive accessible name and `aria-pressed` state, both synchronized as soon as the theme changes. The page includes a keyboard skip link, visible focus outlines, semantic sections, image alternative text, and an active navigation indication. Links that open a new tab use `noopener noreferrer`. The portrait reserves its dimensions to prevent layout shift.
 
@@ -38,9 +40,6 @@ The toggle has a descriptive accessible name and `aria-pressed` state, both sync
 
 ```text
 portfolio-website/
-├── implementations/
-│   ├── implementation.md          Root implementation guidelines
-│   └── ponytail-refactor.md       Tailwind-removal refactor record
 ├── DOCUMENTATION.md               This maintainer manual
 ├── README.md                      Quick start
 ├── .gitignore                     Excludes dependencies, builds, local settings, and QA scratch files
@@ -49,7 +48,9 @@ portfolio-website/
 ├── astro.config.mjs               Static output, base path, and site origin
 ├── tsconfig.json                  Strict Astro TypeScript settings
 ├── assets/                        Immutable owner-supplied source media
-│   └── DELFIN_DWIA_AWARD.jpg      Original DWIA award photo
+│   ├── DELFIN_DWIA_AWARD.jpg      Original DWIA award photo
+│   ├── LIBRO_LOGO.png             Original Libro logo
+│   └── TABANG_LOGO.png            Original Tabang logo
 ├── references/                    Canonical personal/project facts and evidence
 │   ├── INFO.md                    Personal identity, roles, skills, and learning goals
 │   ├── PROJECTS.md                Extensible catalog of verified project facts
@@ -117,7 +118,7 @@ All published copy lives in `src/content/text/` as Markdown. Never add biography
 | `experience/*.md` | `experience` | `title`, `order`, `organization`; body contains bullets |
 | `skills/*.md` | `skill` | `title`, `order`; body contains the skill list |
 | `workshops/*.md` | `workshop` | `title`, `order`, `issuerOrOrganizer`; optional `date`, `certificatePath`; body contains takeaways |
-| `projects/*.md` | `project` | `title`, `order`, `description`, `projectCategory`, `stack`, `repository`, `highlights`; optional `date` and `certificatePath`; body is the case study |
+| `projects/*.md` | `project` | `title`, `order`, `description`, `projectCategory`, `stack`, `repository`, `highlights`; optional `date`, `certificatePath`, and `logo` with `path`, `alt`, `width`, and `height`; body is the case study |
 
 URLs must be absolute and valid. Orders are nonnegative integers. Required strings and arrays cannot be empty. Unknown optional facts should be omitted, not represented by empty strings. Invalid fields, misspelled categories, incompatible frontmatter, and missing singleton files fail `npm run check` or `npm run build`.
 
@@ -150,11 +151,13 @@ The favicon is derived from the same photo. Replace `public/favicon.ico` when ch
 The Honors & Learning section supports repeated structured `items`, which keeps each honor’s summary, media, and certificate together. Public paths are relative to Astro’s configured base path. Keep originals immutable and publish copies under `public/`:
 
 - `assets/DELFIN_DWIA_AWARD.jpg` → `public/images/dwia-most-analytical-programmer.jpg`
+- `assets/LIBRO_LOGO.png` → `public/images/libro-logo.png`
+- `assets/TABANG_LOGO.png` → `public/images/tabang-logo.png`
 - `references/certificates/TABANG.RISKREADY.CERTIFICATE.png` → `public/certificates/tabang-komsaihack-2026.png`
 
-The DWIA image is rendered uncropped at a maximum width of 420px using its intrinsic 2048 × 1365 dimensions. Its CSS treatment is `saturate(.96)` in light mode and `brightness(.9) saturate(.9)` in dark mode, with a 5% soft-light SVG grain overlay. Only the filter participates in the existing 220ms theme transition, which is disabled by the reduced-motion rule. The figure and certificate actions are omitted from print.
+The DWIA image is rendered uncropped at a maximum width of 520px using its intrinsic 2048 × 1365 dimensions. Its CSS treatment is `saturate(.96)` in light mode and `brightness(.9) saturate(.9)` in dark mode, with a 5% soft-light SVG grain overlay. Only the filter participates in the existing 180ms theme transition, which is disabled by the reduced-motion rule. The figure and certificate actions are omitted from print.
 
-When replacing supporting media, update the immutable source first, copy it to the documented public path without cropping or recompression, retain explicit intrinsic dimensions and descriptive alternative text in content, then check both themes and narrow layouts. Project `certificatePath` is optional; Tabang uses it on the project list and case-study header, while projects that omit it render no certificate action.
+When replacing supporting media, update the immutable source first, copy it to the documented public path without cropping or recompression, retain explicit intrinsic dimensions and descriptive alternative text in content, then check both themes and narrow layouts. Project `logo` and `certificatePath` are optional; projects that omit either field render no placeholder or corresponding action.
 
 ### Generate or replace the PDF
 
@@ -201,6 +204,13 @@ $env:ASTRO_TELEMETRY_DISABLED = '1'
 On POSIX shells use `export ASTRO_TELEMETRY_DISABLED=1`. A Windows `spawn EPERM` from Vite indicates a subprocess permission problem; allow the normal build tools to execute rather than editing content to work around it.
 
 ### Verification completed
+
+On September 9, 2026, after the project visual refinement:
+
+- `astro check`: 0 errors, 0 warnings, and 0 hints across 19 Astro/TypeScript files; the static build generated all six HTML routes.
+- Published Libro and Tabang logo files matched their immutable sources byte for byte and rendered at their declared intrinsic dimensions.
+- Browser review at 320px and desktop widths confirmed framed, uncropped logos on both project surfaces, no FaceLog placeholder, no horizontal overflow, readable accent text in both themes, and static case-study content.
+- Native/CSS fallback transitions remain dependency-free and are scoped away from reduced-motion and print output.
 
 On September 9, 2026, after the cyber-brutalist redesign:
 

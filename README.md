@@ -13,4 +13,4 @@ See [DOCUMENTATION.md](DOCUMENTATION.md) for content editing, PDF updates, desig
 
 Canonical facts live in [references/INFO.md](references/INFO.md) and [references/PROJECTS.md](references/PROJECTS.md); update those before changing related portfolio copy.
 
-The visual system is documented in [DOCUMENTATION.md](DOCUMENTATION.md). All feature work remains governed by the root [implementation guidelines](implementations/implementation.md) together with a feature-specific plan stored in `implementations/`.
+The visual system, content contracts, asset paths, and maintenance checks are documented in [DOCUMENTATION.md](DOCUMENTATION.md).

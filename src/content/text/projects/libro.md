@@ -5,6 +5,11 @@ description: A Spring Boot REST API for managing books, with a Docker-first work
 projectCategory: Book management API
 stack: [Java, Spring Boot, PostgreSQL 18, Docker, Flyway]
 repository: https://github.com/kyledelfin2006/libro-library-system
+logo:
+  path: images/libro-logo.png
+  alt: Libro library system logo
+  width: 2816
+  height: 1536
 order: 1
 highlights:
   - Developed a containerized Library REST API with 15+ endpoints for search, pagination, and data aggregation using Java 25, Spring Boot 4.1, and PostgreSQL.

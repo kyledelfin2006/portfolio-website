@@ -3,7 +3,6 @@ category: project
 title: Tabang
 description: A flood reporting and response application connecting residents, responders, and reviewers in Aklan.
 projectCategory: Flood reporting & response
-date: '2026'
 stack: [Incident reporting, Response workflows, Role-based responsibilities]
 repository: https://github.com/kyledelfin2006/tabang-hackathon-project
 certificatePath: certificates/tabang-komsaihack-2026.png

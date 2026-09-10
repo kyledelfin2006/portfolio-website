@@ -7,4 +7,4 @@ date: June 15–19, 2026
 certificatePath: certificates/python-programming-essentials-completion.pdf
 ---
 
-- Completed the 40-hour program at the Digital Transformation Center in Kalibo, Aklan.
+- Earned Most Analytical Programmer recognition upon graduation, applying Python data structures, OOP, and data science fundamentals to strengthen analytical problem-solving and programming outcomes.

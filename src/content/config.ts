@@ -41,7 +41,7 @@ const text = defineCollection({
     }).strict(),
     z.object({ category: z.literal('page-about'), title: copy, description: copy, workshopsHeading: copy, workshopsAriaLabel: copy, workshopsOrder: z.number().int().nonnegative() }).strict(),
     z.object({ category: z.literal('page-projects'), title: copy, description: copy, eyebrow: copy, sectionHeading: copy, sectionAriaLabel: copy }).strict(),
-    z.object({ category: z.literal('about'), ...ordered, itemTitle: copy.optional(), meta: copy.optional(), items: z.array(aboutItem).min(1).optional(), contactPrompt: copy.optional(), resumeLink: copy.optional() }).strict(),
+    z.object({ category: z.literal('about'), ...ordered, itemTitle: copy.optional(), meta: copy.optional(), items: z.array(aboutItem).min(1).optional(), contactProfileLabels: z.array(copy).min(1).optional() }).strict(),
     z.object({ category: z.literal('education'), ...ordered, meta: copy, subtitle: copy }).strict(),
     z.object({ category: z.literal('experience'), ...ordered, organization: copy }).strict(),
     z.object({ category: z.literal('skill'), ...ordered }).strict(),

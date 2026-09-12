@@ -10,6 +10,7 @@ This document is the canonical source of truth for facts about Aldrin Kyle Delfi
 | Preferred name | Kyle |
 | Location | Aklan, Philippines |
 | Email | kyle.delfin.dev@gmail.com |
+| LinkedIn | <https://www.linkedin.com/in/aldrin-kyle-delfin/> |
 | GitHub | <https://github.com/kyledelfin2006> |
 | DevGuild | <https://github.com/DevGuild-ASU> |
 

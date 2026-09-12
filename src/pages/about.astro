@@ -10,8 +10,8 @@ const { data: site } = await getRequiredEntry('site', 'site');
 ---
 <ResumeLayout title={page.title} description={page.description}>
   <div class="about-sections">
-    {sections.filter(({ data }) => data.order < page.workshopsOrder).map((entry) => <AboutSection entry={entry} email={site.email} certificateLabel={site.credentialLink} />)}
+    {sections.filter(({ data }) => data.order < page.workshopsOrder).map((entry) => <AboutSection entry={entry} email={site.email} profiles={site.profiles} certificateLabel={site.credentialLink} />)}
     <Workshops heading={page.workshopsHeading} ariaLabel={page.workshopsAriaLabel} />
-    {sections.filter(({ data }) => data.order > page.workshopsOrder).map((entry) => <AboutSection entry={entry} email={site.email} certificateLabel={site.credentialLink} />)}
+    {sections.filter(({ data }) => data.order > page.workshopsOrder).map((entry) => <AboutSection entry={entry} email={site.email} profiles={site.profiles} certificateLabel={site.credentialLink} />)}
   </div>
 </ResumeLayout>

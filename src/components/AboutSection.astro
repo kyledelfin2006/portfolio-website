@@ -1,10 +1,16 @@
 ---
 import SectionHeading from './SectionHeading.astro';
 import type { TextEntryOf } from '../content/load';
-interface Props { entry: TextEntryOf<'about'>; email: string; certificateLabel: string; }
-const { entry, email, certificateLabel } = Astro.props;
+interface Props {
+  entry: TextEntryOf<'about'>;
+  email: string;
+  profiles: { label: string; url: string }[];
+  certificateLabel: string;
+}
+const { entry, email, profiles, certificateLabel } = Astro.props;
 const { data } = entry;
 const { Content } = await entry.render();
+const contactProfiles = profiles.filter(({ label }) => data.contactProfileLabels?.includes(label));
 ---
 <section>
   <SectionHeading title={data.title} />
@@ -29,6 +35,8 @@ const { Content } = await entry.render();
       {item.certificatePath && <a class="credential-link no-print" href={`${import.meta.env.BASE_URL}${item.certificatePath}`} target="_blank" rel="noopener noreferrer">{certificateLabel}</a>}
     </article>)}
   </div>}
-  {data.contactPrompt && <p>{data.contactPrompt} <a href={`mailto:${email}`}>{email}</a>.</p>}
-  {data.resumeLink && <p><a href={`${import.meta.env.BASE_URL}resume.pdf`}>{data.resumeLink}</a></p>}
+  {data.contactProfileLabels && <div class="contact-links">
+    <a href={`mailto:${email}`}>{email}</a>
+    {contactProfiles.map((profile) => <><span aria-hidden="true">·</span><a href={profile.url} target="_blank" rel="noopener noreferrer">{profile.label}</a></>)}
+  </div>}
 </section>

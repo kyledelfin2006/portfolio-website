@@ -154,9 +154,11 @@ The Honors & Learning section supports repeated structured `items`, which keeps 
 - `assets/DWIA_PICTURE_POSTER.jpg` → `public/images/dwia-python-training-poster.jpg`
 - `assets/LIBRO_LOGO.png` → `public/images/libro-logo.png`
 - `assets/TABANG_LOGO.png` → `public/images/tabang-logo.png`
+- `assets/Tabang-Finalist.jpg` → `public/images/tabang-finalist.jpg`
+- `assets/Tabang.jpg` → `public/images/tabang.jpg`
 - `references/certificates/TABANG.RISKREADY.CERTIFICATE.png` → `public/certificates/tabang-komsaihack-2026.png`
 
-The DWIA award and Python training images render uncropped in equal 3:2 containers, side by side on wider screens and stacked on narrow screens. Their CSS treatment uses restrained saturation and contrast in light mode and reduced brightness and saturation in dark mode. The figures and certificate actions are omitted from print.
+The DWIA award and Python training images, and the two Tabang finalist images, render uncropped in equal 3:2 containers, side by side on wider screens and stacked on narrow screens. Their CSS treatment uses restrained saturation and contrast in light mode and reduced brightness and saturation in dark mode. The figures and certificate actions are omitted from print.
 
 When replacing supporting media, update the immutable source first, copy it to the documented public path without cropping or recompression, retain explicit intrinsic dimensions and descriptive alternative text in content, then check both themes and narrow layouts. Project `logo` and `certificatePath` are optional; projects that omit either field render no placeholder or corresponding action.
 

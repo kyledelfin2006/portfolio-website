@@ -32,7 +32,7 @@ Preferred headline:
 
 No graduation date, GPA, or academic distinction is currently established.
 
-## Experience and leadership
+## Experience
 
 ### FlyRank
 
@@ -47,11 +47,6 @@ No graduation date, GPA, or academic distinction is currently established.
 - Purpose: Build real-world software products, solve practical problems, and learn modern engineering workflows and industry tools
 - Operations work: Designed and managed Docker-based containerization workflows for three internal development groups using standardized Dockerfiles, image registries, and Docker Compose
 - Reported result: Reduced deployment and QA turnaround from seven days to two–three days
-
-### DataCamp x Data Engineering Pilipinas
-
-- Role: Scholar
-- Purpose: Continued technical learning through the scholarship program
 
 No internship dates, scholarship dates, or completed DataCamp tracks are currently established.
 

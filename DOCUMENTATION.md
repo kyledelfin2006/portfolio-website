@@ -80,7 +80,7 @@ portfolio-website/
 │   │   ├── ThemeToggle.astro      Optional theme preference control
 │   │   ├── SectionHeading.astro   Shared title and thin rule
 │   │   ├── Education.astro        University and degree
-│   │   ├── Experience.astro       FlyRank, DevGuild, DataCamp
+│   │   ├── Experience.astro       FlyRank and DevGuild
 │   │   ├── Projects.astro         Ordered project summaries and links
 │   │   ├── Skills.astro           Plain categorized skill list
 │   │   └── Workshops.astro        Shared workshop rendering

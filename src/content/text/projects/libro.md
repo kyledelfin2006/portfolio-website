@@ -8,8 +8,8 @@ repository: https://github.com/kyledelfin2006/libro-library-system
 logo:
   path: images/libro-logo.png
   alt: Libro library system logo
-  width: 1779
-  height: 1536
+  width: 1349
+  height: 1166
 order: 1
 highlights:
   - Developed a containerized Library REST API with 15+ endpoints for search, pagination, and data aggregation using Java 25, Spring Boot 4.1, and PostgreSQL.

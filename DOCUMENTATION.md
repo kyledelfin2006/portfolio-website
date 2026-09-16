@@ -210,6 +210,12 @@ On POSIX shells use `export ASTRO_TELEMETRY_DISABLED=1`. A Windows `spawn EPERM`
 
 ### Verification completed
 
+On September 17, 2026, after the Libro logo refresh:
+
+- The updated `assets/LIBRO_LOGO.png` source is 1349 × 1166 and matches `public/images/libro-logo.png` byte for byte.
+- `src/content/text/projects/libro.md` declares the new 1349 × 1166 intrinsic dimensions, and the generated resume, project index, and Libro case-study pages reference the refreshed public asset.
+- The Render stale-logo issue was traced to the earlier source-only commit (`b8b90ae`); commit `cd61854` published the required `public/` copy and metadata on `main`.
+
 On September 9, 2026, after correcting the project stack accent:
 
 - Project stacks render with the requested `rgb(109, 179, 63)` directly on dark panels at 7.28:1 contrast. Light mode uses the related `#3f6f24` at 5.88:1 contrast without a background field.

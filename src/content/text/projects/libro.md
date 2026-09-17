@@ -6,7 +6,7 @@ projectCategory: Library Management System
 stack: [Java, Spring Boot, PostgreSQL 18, Docker, Flyway]
 repository: https://github.com/kyledelfin2006/libro-library-system
 logo:
-  path: images/libro-logo.png
+  path: images/libro-logo.jpeg
   alt: Libro library system logo
   width: 1349
   height: 1166

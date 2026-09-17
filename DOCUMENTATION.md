@@ -49,7 +49,7 @@ portfolio-website/
 ├── tsconfig.json                  Strict Astro TypeScript settings
 ├── assets/                        Immutable owner-supplied source media
 │   ├── DELFIN_DWIA_AWARD.jpg      Original DWIA award photo
-│   ├── LIBRO_LOGO.png             Original Libro logo
+│   ├── libro_logo.jpeg            Current Libro logo
 │   └── TABANG_LOGO.png            Original Tabang logo
 ├── references/                    Canonical personal/project facts and evidence
 │   ├── INFO.md                    Personal identity, roles, skills, and learning goals
@@ -152,7 +152,7 @@ The Honors & Learning section supports repeated structured `items`, which keeps 
 
 - `assets/DELFIN_DWIA_AWARD.jpg` → `public/images/dwia-most-analytical-programmer.jpg`
 - `assets/DWIA_PICTURE_POSTER.jpg` → `public/images/dwia-python-training-poster.jpg`
-- `assets/LIBRO_LOGO.png` → `public/images/libro-logo.png`
+- `assets/libro_logo.jpeg` → `public/images/libro-logo.jpeg`
 - `assets/TABANG_LOGO.png` → `public/images/tabang-logo.png`
 - `assets/Tabang-Finalist.jpg` → `public/images/tabang-finalist.jpg`
 - `assets/Tabang.jpg` → `public/images/tabang.jpg`
@@ -210,11 +210,10 @@ On POSIX shells use `export ASTRO_TELEMETRY_DISABLED=1`. A Windows `spawn EPERM`
 
 ### Verification completed
 
-On September 17, 2026, after the Libro logo refresh:
+On September 18, 2026, after the Libro logo refresh:
 
-- The updated `assets/LIBRO_LOGO.png` source is 1349 × 1166 and matches `public/images/libro-logo.png` byte for byte.
-- `src/content/text/projects/libro.md` declares the new 1349 × 1166 intrinsic dimensions, and the generated resume, project index, and Libro case-study pages reference the refreshed public asset.
-- The Render stale-logo issue was traced to the earlier source-only commit (`b8b90ae`); commit `cd61854` published the required `public/` copy and metadata on `main`.
+- The current `assets/libro_logo.jpeg` source is published as `public/images/libro-logo.jpeg` and referenced by the Libro project metadata.
+- The old Libro PNG source and public copy are removed so generated resume, project index, and Libro case-study pages use the new logo.
 
 On September 9, 2026, after correcting the project stack accent:
 

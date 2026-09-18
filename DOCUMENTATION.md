@@ -268,6 +268,8 @@ The site uses a raw cyber-brutalist/editorial resume system: a dark-first near-b
 
 Navigation stays limited to Resume, About, and Projects, with numbered monospace labels, a high-contrast active tab, `aria-current="page"`, and all destinations reachable from every route. A project case study marks Projects active. Hover, focus, pressed, and theme feedback is brief and purposeful; no essential information depends on hover. Do not add simulated loading, scroll-jacking, remote fonts, runtime UI dependencies, or motion without a reduced-motion fallback.
 
+The Resume page also provides a screen-only native-anchor section navigator using the existing section names. It is a reading and wayfinding aid, not new portfolio content, and is hidden in print. Project case studies with at least three existing Markdown level-two headings render a screen-only table of contents from those headings; the article remains complete and navigable without JavaScript.
+
 ### Exact tokens
 
 | Token | Dark | Light | Print |

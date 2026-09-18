@@ -1,12 +1,12 @@
 ---
 import { getEntries, getRequiredEntry } from '../content/load';
 import SectionHeading from './SectionHeading.astro';
-interface Props { heading: string; ariaLabel: string; }
-const { heading, ariaLabel } = Astro.props;
+interface Props { heading: string; ariaLabel: string; id?: string; }
+const { heading, ariaLabel, id } = Astro.props;
 const workshops = await getEntries('workshop');
 const { data: site } = await getRequiredEntry('site', 'site');
 ---
-<section aria-label={ariaLabel}>
+<section id={id} aria-label={ariaLabel}>
   <SectionHeading title={heading} />
   <div class="entries">
     {await Promise.all(workshops.map(async ({ data, render }) => { const { Content } = await render(); return <article>

@@ -6,6 +6,6 @@ export async function getStaticPaths() {
 }
 interface Props { project: TextEntryOf<'project'>; }
 const { project } = Astro.props;
-const { Content } = await project.render();
+const { Content, headings } = await project.render();
 ---
-<BlogPostLayout project={project}><Content /></BlogPostLayout>
+<BlogPostLayout project={project} headings={headings}><Content /></BlogPostLayout>

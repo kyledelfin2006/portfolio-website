@@ -1,9 +1,10 @@
 ---
 import ResumeLayout from './ResumeLayout.astro';
 import { getRequiredEntry, type TextEntryOf } from '../content/load';
-interface Props { project: TextEntryOf<'project'>; }
-const { project: { data } } = Astro.props;
+interface Props { project: TextEntryOf<'project'>; headings?: { depth: number; slug: string; text: string }[]; }
+const { project: { data }, headings = [] } = Astro.props;
 const { data: site } = await getRequiredEntry('site', 'site');
+const articleHeadings = headings.filter((heading) => heading.depth === 2);
 ---
 <ResumeLayout title={`${data.title} — ${site.fullName}`} description={data.description}>
   <article class="case-study">
@@ -24,6 +25,9 @@ const { data: site } = await getRequiredEntry('site', 'site');
         {data.logo && <figure class="project-logo"><img src={`${import.meta.env.BASE_URL}${data.logo.path}`} alt={data.logo.alt} width={data.logo.width} height={data.logo.height} decoding="async" /></figure>}
       </div>
     </header>
+    {articleHeadings.length >= 3 && <nav class="case-toc no-print" aria-label="On this page">
+      <ol>{articleHeadings.map(({ slug, text }) => <li><a href={`#${slug}`}>{text}</a></li>)}</ol>
+    </nav>}
     <div class="case-body"><slot /></div>
   </article>
 </ResumeLayout>

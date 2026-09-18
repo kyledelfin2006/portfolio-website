@@ -20,7 +20,6 @@ const { data: site } = await getRequiredEntry('site', 'site');
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     {canonical && <><link rel="canonical" href={canonical} /><meta property="og:url" content={canonical} /></>}
-    <link rel="icon" href={`${base}favicon.ico`} sizes="any" />
     <title>{title}</title>
     <script is:inline>
       try {

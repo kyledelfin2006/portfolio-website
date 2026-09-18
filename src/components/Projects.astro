@@ -1,13 +1,13 @@
 ---
 import { contentId, getEntries, getRequiredEntry } from '../content/load';
 import SectionHeading from './SectionHeading.astro';
-interface Props { heading: string; ariaLabel: string; }
-const { heading, ariaLabel } = Astro.props;
+interface Props { heading: string; ariaLabel: string; id?: string; }
+const { heading, ariaLabel, id } = Astro.props;
 const projects = await getEntries('project');
 const { data: site } = await getRequiredEntry('site', 'site');
 const base = import.meta.env.BASE_URL;
 ---
-<section aria-label={ariaLabel}>
+<section id={id} aria-label={ariaLabel}>
   <SectionHeading title={heading} />
   <div class="entries">
     {projects.map((project) => <article>

@@ -32,7 +32,7 @@ const { data: site } = await getRequiredEntry('site', 'site');
           sessionStorage.setItem('resume-intro-seen', '1');
           if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
             document.documentElement.classList.add('intro-active');
-            window.setTimeout(() => document.documentElement.classList.remove('intro-active'), 900);
+            window.setTimeout(() => document.documentElement.classList.remove('intro-active'), 950);
           }
         }
       } catch { /* Show the page immediately when storage is unavailable. */ }
@@ -52,14 +52,15 @@ const { data: site } = await getRequiredEntry('site', 'site');
     {resume && <script is:inline>
       const root = document.documentElement;
       const reveal = document.querySelector('.intro-reveal');
-      if (root.classList.contains('intro-active') && reveal) {
+      const panel = reveal?.querySelector('.intro-panel-top');
+      if (root.classList.contains('intro-active') && panel) {
         const finish = () => {
           root.classList.remove('intro-active');
-          reveal.removeEventListener('animationend', finish);
+          panel.removeEventListener('animationend', finish);
           document.removeEventListener('pointerdown', finish, true);
           window.removeEventListener('keydown', finish, true);
         };
-        reveal.addEventListener('animationend', finish);
+        panel.addEventListener('animationend', finish, { once: true });
         document.addEventListener('pointerdown', finish, { capture: true, once: true });
         window.addEventListener('keydown', finish, { capture: true, once: true });
       }

@@ -1,6 +1,6 @@
 # Portfolio developer and maintainer manual
 
-This repository implements Aldrin Kyle Delfin’s dark-first cyber-brutalist editorial resume, About page, and Markdown project case studies. The site is static, immediately readable, and usable without JavaScript. Its optional browser scripts handle the light/dark toggle and the first-visit Resume reveal.
+This repository implements Aldrin Kyle Delfin’s dark-first cyber-brutalist editorial resume, About page, and Markdown project case studies. The site is static, immediately readable, and usable without JavaScript. Its optional browser scripts handle the light/dark toggle, first-visit Resume reveal, and internal page transitions.
 
 ## 1. Architecture and decisions
 
@@ -24,7 +24,7 @@ Astro and TypeScript are the complete application dependency list. The checker i
 6. Required singleton files are loaded by exact ID and fail the build with a named-file error when missing.
 7. `ResumeLayout.astro` supplies the common document and presentation while its metadata, header, controls, and footer labels come from Markdown.
 
-No React, component library, global state manager, backend, contact form service, animation library, analytics, remote fonts, or generated illustration is used. Navigation uses native anchors and progressive CSS view transitions; unsupported browsers navigate immediately. The Resume reveal uses CSS animation and a small inline session-storage script. Contact opens the visitor’s email client.
+No React, component library, global state manager, backend, contact form service, animation library, analytics, remote fonts, or generated illustration is used. Navigation uses native anchors with a progressive CSS/JavaScript shutter for internal page links; without JavaScript or session storage, links navigate immediately. The Resume reveal uses CSS animation and a small inline session-storage script. Contact opens the visitor’s email client.
 
 ### Theme and accessibility
 
@@ -32,7 +32,7 @@ The HTML starts with `class="dark"`. A small inline script reads the saved `them
 
 Theme changes use a temporary `theme-transition` class for a 180ms CSS cross-dissolve and palette transition. Rapid clicks are parity-queued, and an `animationend` listener with a bounded fallback always clears the temporary state. The portrait uses `grayscale(1) contrast(1.08)` in both screen themes and `grayscale(1)` in print. Visitors who prefer reduced motion receive the final theme immediately with animation and transitions disabled.
 
-Page navigation uses native cross-document View Transitions where supported: the old document recedes over 130ms and the new document is uncovered from its top edge over 260ms. Unsupported browsers navigate immediately. Reduced motion disables the transition without changing native link behavior or focus states.
+An eligible same-origin page link closes an editorial split shutter over 400ms, then performs a normal browser navigation. A one-use, URL-matched session-storage marker opens the shutter over 700ms on the destination, for about 1.1 seconds of motion plus any network/load time. The overlay uses existing theme colors and an acid-green seam, is decorative and noninteractive, and leaves the page rendered underneath. Modified clicks, new tabs, downloads, same-page anchors, assets, back/forward history, reduced motion, unavailable storage, disabled JavaScript, and print retain native behavior. Escape cancels a pending exit; a bounded timer clears a failed arrival. The first Resume visit uses its full opening instead of the short arrival.
 
 The toggle has a descriptive accessible name and `aria-pressed` state, both synchronized as soon as the theme changes. The page includes a keyboard skip link, visible focus outlines, semantic sections, image alternative text, and an active navigation indication. Links that open a new tab use `noopener noreferrer`. The portrait reserves its dimensions to prevent layout shift.
 
@@ -224,6 +224,11 @@ On POSIX shells use `export ASTRO_TELEMETRY_DISABLED=1`. A Windows `spawn EPERM`
 
 ### Verification completed
 
+On October 3, 2026, after the 1.1-second page-switch shutter:
+
+- `npm run check` passed with 0 errors, 0 warnings, and 0 hints across 20 files; `npm run build` generated all six routes. The UIAudit detector returned no findings for the changed UI files.
+- Production-preview browser checks confirmed the close and open phases on internal links, keyboard activation, Escape cancellation, native back navigation, light and dark panel colors, and no horizontal overflow at 320px or desktop width. Reduced motion, JavaScript failure, and print are handled by code-level fallbacks and stylesheet rules.
+
 On October 3, 2026, after the Resume reveal and route-motion refinement:
 
 - `npm run check`: 0 errors, 0 warnings, and 0 hints across 20 Astro/TypeScript files; `npm run build` generated all six routes.
@@ -320,7 +325,7 @@ Long-form content uses `"Times New Roman", Times, "Nimbus Roman No9 L", serif`. 
 | Case-study introduction | 19px, line-height 1.55 |
 | Markdown section heading | 18px monospace uppercase |
 
-Resume sections use a responsive exposed grid: Experience and Projects span both columns at 860px and above, while every section becomes a single reading column below that breakpoint. Section panels have 16px gaps and entries have 24px gaps. Rules are 1px. Link feedback uses acid-green underline/fill changes and a 1px pressed offset over 150ms. Theme cross-dissolve is 180ms and does not move the document. On the first Resume visit in a tab, a decorative 720ms editorial reveal draws an acid seam for 180ms before the panels split over 540ms above the already-rendered page; session storage prevents replay and interaction dismisses it. Reduced motion, unavailable storage, disabled JavaScript, and print show the page immediately; a 950ms timeout clears the overlay if its completion handler fails. There are no section entrance animations, hidden sections, carousels, or synthetic loading states.
+Resume sections use a responsive exposed grid: Experience and Projects span both columns at 860px and above, while every section becomes a single reading column below that breakpoint. Section panels have 16px gaps and entries have 24px gaps. Rules are 1px. Link feedback uses acid-green underline/fill changes and a 1px pressed offset over 150ms. Theme cross-dissolve is 180ms and does not move the document. On the first Resume visit in a tab, a decorative 720ms editorial reveal draws an acid seam for 180ms before the panels split over 540ms above the already-rendered page; session storage prevents replay and interaction dismisses it. Reduced motion, unavailable storage, disabled JavaScript, and print show the page immediately; a 950ms timeout clears the overlay if its completion handler fails. Internal page switches use the same split material as a 400ms close and 700ms open. There are no section entrance animations, hidden sections, carousels, or synthetic loading states.
 
 Below 640px, primary navigation remains a three-column row, the theme control moves below it, and the identity keeps a compact two-column arrangement with a narrow portrait. Split rows and skill grids become a single column so labels and metadata cannot collide. At larger widths the portrait anchors the right-hand grid boundary and row metadata aligns right. Content and navigation are tested against a 320px minimum viewport without intentional horizontal scrolling.
 

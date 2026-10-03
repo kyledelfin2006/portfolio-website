@@ -151,19 +151,23 @@ footer { display: flex; justify-content: space-between; gap: var(--space-4); mar
 @keyframes intro-rule { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes intro-open-top { 0%, 25% { transform: translateY(0); } 100% { transform: translateY(-100%); } }
 @keyframes intro-open-bottom { 0%, 25% { transform: translateY(0); } 100% { transform: translateY(100%); } }
+.route-reveal { display: none; }
+:root:is(.route-leave, .route-enter) .route-reveal { position: fixed; inset: 0; z-index: 9; display: grid; grid-template-rows: 1fr 1fr; pointer-events: none; }
+.route-panel { min-height: 0; background: var(--canvas); }
+.route-panel-top { display: flex; align-items: end; justify-content: center; padding-bottom: var(--space-5); }
+.route-panel-bottom { border-top: var(--rule-width) solid var(--accent); background: var(--surface-strong); }
+:root.route-leave .route-panel-top { animation: route-close-top 400ms cubic-bezier(.76, 0, .24, 1) both; }
+:root.route-leave .route-panel-bottom { animation: route-close-bottom 400ms cubic-bezier(.76, 0, .24, 1) both; }
+:root.route-enter .route-panel-top { animation: route-open-top 700ms cubic-bezier(.16, 1, .3, 1) both; }
+:root.route-enter .route-panel-bottom { animation: route-open-bottom 700ms cubic-bezier(.16, 1, .3, 1) both; }
+@keyframes route-close-top { from { transform: translateY(-100%); } to { transform: translateY(0); } }
+@keyframes route-close-bottom { from { transform: translateY(100%); } to { transform: translateY(0); } }
+@keyframes route-open-top { from { transform: translateY(0); } to { transform: translateY(-100%); } }
+@keyframes route-open-bottom { from { transform: translateY(0); } to { transform: translateY(100%); } }
 
 @keyframes theme-cross-dissolve { 0%, 100% { opacity: 1; } 45% { opacity: .76; } }
-@keyframes folio-depart { to { opacity: 0; transform: translateY(-6px); } }
-@keyframes folio-arrive { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0 0); } }
 :root.theme-transition, :root.theme-transition *, :root.theme-transition *::before, :root.theme-transition *::after { transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, filter 180ms ease; }
 :root.theme-transition .document-shell { animation: theme-cross-dissolve 180ms ease both; }
-@media (prefers-reduced-motion: no-preference) {
-  @view-transition { navigation: auto; }
-  .document-shell { view-transition-name: document-shell; }
-  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
-  ::view-transition-old(document-shell) { animation: folio-depart 130ms ease-in both; }
-  ::view-transition-new(document-shell) { animation: folio-arrive 260ms cubic-bezier(.16, 1, .3, 1) both; }
-}
 @media (min-width: 640px) { .document-shell { padding: var(--space-7) var(--space-6); } }
 @media (min-width: 860px) {
   .resume-sections { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
@@ -205,10 +209,10 @@ footer { display: flex; justify-content: space-between; gap: var(--space-4); mar
   footer { flex-wrap: wrap; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .intro-reveal { display: none !important; }
+  .intro-reveal, .route-reveal { display: none !important; }
   a, :root.theme-transition, :root.theme-transition *, :root.theme-transition *::before, :root.theme-transition *::after { transition: none !important; }
   a:active, #theme-toggle:active { transform: none; }
-  .document-shell, ::view-transition-old(root), ::view-transition-new(root), ::view-transition-old(document-shell), ::view-transition-new(document-shell) { animation: none !important; }
+  .document-shell { animation: none !important; }
 }
 
 @page { size: A4; margin: 12mm 14mm; }
@@ -216,7 +220,7 @@ footer { display: flex; justify-content: space-between; gap: var(--space-4); mar
   :root, :root.dark { color-scheme: light; --canvas: #fff; --surface: #fff; --surface-strong: #fff; --ink: #000; --muted: #333; --rule: #777; --rule-strong: #000; --accent: #fff; --accent-ink: #000; --accent-soft: #000; --stack-accent: #000; }
   html, body { background: #fff !important; color: #000 !important; }
   body { font-size: 10pt; line-height: 1.25; }
-  body::before, .no-print, .skip-link, .section-navigator, .case-toc, .intro-reveal { display: none !important; }
+  body::before, .no-print, .skip-link, .section-navigator, .case-toc, .intro-reveal, .route-reveal { display: none !important; }
   .document-shell { max-width: none; padding: 0; margin: 0; animation: none; }
   .resume-header, .resume-sections > section, .about-sections > section, .page-intro, .case-header, .case-body { background: #fff; }
   .resume-header { border: 0; border-bottom: 1px solid #000; }

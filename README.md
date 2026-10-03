@@ -1,6 +1,6 @@
 # Aldrin Kyle Delfin — Portfolio
 
-Static Astro portfolio with a cyber-brutalist editorial resume, light/dark themes, an About page, and project case studies.
+Static Astro portfolio with a cyber-brutalist editorial resume, light/dark themes, a once-per-tab homepage reveal, an About page, and project case studies.
 
 ```sh
 npm ci

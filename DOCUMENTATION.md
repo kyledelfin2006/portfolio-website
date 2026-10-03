@@ -1,6 +1,6 @@
 # Portfolio developer and maintainer manual
 
-This repository implements Aldrin Kyle Delfin’s dark-first cyber-brutalist editorial resume, About page, and Markdown project case studies. The site is static, immediately readable, and usable without JavaScript. The only scripted browser behavior is the optional light/dark toggle.
+This repository implements Aldrin Kyle Delfin’s dark-first cyber-brutalist editorial resume, About page, and Markdown project case studies. The site is static, immediately readable, and usable without JavaScript. Its optional browser scripts handle the light/dark toggle and the first-visit Resume reveal.
 
 ## 1. Architecture and decisions
 
@@ -24,13 +24,13 @@ Astro and TypeScript are the complete application dependency list. The checker i
 6. Required singleton files are loaded by exact ID and fail the build with a named-file error when missing.
 7. `ResumeLayout.astro` supplies the common document and presentation while its metadata, header, controls, and footer labels come from Markdown.
 
-No React, component library, global state manager, backend, contact form service, animation library, analytics, remote fonts, or generated illustration is used. Navigation uses native anchors, progressive CSS view transitions, and a CSS-only arrival fallback. Contact opens the visitor’s email client.
+No React, component library, global state manager, backend, contact form service, animation library, analytics, remote fonts, or generated illustration is used. Navigation uses native anchors, progressive CSS view transitions, and a CSS-only arrival fallback. The Resume reveal uses CSS animation and a small inline session-storage script. Contact opens the visitor’s email client.
 
 ### Theme and accessibility
 
 The HTML starts with `class="dark"`. A small inline script reads the saved `theme` preference before body rendering to avoid a light-theme flash. The button writes only `dark` or `light` to local storage. Storage failures are caught; the toggle still works for the current page. The button is hidden when JavaScript is unavailable, while all content and navigation remain available.
 
-Theme changes use a temporary `theme-transition` class for a 180ms CSS cross-dissolve and palette transition. Rapid clicks are parity-queued, and an `animationend` listener with a bounded fallback always clears the temporary state. In light mode, the portrait uses `brightness(1.12) contrast(.94)`; dark mode and print explicitly restore the unfiltered image. Visitors who prefer reduced motion receive the final theme immediately with animation and transitions disabled.
+Theme changes use a temporary `theme-transition` class for a 180ms CSS cross-dissolve and palette transition. Rapid clicks are parity-queued, and an `animationend` listener with a bounded fallback always clears the temporary state. The portrait uses `grayscale(1) contrast(1.08)` in both screen themes and `grayscale(1)` in print. Visitors who prefer reduced motion receive the final theme immediately with animation and transitions disabled.
 
 Page navigation uses the native cross-document View Transitions API where supported and a 160ms CSS-only document arrival elsewhere. Both are disabled when reduced motion is preferred, and neither adds client-side routing or changes native link behavior.
 
@@ -41,6 +41,7 @@ The toggle has a descriptive accessible name and `aria-pressed` state, both sync
 ```text
 portfolio-website/
 ├── DOCUMENTATION.md               This maintainer manual
+├── AGENTS.md                      Repository guidance for coding agents
 ├── README.md                      Quick start
 ├── .gitignore                     Excludes dependencies, builds, local settings, and QA scratch files
 ├── package.json                   Dependencies and four npm commands
@@ -49,8 +50,11 @@ portfolio-website/
 ├── tsconfig.json                  Strict Astro TypeScript settings
 ├── assets/                        Immutable owner-supplied source media
 │   ├── DELFIN_DWIA_AWARD.jpg      Original DWIA award photo
+│   ├── DWIA_PICTURE_POSTER.jpg    Original Python training photo
 │   ├── libro_logo.jpeg            Current Libro logo
-│   └── TABANG_LOGO.png            Original Tabang logo
+│   ├── TABANG_LOGO.png            Original Tabang logo
+│   ├── Tabang-Finalist.jpg        Original finalist graphic
+│   └── Tabang.jpg                 Original team photo
 ├── references/                    Canonical personal/project facts and evidence
 │   ├── INFO.md                    Personal identity, roles, skills, and learning goals
 │   ├── PROJECTS.md                Extensible catalog of verified project facts
@@ -58,9 +62,9 @@ portfolio-website/
 │   └── 1x1.png                    Original supplied portrait
 ├── public/
 │   ├── 1x1-bw.jpg                  Clean black-and-white portfolio portrait
+│   ├── 1x1.png                     Unused published copy of the supplied portrait
 │   ├── certificates/              Public certificate PDFs and images linked from content
 │   ├── images/                    Publishable copies of supporting content images
-│   ├── favicon.ico                 Small icon derived from the supplied portrait
 │   └── resume.pdf                  One-page A4 export of the resume
 ├── src/
 │   ├── content/
@@ -78,6 +82,8 @@ portfolio-website/
 │   ├── components/
 │   │   ├── Header.astro           Navigation, name, contact links, portrait
 │   │   ├── ThemeToggle.astro      Optional theme preference control
+│   │   ├── SectionNavigator.astro Resume anchor navigation
+│   │   ├── AboutSection.astro     About prose, honors, photos, and contact
 │   │   ├── SectionHeading.astro   Shared title and thin rule
 │   │   ├── Education.astro        University and degree
 │   │   ├── Experience.astro       FlyRank and DevGuild
@@ -85,7 +91,7 @@ portfolio-website/
 │   │   ├── Skills.astro           Plain categorized skill list
 │   │   └── Workshops.astro        Shared workshop rendering
 │   ├── layouts/
-│   │   ├── ResumeLayout.astro     HTML document, SEO, theme initialization, footer
+│   │   ├── ResumeLayout.astro     HTML document, SEO, theme, Resume reveal, footer
 │   │   └── BlogPostLayout.astro   Project heading, source link, Markdown prose
 │   ├── pages/
 │   │   ├── index.astro            Resume
@@ -140,11 +146,19 @@ The Tabang tags describe its responsibilities rather than inventing a framework 
 
 ## 4. Assets and PDF maintenance
 
-### Portrait and favicon
+### Portrait and on-page image treatment
 
-Replace `public/1x1-bw.jpg` with an authentic, square black-and-white portrait. Keep the treatment neutral and restrained: clear facial detail, balanced exposure, natural skin texture, and no dramatic filters or decorative effects. CSS renders it at 80 × 80 CSS pixels below 640px and 112 × 112 above that breakpoint. On paper it is 25.4 × 25.4mm, or one inch square. Check that the face remains clearly visible at every size, and keep explicit width and height attributes in the header.
+Replace `public/1x1-bw.jpg` with an authentic black-and-white portrait. Keep facial detail and exposure clear after the screen filter and `object-fit: cover` crop. Its image column is 92px wide below 640px and 144px above, with a minimum height of 148px or 188px respectively; content can make it taller. On paper it is 25.4 × 25.4mm, or one inch square. Keep explicit width and height attributes in the header.
 
-The favicon is derived from the same photo. Replace `public/favicon.ico` when changing the portrait, or provide another authentic icon. No font download or external image service is involved.
+Every photograph rendered inside the site has a CSS filter. The exact screen and print rules are:
+
+| Image | Light screen | Dark screen | Print |
+| --- | --- | --- | --- |
+| Header portrait (`.portrait`) | `grayscale(1) contrast(1.08)` | Same | `grayscale(1)` |
+| Honors photos (`.honor-figure img`) | `saturate(.88) contrast(1.04)` | `brightness(.86) saturate(.8) contrast(1.08)` | Hidden with the Honors gallery |
+| Project logos (`.project-logo img`) | No filter | `brightness(.9) saturate(.9)` | `grayscale(1)` |
+
+The Honors figures also have a subtle scanline overlay. Project logos are images rather than photographs, so their filter varies by theme. Linked certificate images open as standalone files and do not receive page CSS filters. The original `public/1x1.png` remains available but is not rendered by the site. No favicon is currently configured, and no external image service is involved.
 
 ### Honors and project evidence
 
@@ -158,7 +172,7 @@ The Honors & Learning section supports repeated structured `items`, which keeps 
 - `assets/Tabang.jpg` → `public/images/tabang.jpg`
 - `references/certificates/TABANG.RISKREADY.CERTIFICATE.png` → `public/certificates/tabang-komsaihack-2026.png`
 
-The DWIA award and Python training images, and the two Tabang finalist images, render uncropped in equal 3:2 containers, side by side on wider screens and stacked on narrow screens. Their CSS treatment uses restrained saturation and contrast in light mode and reduced brightness and saturation in dark mode. The figures and certificate actions are omitted from print.
+The DWIA award and Python training images, and the two Tabang finalist images, render uncropped in equal 3:2 containers, side by side on wider screens and stacked on narrow screens. They use the Honors photo filters listed above. The figures and certificate actions are omitted from print.
 
 When replacing supporting media, update the immutable source first, copy it to the documented public path without cropping or recompression, retain explicit intrinsic dimensions and descriptive alternative text in content, then check both themes and narrow layouts. Project `logo` and `certificatePath` are optional; projects that omit either field render no placeholder or corresponding action.
 
@@ -209,6 +223,11 @@ $env:ASTRO_TELEMETRY_DISABLED = '1'
 On POSIX shells use `export ASTRO_TELEMETRY_DISABLED=1`. A Windows `spawn EPERM` from Vite indicates a subprocess permission problem; allow the normal build tools to execute rather than editing content to work around it.
 
 ### Verification completed
+
+On October 3, 2026, after the Resume reveal:
+
+- `npm run check`: 0 errors, 0 warnings, and 0 hints across 20 Astro/TypeScript files; `npm run build` generated all six routes.
+- The UIAudit detector reported no findings in the changed UI files. Browser review confirmed both themes, no horizontal overflow at 320px, and no reveal replay after reload or return from About.
 
 On September 18, 2026, after the Libro logo refresh:
 
@@ -301,7 +320,7 @@ Long-form content uses `"Times New Roman", Times, "Nimbus Roman No9 L", serif`. 
 | Case-study introduction | 19px, line-height 1.55 |
 | Markdown section heading | 18px monospace uppercase |
 
-Resume sections use a responsive exposed grid: Experience and Projects span both columns at 860px and above, while every section becomes a single reading column below that breakpoint. Section panels have 16px gaps and entries have 24px gaps. Rules are 1px. Link feedback uses acid-green underline/fill changes and a 1px pressed offset over 150ms. Theme cross-dissolve is 180ms. Reduced motion reduces all transitions and animations to an effectively static state. There are no entrance animations, hidden sections, carousels, or synthetic loading states.
+Resume sections use a responsive exposed grid: Experience and Projects span both columns at 860px and above, while every section becomes a single reading column below that breakpoint. Section panels have 16px gaps and entries have 24px gaps. Rules are 1px. Link feedback uses acid-green underline/fill changes and a 1px pressed offset over 150ms. Theme cross-dissolve is 180ms. On the first Resume visit in a tab, a decorative 650ms editorial split reveal opens over the already-rendered page; session storage prevents replay and interaction dismisses it. Reduced motion, unavailable storage, disabled JavaScript, and print show the page immediately; a 900ms timeout clears the overlay if its completion handler fails. There are no other entrance animations, hidden sections, carousels, or synthetic loading states.
 
 Below 640px, primary navigation remains a three-column row, the theme control moves below it, and the identity keeps a compact two-column arrangement with a narrow portrait. Split rows and skill grids become a single column so labels and metadata cannot collide. At larger widths the portrait anchors the right-hand grid boundary and row metadata aligns right. Content and navigation are tested against a 320px minimum viewport without intentional horizontal scrolling.
 
@@ -322,7 +341,7 @@ This implementation supplies a local working site and deployment instructions. N
 - `SITE_URL`: your actual origin, such as `https://kyledelfin2006.github.io`. Enables canonical and Open Graph URL metadata. Omitted locally to avoid an invented production URL.
 - `BASE_PATH`: `/` by default; use `/portfolio-website/` for a GitHub project site.
 
-All application-owned internal navigation, photo, favicon, and PDF URLs use `import.meta.env.BASE_URL`. Keep leading and trailing slashes when configuring a subdirectory. Markdown-authored internal links need the same care.
+All application-owned internal navigation, photo, and PDF URLs use `import.meta.env.BASE_URL`. Keep leading and trailing slashes when configuring a subdirectory. Markdown-authored internal links need the same care.
 
 Example PowerShell build for a GitHub project site:
 

@@ -26,13 +26,43 @@ const { data: site } = await getRequiredEntry('site', 'site');
         document.documentElement.classList.toggle('dark', localStorage.getItem('theme') !== 'light');
       } catch { /* Keep the default dark theme when storage is unavailable. */ }
     </script>
+    {resume && <script is:inline>
+      try {
+        if (!sessionStorage.getItem('resume-intro-seen')) {
+          sessionStorage.setItem('resume-intro-seen', '1');
+          if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.documentElement.classList.add('intro-active');
+            window.setTimeout(() => document.documentElement.classList.remove('intro-active'), 900);
+          }
+        }
+      } catch { /* Show the page immediately when storage is unavailable. */ }
+    </script>}
   </head>
   <body class:list={[{ 'resume-page': resume }]}>
     <a class="skip-link" href="#main-content">{site.skipLink}</a>
+    {resume && <div class="intro-reveal" aria-hidden="true">
+      <div class="intro-panel intro-panel-top"><span class="intro-label">00 / {site.fullName}</span></div>
+      <div class="intro-panel intro-panel-bottom"></div>
+    </div>}
     <div class="document-shell">
       <Header />
       <main id="main-content" tabindex="-1"><slot /></main>
       <footer class="no-print"><span>{site.fullName}</span><a href={`${base}resume.pdf`} download>{site.downloadResume}</a></footer>
     </div>
+    {resume && <script is:inline>
+      const root = document.documentElement;
+      const reveal = document.querySelector('.intro-reveal');
+      if (root.classList.contains('intro-active') && reveal) {
+        const finish = () => {
+          root.classList.remove('intro-active');
+          reveal.removeEventListener('animationend', finish);
+          document.removeEventListener('pointerdown', finish, true);
+          window.removeEventListener('keydown', finish, true);
+        };
+        reveal.addEventListener('animationend', finish);
+        document.addEventListener('pointerdown', finish, { capture: true, once: true });
+        window.addEventListener('keydown', finish, { capture: true, once: true });
+      }
+    </script>}
   </body>
 </html>

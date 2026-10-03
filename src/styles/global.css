@@ -156,10 +156,10 @@ footer { display: flex; justify-content: space-between; gap: var(--space-4); mar
 .route-panel { min-height: 0; background: var(--canvas); }
 .route-panel-top { display: flex; align-items: end; justify-content: center; padding-bottom: var(--space-5); }
 .route-panel-bottom { border-top: var(--rule-width) solid var(--accent); background: var(--surface-strong); }
-:root.route-leave .route-panel-top { animation: route-close-top 400ms cubic-bezier(.76, 0, .24, 1) both; }
-:root.route-leave .route-panel-bottom { animation: route-close-bottom 400ms cubic-bezier(.76, 0, .24, 1) both; }
-:root.route-enter .route-panel-top { animation: route-open-top 700ms cubic-bezier(.16, 1, .3, 1) both; }
-:root.route-enter .route-panel-bottom { animation: route-open-bottom 700ms cubic-bezier(.16, 1, .3, 1) both; }
+:root.route-leave .route-panel-top { animation: route-close-top 150ms cubic-bezier(.76, 0, .24, 1) both; }
+:root.route-leave .route-panel-bottom { animation: route-close-bottom 150ms cubic-bezier(.76, 0, .24, 1) both; }
+:root.route-enter .route-panel-top { animation: route-open-top 250ms cubic-bezier(.16, 1, .3, 1) both; }
+:root.route-enter .route-panel-bottom { animation: route-open-bottom 250ms cubic-bezier(.16, 1, .3, 1) both; }
 @keyframes route-close-top { from { transform: translateY(-100%); } to { transform: translateY(0); } }
 @keyframes route-close-bottom { from { transform: translateY(100%); } to { transform: translateY(0); } }
 @keyframes route-open-top { from { transform: translateY(0); } to { transform: translateY(-100%); } }

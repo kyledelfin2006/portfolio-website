@@ -45,7 +45,7 @@ const { data: site } = await getRequiredEntry('site', 'site');
             !document.documentElement.classList.contains('intro-active') &&
             !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
           document.documentElement.classList.add('route-enter');
-          window.setTimeout(() => document.documentElement.classList.remove('route-enter'), 850);
+          window.setTimeout(() => document.documentElement.classList.remove('route-enter'), 350);
         }
       } catch { /* A failed storage read never hides the page. */ }
     </script>
@@ -101,7 +101,7 @@ const { data: site } = await getRequiredEntry('site', 'site');
         event.preventDefault();
         routeRoot.classList.remove('route-enter');
         routeRoot.classList.add('route-leave');
-        leaveTimer = window.setTimeout(() => location.assign(url.href), 400);
+        leaveTimer = window.setTimeout(() => location.assign(url.href), 150);
       });
       window.addEventListener('keydown', (event) => {
         if (event.key !== 'Escape' || !leaveTimer) return;

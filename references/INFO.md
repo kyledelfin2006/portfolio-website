@@ -52,7 +52,7 @@ No internship dates, scholarship dates, or completed DataCamp tracks are current
 
 ## Honors and training
 
-### 2026 RSTW PAINDIS-INDIS IT Inobasyon Student Startup Competition
+### RSTW Paindis-Indis It Inobasyon Student Startup Competition
 
 - Result: Second place among eight finalists from across Western Visayas
 - Award: ₱20,000 and incubation with TechNest TBI

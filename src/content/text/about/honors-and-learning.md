@@ -3,16 +3,16 @@ category: about
 title: Honors & Learning
 order: 5
 items:
-  - title: 2nd Place — PAINDIS-INDIS IT Inobasyon
+  - title: 2nd Place — RSTW Paindis-Indis It Inobasyon
     meta: October 2, 2026 · ABL Sports Complex, Kalibo, Aklan
-    summary: Poultri, the agritech startup I founded, won second place among eight finalists from across Western Visayas at the 2026 RSTW PAINDIS-INDIS IT Inobasyon Student Startup Competition. At the October 2, 2026 event at ABL Sports Complex in Kalibo, Aklan, our team received ₱20,000 and incubation with TechNest TBI.
+    summary: Poultri, the agritech startup I founded, placed second among eight finalists from across Western Visayas in the RSTW Paindis-Indis It Inobasyon Student Startup Competition. Our team received ₱20,000 and incubation with TechNest TBI.
     images:
       - path: images/rstw-award.jpeg
-        alt: Aldrin Kyle Delfin holding the second-place recognition certificate and award check for Team Agritech at the 2026 RSTW PAINDIS-INDIS IT Inobasyon competition.
+        alt: Aldrin Kyle Delfin holding the second-place recognition certificate and award check for Team Agritech at the 2026 RSTW Paindis-Indis It Inobasyon competition.
         width: 3024
         height: 4032
       - path: images/rstw-team.jpg
-        alt: Team Agritech onstage at the 2026 RSTW PAINDIS-INDIS IT Inobasyon Student Startup Competition awards ceremony.
+        alt: Team Agritech onstage at the RSTW Paindis-Indis It Inobasyon Student Startup Competition awards ceremony.
         width: 2048
         height: 1356
   - title: Most Analytical Programmer Award

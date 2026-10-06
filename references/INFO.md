@@ -52,6 +52,16 @@ No internship dates, scholarship dates, or completed DataCamp tracks are current
 
 ## Honors and training
 
+### 2026 RSTW PAINDIS-INDIS IT Inobasyon Student Startup Competition
+
+- Result: Second place among eight finalists from across Western Visayas
+- Award: ₱20,000 and incubation with TechNest TBI
+- Startup: Poultri, an agritech startup founded by Aldrin Kyle Delfin
+- Team: Agritech, Aklan State University – Kalibo Campus
+- Date: October 2, 2026
+- Venue: ABL Sports Complex, Kalibo, Aklan
+- Evidence: `../assets/RSTW.jpeg` and `../assets/rstw-finalist.jpg`
+
 ### Most Analytical Programmer Award
 
 - Awarded by: Department of Information and Communications Technology Region VI

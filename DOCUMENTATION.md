@@ -170,9 +170,11 @@ The Honors & Learning section supports repeated structured `items`, which keeps 
 - `assets/TABANG_LOGO.png` → `public/images/tabang-logo.png`
 - `assets/Tabang-Finalist.jpg` → `public/images/tabang-finalist.jpg`
 - `assets/Tabang.jpg` → `public/images/tabang.jpg`
+- `assets/RSTW.jpeg` → `public/images/rstw-award.jpeg`
+- `assets/rstw-finalist.jpg` → `public/images/rstw-team.jpg`
 - `references/certificates/TABANG.RISKREADY.CERTIFICATE.png` → `public/certificates/tabang-komsaihack-2026.png`
 
-The DWIA award and Python training images, and the two Tabang finalist images, render uncropped in equal 3:2 containers, side by side on wider screens and stacked on narrow screens. They use the Honors photo filters listed above. The figures and certificate actions are omitted from print.
+Honors & Learning items are ordered newest first, so the October 2, 2026 RSTW award appears above the June and April entries. The RSTW entry leads with Poultri, the agritech startup founded by Aldrin Kyle Delfin, and records its second-place finish among eight Western Visayas finalists, the ₱20,000 prize, incubation with TechNest TBI, and the ABL Sports Complex venue. Its two images, the DWIA award and Python training images, and the two Tabang finalist images render uncropped in equal 3:2 containers, side by side on wider screens and stacked on narrow screens. They use the Honors photo filters listed above. The figures and certificate actions are omitted from print.
 
 When replacing supporting media, update the immutable source first, copy it to the documented public path without cropping or recompression, retain explicit intrinsic dimensions and descriptive alternative text in content, then check both themes and narrow layouts. Project `logo` and `certificatePath` are optional; projects that omit either field render no placeholder or corresponding action.
 

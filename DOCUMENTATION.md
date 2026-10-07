@@ -1,6 +1,6 @@
 # Portfolio developer and maintainer manual
 
-This repository implements Aldrin Kyle Delfin’s dark-first cyber-brutalist editorial resume, About page, and Markdown project case studies. The site is static, immediately readable, and usable without JavaScript. Its optional browser scripts handle the light/dark toggle, first-visit Resume reveal, and internal page transitions.
+This repository implements Aldrin Kyle Delfin’s dark-first cyber-brutalist Main page, About page, and Markdown project case studies. The site is static, immediately readable, and usable without JavaScript. Its optional browser scripts handle the light/dark toggle, first-visit Main page reveal, and internal page transitions.
 
 ## 1. Architecture and decisions
 
@@ -85,7 +85,7 @@ portfolio-website/
 │   ├── components/
 │   │   ├── Header.astro           Navigation, name, contact links, portrait
 │   │   ├── ThemeToggle.astro      Optional theme preference control
-│   │   ├── SectionNavigator.astro Resume anchor navigation
+│   │   ├── SectionNavigator.astro Main page anchor navigation
 │   │   ├── ContentSection.astro  Shared section renderer
 │   │   ├── AboutSection.astro     About prose and contact
 │   │   ├── Honors.astro           Honors and supporting photos
@@ -100,8 +100,8 @@ portfolio-website/
 │   │   ├── ResumeLayout.astro     HTML document, SEO, theme, Resume reveal, footer
 │   │   └── BlogPostLayout.astro   Project heading, source link, Markdown prose
 │   ├── pages/
-│   │   ├── index.astro            Resume
-│   │   ├── about.astro            Background, principles, learning, honors, contact
+│   │   ├── index.astro            Main page
+│   │   ├── about.astro            Learning, background, principles, skills, workshops, contact
 │   │   └── projects/
 │   │       ├── index.astro        Project index
 │   │       └── [slug].astro       Statically generated case studies
@@ -123,7 +123,7 @@ All published copy lives in `src/content/text/` as Markdown. Never add biography
 | --- | --- | --- |
 | `site.md` | `site` | `fullName`, `shortName`, `professionalSubtitle`, `location`, `email`, `portraitAlt`, `navigationAriaLabel`, `navigation`, `profiles`, `theme`, `skipLink`, `downloadResume`, `projectLinks`, `credentialLink` |
 | `pages/home.md` | `page-home` | `title`, `description`, `sectionOrder`, `sections` labels |
-| `pages/about.md` | `page-about` | `title`, `description`, ordered `sections`, `honorsHeading`, `learningHeading`, `workshopsHeading`, `workshopsAriaLabel` |
+| `pages/about.md` | `page-about` | `title`, `description`, ordered `sections`, `learningHeading`, `skillsHeading`, `skillsAriaLabel`, `workshopsHeading`, `workshopsAriaLabel` |
 | `pages/projects.md` | `page-projects` | `title`, `description`, `eyebrow`, ordered `sections`, `sectionHeading`, `sectionAriaLabel`; body is the introduction |
 | `about/*.md` | `about` | `title`; optional `itemTitle`, `meta`, `contactProfileLabels`; body is section prose |
 | `honors/*.md` | `honor` | `title`, `order`, `summary`; optional `meta`, `certificatePath`, and `images` with `path`, `alt`, `width`, `height` |
@@ -139,7 +139,7 @@ URLs must be absolute and valid. Orders are nonnegative integers. Required strin
 ### Add, edit, reorder, rename, or delete
 
 - Edit shared identity, navigation, theme, footer, contact, and reusable action labels in `site.md`. Edit a page singleton for its title, SEO description, introduction, or section labels.
-- Reorder or hide page sections by editing `sectionOrder` in `pages/home.md` or `sections` in `pages/about.md` and `pages/projects.md`. Remove an ID from the list to hide that section without deleting its content; add it back to show it. These lists can be empty. About currently begins with `honors`, then `learning`.
+- Reorder or hide page sections by editing `sectionOrder` in `pages/home.md` or `sections` in `pages/about.md` and `pages/projects.md`. Remove an ID from the list to hide that section without deleting its content; add it back to show it. These lists can be empty. Main contains Education, Experience, Selected Projects, and Activities & Achievements. About contains Learning, biography, engineering principles and focus, Technical Skills, Workshops & Certifications, and contact.
 - The supported IDs live in `src/content/sections.ts`, and `ContentSection.astro` maps them to their renderers. Adding a new kind of section requires an ID, a validated content category where needed, and a renderer. Existing section types need only a page-list change to move or show them.
 - Add repeatable content by copying a file in the appropriate directory, giving it a lowercase kebab-case filename, changing its content, and setting `order`. No component or TypeScript edit is needed.
 - Reorder an item by changing `order`. Equal orders use filenames as a deterministic tie-breaker.
@@ -150,7 +150,7 @@ After every content change, run `npm run check` and `npm run build`. For project
 
 ### Grounding decisions
 
-The source notes confirm the second-year degree status, internship title, COO position, 25+ community size, scholarship, project capabilities, completion of DICT Region VI’s 40-hour Python Programming Essentials Training, and the Most Analytical Programmer award. They do not provide employment dates, scholarship dates, completed DataCamp tracks, individual verification URLs, GPA, or academic distinctions. Those claims are omitted. The sample scholarship dates and completion claim in the blueprint were placeholders, not verified personal records.
+The source notes confirm the second-year degree status, internship title, DevGuild Co-Founder role, 25+ community size, scholarship, project capabilities, completion of DICT Region VI’s 40-hour Python Programming Essentials Training, and the Most Analytical Programmer award. They do not provide employment dates, scholarship dates, completed DataCamp tracks, individual verification URLs, GPA, or academic distinctions. Those claims are omitted. The sample scholarship dates and completion claim in the blueprint were placeholders, not verified personal records.
 
 The Tabang tags describe its responsibilities rather than inventing a framework stack. Case-study explanations expand the supplied capabilities with engineering rationale; they do not claim repository code inspection, performance benchmarks, or production adoption. Add deeper implementation details when the owner supplies evidence.
 
@@ -307,9 +307,9 @@ The September 8, 2026 dependency refactor removed Tailwind, its Astro integratio
 
 The site uses a raw cyber-brutalist/editorial resume system: a dark-first near-black canvas, warm off-white text, muted metadata, and a tight analogous family of flat acid, chartreuse, and leaf-green accents. Acid marks the professional subtitle, project names, experience titles, structural signals, and emphasis; project categories stay neutral ink on project listings and case-study headers across themes; dark project descriptions use warm-white ink; and `rgb(109, 179, 63)` identifies dark-mode technology stacks. Light mode keeps chartreuse descriptions and uses the darker related `#3f6f24` for stacks so both remain readable without background fields. Print returns accent text to black. Red is reserved for future warning or error states. Exposed grids, modular panels, hard rules, monospace metadata, and a restrained CSS scanline layer clarify structure without competing with the CV content. Avoid generic neon glows, gradients, rainbow or per-project color cycling, glossy 3D, holographic effects, stock imagery, decorative AI artwork, and excessive glitch noise. Keep the document-like hierarchy and A4 print behavior.
 
-Navigation stays limited to Resume, About, and Projects, with numbered monospace labels, a high-contrast active tab, `aria-current="page"`, and all destinations reachable from every route. A project case study marks Projects active. Hover, focus, pressed, and theme feedback is brief and purposeful; no essential information depends on hover. Do not add simulated loading, scroll-jacking, remote fonts, runtime UI dependencies, or motion without a reduced-motion fallback.
+Navigation stays limited to Main, About, and Projects, with numbered monospace labels, a high-contrast active tab, `aria-current="page"`, and all destinations reachable from every route. A project case study marks Projects active. Hover, focus, pressed, and theme feedback is brief and purposeful; no essential information depends on hover. Do not add simulated loading, scroll-jacking, remote fonts, runtime UI dependencies, or motion without a reduced-motion fallback.
 
-The Resume page also provides a screen-only native-anchor section navigator using the existing section names. It is a reading and wayfinding aid, not new portfolio content, and is hidden in print. Project case studies with at least three existing Markdown level-two headings render a screen-only table of contents from those headings; the article remains complete and navigable without JavaScript.
+The Main page also provides a screen-only native-anchor section navigator using the existing section names. It is a reading and wayfinding aid, not new portfolio content, and is hidden in print. Project case studies with at least three existing Markdown level-two headings render a screen-only table of contents from those headings; the article remains complete and navigable without JavaScript.
 
 ### Exact tokens
 
@@ -342,7 +342,7 @@ Long-form content uses `"Times New Roman", Times, "Nimbus Roman No9 L", serif`. 
 | Case-study introduction | 19px, line-height 1.55 |
 | Markdown section heading | 18px monospace uppercase |
 
-Resume sections use a responsive exposed grid: Experience and Projects span both columns at 860px and above, while every section becomes a single reading column below that breakpoint. Section panels have 16px gaps and entries have 24px gaps. Rules are 1px. Link feedback uses acid-green underline/fill changes and a 1px pressed offset over 150ms. Theme cross-dissolve is 180ms and does not move the document. On the first Resume visit in a tab, a decorative 720ms editorial reveal draws an acid seam for 180ms before the panels split over 540ms above the already-rendered page; session storage prevents replay and interaction dismisses it. Reduced motion, unavailable storage, disabled JavaScript, and print show the page immediately; a 950ms timeout clears the overlay if its completion handler fails. Internal page switches use the same split material as a 150ms close and 250ms open. There are no section entrance animations, hidden sections, carousels, or synthetic loading states.
+Main page sections use a responsive exposed grid: Experience and Projects span both columns at 860px and above, while every section becomes a single reading column below that breakpoint. Section panels have 16px gaps and entries have 24px gaps. Rules are 1px. Link feedback uses acid-green underline/fill changes and a 1px pressed offset over 150ms. Theme cross-dissolve is 180ms and does not move the document. On the first Main page visit in a tab, a decorative 720ms editorial reveal draws an acid seam for 180ms before the panels split over 540ms above the already-rendered page; session storage prevents replay and interaction dismisses it. Reduced motion, unavailable storage, disabled JavaScript, and print show the page immediately; a 950ms timeout clears the overlay if its completion handler fails. Internal page switches use the same split material as a 150ms close and 250ms open. There are no section entrance animations, hidden sections, carousels, or synthetic loading states.
 
 Below 640px, primary navigation remains a three-column row, the theme control moves below it, and the identity keeps a compact two-column arrangement with a narrow portrait. Split rows and skill grids become a single column so labels and metadata cannot collide. At larger widths the portrait anchors the right-hand grid boundary and row metadata aligns right. Content and navigation are tested against a 320px minimum viewport without intentional horizontal scrolling.
 
@@ -350,7 +350,7 @@ Below 640px, primary navigation remains a three-column row, the theme control mo
 
 The `@media print` block in `global.css` overrides both themes with a white canvas and black text. It removes the scanline layer, toolbar, accent fills, panel backgrounds, screen-only controls, outer padding, and most panel borders. It preserves the authentic portrait, restores horizontal split rows, and removes link decoration. `@page` sets A4 and 12mm top/bottom, 14mm side margins.
 
-Print body type is 10pt with 1.25 line height; section headings are 11pt, the name is 22pt, and metadata is 9pt. Section gaps reduce to 4mm and entry gaps to 2.5mm. Resume sections and entries avoid internal page breaks; headings avoid separation from following content. Blog articles remain allowed to span pages. Paragraphs and list items use two-line widow/orphan control.
+Print body type is 10pt with 1.25 line height; section headings are 11pt, the name is 22pt, and metadata is 9pt. Section gaps reduce to 4mm and entry gaps to 2.5mm. Main page sections and entries avoid internal page breaks; headings avoid separation from following content. Blog articles remain allowed to span pages. Paragraphs and list items use two-line widow/orphan control.
 
 ## 7. Deployment and CI/CD
 

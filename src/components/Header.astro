@@ -5,7 +5,7 @@ const { data: site } = await getRequiredEntry('site', 'site');
 const base = import.meta.env.BASE_URL;
 const current = Astro.url.pathname.replace(/\/$/, '');
 const links = [
-  { label: site.navigation.resume, href: base, active: current === base.replace(/\/$/, '') },
+  { label: site.navigation.main, href: base, active: current === base.replace(/\/$/, '') },
   { label: site.navigation.about, href: `${base}about/`, active: current === `${base}about`.replace(/\/\/$/, '/') },
   { label: site.navigation.projects, href: `${base}projects/`, active: current === `${base}projects`.replace(/\/\/$/, '/') || current.startsWith(`${base}projects/`) },
 ];

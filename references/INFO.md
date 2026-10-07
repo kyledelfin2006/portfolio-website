@@ -12,7 +12,7 @@ This document is the canonical source of truth for facts about Aldrin Kyle Delfi
 | Email | kyle.delfin.dev@gmail.com |
 | LinkedIn | <https://www.linkedin.com/in/aldrin-kyle-delfin/> |
 | GitHub | <https://github.com/kyledelfin2006> |
-| DevGuild | <https://github.com/DevGuild-ASU> |
+| DevGuild | <https://www.linkedin.com/company/aklan-devguild> |
 
 ## Professional profile
 
@@ -41,7 +41,7 @@ No graduation date, GPA, or academic distinction is currently established.
 
 ### DevGuild
 
-- Roles: Co-Founder and Chief Operations Officer
+- Role: Co-Founder
 - Organization: Student-led developer community based in Aklan
 - Community size: More than 25 student developers
 - Purpose: Build real-world software products, solve practical problems, and learn modern engineering workflows and industry tools

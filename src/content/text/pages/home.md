@@ -1,12 +1,11 @@
 ---
 category: page-home
-title: Aldrin Kyle Delfin — Backend Developer
+title: Main — Aldrin Kyle Delfin
 description: Aklan-based backend developer and Software Engineering student. Spring Boot, PostgreSQL, Docker, and practical software projects.
-sectionOrder: [education, experience, projects, skills, workshops]
+sectionOrder: [education, experience, projects, honors]
 sections:
   education: { heading: Education, ariaLabel: Education }
   experience: { heading: Experience, ariaLabel: Experience }
   projects: { heading: Selected Projects, ariaLabel: Selected Projects }
-  skills: { heading: Technical Skills, ariaLabel: Technical skills }
-  workshops: { heading: Workshops & Certifications, ariaLabel: Workshops & Certifications }
+  honors: { heading: Activities & Achievements, ariaLabel: Activities & Achievements }
 ---

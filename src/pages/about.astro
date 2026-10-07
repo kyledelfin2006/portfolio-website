@@ -9,8 +9,8 @@ const page = pageEntry.data;
   <div class="about-sections">
     {page.sections.map((section) => <ContentSection
       section={section}
-      heading={section === 'honors' ? page.honorsHeading : section === 'learning' ? page.learningHeading : section === 'workshops' ? page.workshopsHeading : undefined}
-      ariaLabel={section === 'honors' ? page.honorsHeading : section === 'learning' ? page.learningHeading : section === 'workshops' ? page.workshopsAriaLabel : undefined}
+      heading={section === 'learning' ? page.learningHeading : section === 'skills' ? page.skillsHeading : section === 'workshops' ? page.workshopsHeading : undefined}
+      ariaLabel={section === 'learning' ? page.learningHeading : section === 'skills' ? page.skillsAriaLabel : section === 'workshops' ? page.workshopsAriaLabel : undefined}
     />)}
   </div>
 </ResumeLayout>

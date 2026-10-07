@@ -1,6 +1,6 @@
 ---
 category: experience
-title: Co-Founder & Chief Operations Officer
+title: Co-Founder
 order: 2
 organization: DevGuild
 ---

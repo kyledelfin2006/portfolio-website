@@ -19,7 +19,7 @@ Astro and TypeScript are the complete application dependency list. The checker i
 1. `references/INFO.md` and `references/PROJECTS.md` are the factual sources of truth for personal and project claims. Update them before publishing a new claim.
 2. `src/content/text/` is the source of truth for the visitor-facing wording derived from those facts.
 3. Astro validates every publishable Markdown file against the strict, category-discriminated Zod schema in `src/content/config.ts`.
-4. Components query repeatable categories, sort by numeric `order` and filename, and render Markdown bodies natively.
+4. Page Markdown lists its visible sections in order; `src/content/sections.ts` validates the available IDs, and `ContentSection.astro` renders each section. Components query repeatable categories, sort entries by numeric `order` and filename, and render Markdown bodies natively.
 5. `[slug].astro` creates one static case-study route per file in `src/content/text/projects/`; the filename is the route slug.
 6. Required singleton files are loaded by exact ID and fail the build with a named-file error when missing.
 7. `ResumeLayout.astro` supplies the common document and presentation while its metadata, header, controls, and footer labels come from Markdown.
@@ -70,10 +70,13 @@ portfolio-website/
 │   ├── content/
 │   │   ├── config.ts              Strict schemas for every text category
 │   │   ├── load.ts                Required singleton and ordered-entry lookups
+│   │   ├── sections.ts            Supported section IDs for each page
 │   │   └── text/                  All publishable visitor-facing text
 │   │       ├── site.md            Shared identity, navigation, controls, and link labels
 │   │       ├── pages/             Required home, About, and projects page copy
-│   │       ├── about/             Ordered About sections
+│   │       ├── about/             About prose sections
+│   │       ├── honors/            One honor per Markdown file
+│   │       ├── learning/          One current learning goal per Markdown file
 │   │       ├── education/         Ordered education entries
 │   │       ├── experience/        Ordered experience entries
 │   │       ├── skills/            Ordered skill groups
@@ -83,7 +86,10 @@ portfolio-website/
 │   │   ├── Header.astro           Navigation, name, contact links, portrait
 │   │   ├── ThemeToggle.astro      Optional theme preference control
 │   │   ├── SectionNavigator.astro Resume anchor navigation
-│   │   ├── AboutSection.astro     About prose, honors, photos, and contact
+│   │   ├── ContentSection.astro  Shared section renderer
+│   │   ├── AboutSection.astro     About prose and contact
+│   │   ├── Honors.astro           Honors and supporting photos
+│   │   ├── Learning.astro         Current learning goals
 │   │   ├── SectionHeading.astro   Shared title and thin rule
 │   │   ├── Education.astro        University and degree
 │   │   ├── Experience.astro       FlyRank and DevGuild
@@ -116,21 +122,25 @@ All published copy lives in `src/content/text/` as Markdown. Never add biography
 | Directory/file | `category` | Required fields beyond `category` |
 | --- | --- | --- |
 | `site.md` | `site` | `fullName`, `shortName`, `professionalSubtitle`, `location`, `email`, `portraitAlt`, `navigationAriaLabel`, `navigation`, `profiles`, `theme`, `skipLink`, `downloadResume`, `projectLinks`, `credentialLink` |
-| `pages/home.md` | `page-home` | `title`, `description`, `sections` |
-| `pages/about.md` | `page-about` | `title`, `description`, `workshopsHeading`, `workshopsAriaLabel`, `workshopsOrder` |
-| `pages/projects.md` | `page-projects` | `title`, `description`, `eyebrow`, `sectionHeading`, `sectionAriaLabel`; body is the introduction |
-| `about/*.md` | `about` | `title`, `order`; optional `itemTitle`, `meta`, `items`, `contactPrompt`, `resumeLink`; body is section prose. Each `items` entry requires `title` and `summary`, and may include `meta`, `certificatePath`, and `images`, whose entries provide `path`, `alt`, `width`, and `height`. |
+| `pages/home.md` | `page-home` | `title`, `description`, `sectionOrder`, `sections` labels |
+| `pages/about.md` | `page-about` | `title`, `description`, ordered `sections`, `honorsHeading`, `learningHeading`, `workshopsHeading`, `workshopsAriaLabel` |
+| `pages/projects.md` | `page-projects` | `title`, `description`, `eyebrow`, ordered `sections`, `sectionHeading`, `sectionAriaLabel`; body is the introduction |
+| `about/*.md` | `about` | `title`; optional `itemTitle`, `meta`, `contactProfileLabels`; body is section prose |
+| `honors/*.md` | `honor` | `title`, `order`, `summary`; optional `meta`, `certificatePath`, and `images` with `path`, `alt`, `width`, `height` |
+| `learning/*.md` | `learning` | `title`, `order`; body describes the current learning goal |
 | `education/*.md` | `education` | `title`, `order`, `meta`, `subtitle`; body is supporting detail |
 | `experience/*.md` | `experience` | `title`, `order`, `organization`; body contains bullets |
 | `skills/*.md` | `skill` | `title`, `order`; body contains the skill list |
 | `workshops/*.md` | `workshop` | `title`, `order`, `issuerOrOrganizer`; optional `date`, `certificatePath`; body contains takeaways |
 | `projects/*.md` | `project` | `title`, `order`, `description`, `projectCategory`, `stack`, `repository`, `highlights`; optional `date`, `certificatePath`, and `logo` with `path`, `alt`, `width`, and `height`; body is the case study |
 
-URLs must be absolute and valid. Orders are nonnegative integers. Required strings and arrays cannot be empty. Unknown optional facts should be omitted, not represented by empty strings. Invalid fields, misspelled categories, incompatible frontmatter, and missing singleton files fail `npm run check` or `npm run build`.
+URLs must be absolute and valid. Orders are nonnegative integers. Required strings and content arrays cannot be empty; page section lists may be empty. Unknown optional facts should be omitted, not represented by empty strings. Invalid fields, misspelled categories, incompatible frontmatter, and missing singleton files fail `npm run check` or `npm run build`.
 
 ### Add, edit, reorder, rename, or delete
 
-- Edit shared identity, navigation, theme, footer, contact, and reusable action labels in `site.md`. Edit a page singleton in place for its title, SEO description, introduction, or section labels.
+- Edit shared identity, navigation, theme, footer, contact, and reusable action labels in `site.md`. Edit a page singleton for its title, SEO description, introduction, or section labels.
+- Reorder or hide page sections by editing `sectionOrder` in `pages/home.md` or `sections` in `pages/about.md` and `pages/projects.md`. Remove an ID from the list to hide that section without deleting its content; add it back to show it. These lists can be empty. About currently begins with `honors`, then `learning`.
+- The supported IDs live in `src/content/sections.ts`, and `ContentSection.astro` maps them to their renderers. Adding a new kind of section requires an ID, a validated content category where needed, and a renderer. Existing section types need only a page-list change to move or show them.
 - Add repeatable content by copying a file in the appropriate directory, giving it a lowercase kebab-case filename, changing its content, and setting `order`. No component or TypeScript edit is needed.
 - Reorder an item by changing `order`. Equal orders use filenames as a deterministic tie-breaker.
 - Delete an item by deleting its Markdown file. Its rendered entry disappears automatically.
@@ -162,7 +172,7 @@ The Honors figures also have a subtle scanline overlay. Project logos are images
 
 ### Honors and project evidence
 
-The Honors & Learning section supports repeated structured `items`, which keeps each honor’s summary, media, and certificate together. Public paths are relative to Astro’s configured base path. Keep originals immutable and publish copies under `public/`:
+Each file under `src/content/text/honors/` keeps one honor’s summary, media, and certificate together. The separate Learning section lists current learning goals from `src/content/text/learning/`; completed training stays under Workshops & Certifications. Public paths are relative to Astro’s configured base path. Keep originals immutable and publish copies under `public/`:
 
 - `assets/DELFIN_DWIA_AWARD.jpg` → `public/images/dwia-most-analytical-programmer.jpg`
 - `assets/DWIA_PICTURE_POSTER.jpg` → `public/images/dwia-python-training-poster.jpg`
@@ -174,7 +184,7 @@ The Honors & Learning section supports repeated structured `items`, which keeps 
 - `assets/rstw-finalist.jpg` → `public/images/rstw-team.jpg`
 - `references/certificates/TABANG.RISKREADY.CERTIFICATE.png` → `public/certificates/tabang-komsaihack-2026.png`
 
-Honors & Learning items are ordered newest first, so the October 2, 2026 RSTW award appears above the June and April entries. The RSTW Paindis-Indis It Inobasyon entry leads with Poultri, the agritech startup founded by Aldrin Kyle Delfin, and records its second-place finish among eight Western Visayas finalists, the ₱20,000 prize, incubation with TechNest TBI, and the ABL Sports Complex venue. Its two images, the DWIA award and Python training images, and the two Tabang finalist images render uncropped in equal 3:2 containers, side by side on wider screens and stacked on narrow screens. They use the Honors photo filters listed above. The figures and certificate actions are omitted from print.
+Honors entries are ordered newest first, so the October 2, 2026 RSTW award appears above the June and April entries. The RSTW Paindis-Indis It Inobasyon entry leads with Poultri, the agritech startup founded by Aldrin Kyle Delfin, and records its second-place finish among eight Western Visayas finalists, the ₱20,000 prize, incubation with TechNest TBI, and the ABL Sports Complex venue. Its two images, the DWIA award and Python training images, and the two Tabang finalist images render uncropped in equal 3:2 containers, side by side on wider screens and stacked on narrow screens. They use the Honors photo filters listed above. The figures and certificate actions are omitted from print.
 
 When replacing supporting media, update the immutable source first, copy it to the documented public path without cropping or recompression, retain explicit intrinsic dimensions and descriptive alternative text in content, then check both themes and narrow layouts. Project `logo` and `certificatePath` are optional; projects that omit either field render no placeholder or corresponding action.
 

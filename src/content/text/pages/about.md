@@ -1,8 +1,10 @@
 ---
 category: page-about
 title: About — Aldrin Kyle Delfin
-description: Kyle Delfin’s background, engineering principles, technical focus, and work with DevGuild in Aklan.
+description: Kyle Delfin’s honors, current learning goals, background, and engineering principles.
+sections: [honors, learning, biography, engineering-philosophy, technical-direction, workshops, resume-and-contact]
+honorsHeading: Honors
+learningHeading: Learning
 workshopsHeading: Certifications & Workshops
 workshopsAriaLabel: Certifications & Workshops
-workshopsOrder: 4
 ---

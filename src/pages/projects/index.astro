@@ -1,6 +1,6 @@
 ---
 import ResumeLayout from '../../layouts/ResumeLayout.astro';
-import Projects from '../../components/Projects.astro';
+import ContentSection from '../../components/ContentSection.astro';
 import { getRequiredEntry } from '../../content/load';
 const pageEntry = await getRequiredEntry('pages/projects', 'page-projects');
 const page = pageEntry.data;
@@ -8,5 +8,5 @@ const { Content } = await pageEntry.render();
 ---
 <ResumeLayout title={page.title} description={page.description}>
   <div class="page-intro"><p class="eyebrow">{page.eyebrow}</p><Content /></div>
-  <Projects heading={page.sectionHeading} ariaLabel={page.sectionAriaLabel} />
+  {page.sections.map((section) => <ContentSection section={section} heading={page.sectionHeading} ariaLabel={page.sectionAriaLabel} />)}
 </ResumeLayout>

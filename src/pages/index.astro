@@ -1,28 +1,14 @@
 ---
 import ResumeLayout from '../layouts/ResumeLayout.astro';
-import Education from '../components/Education.astro';
-import Experience from '../components/Experience.astro';
-import Projects from '../components/Projects.astro';
-import Skills from '../components/Skills.astro';
-import Workshops from '../components/Workshops.astro';
+import ContentSection from '../components/ContentSection.astro';
 import SectionNavigator from '../components/SectionNavigator.astro';
 import { getRequiredEntry } from '../content/load';
 const pageEntry = await getRequiredEntry('pages/home', 'page-home');
 const page = pageEntry.data;
 ---
 <ResumeLayout title={page.title} description={page.description} resume>
-  <SectionNavigator sections={[
-    { id: 'experience', label: page.sections.experience.heading },
-    { id: 'projects', label: page.sections.projects.heading },
-    { id: 'skills', label: page.sections.skills.heading },
-    { id: 'education', label: page.sections.education.heading },
-    { id: 'workshops', label: page.sections.workshops.heading },
-  ]} />
+  {page.sectionOrder.length > 0 && <SectionNavigator sections={page.sectionOrder.map((id) => ({ id, label: page.sections[id].heading }))} />}
   <div class="resume-sections">
-    <Education {...page.sections.education} id="education" />
-    <Experience {...page.sections.experience} id="experience" />
-    <Projects {...page.sections.projects} id="projects" />
-    <Skills {...page.sections.skills} id="skills" />
-    <Workshops {...page.sections.workshops} id="workshops" />
+    {page.sectionOrder.map((section) => <ContentSection section={section} {...page.sections[section]} />)}
   </div>
 </ResumeLayout>

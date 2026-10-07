@@ -1,7 +1,6 @@
 ---
 category: about
 title: About Me
-order: 1
 ---
 
 I’m Kyle, a second-year BSIT student majoring in Software Engineering at Aklan State University. I focus on robust, maintainable backend systems and am working toward cloud-native architectures.

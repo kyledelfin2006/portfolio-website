@@ -1,4 +1,5 @@
 import { defineCollection, z } from 'astro:content';
+import { aboutSections, projectSections, resumeSections } from './sections';
 
 const copy = z.string().min(1);
 const ordered = { title: copy, order: z.number().int().nonnegative() };
@@ -8,13 +9,8 @@ const image = z.object({
   width: z.number().int().positive(),
   height: z.number().int().positive(),
 }).strict();
-const aboutItem = z.object({
-  title: copy,
-  meta: copy.optional(),
-  summary: copy,
-  certificatePath: copy.optional(),
-  images: z.array(image).min(1).optional(),
-}).strict();
+const sectionOrder = <T extends readonly [string, ...string[]]>(ids: T) =>
+  z.array(z.enum(ids)).refine((sections) => new Set(sections).size === sections.length, 'Section IDs must be unique.');
 
 const text = defineCollection({
   type: 'content',
@@ -31,6 +27,7 @@ const text = defineCollection({
     }).strict(),
     z.object({
       category: z.literal('page-home'), title: copy, description: copy,
+      sectionOrder: sectionOrder(resumeSections),
       sections: z.object({
         education: z.object({ heading: copy, ariaLabel: copy }).strict(),
         experience: z.object({ heading: copy, ariaLabel: copy }).strict(),
@@ -39,9 +36,11 @@ const text = defineCollection({
         workshops: z.object({ heading: copy, ariaLabel: copy }).strict(),
       }).strict(),
     }).strict(),
-    z.object({ category: z.literal('page-about'), title: copy, description: copy, workshopsHeading: copy, workshopsAriaLabel: copy, workshopsOrder: z.number().int().nonnegative() }).strict(),
-    z.object({ category: z.literal('page-projects'), title: copy, description: copy, eyebrow: copy, sectionHeading: copy, sectionAriaLabel: copy }).strict(),
-    z.object({ category: z.literal('about'), ...ordered, itemTitle: copy.optional(), meta: copy.optional(), items: z.array(aboutItem).min(1).optional(), contactProfileLabels: z.array(copy).min(1).optional() }).strict(),
+    z.object({ category: z.literal('page-about'), title: copy, description: copy, sections: sectionOrder(aboutSections), honorsHeading: copy, learningHeading: copy, workshopsHeading: copy, workshopsAriaLabel: copy }).strict(),
+    z.object({ category: z.literal('page-projects'), title: copy, description: copy, eyebrow: copy, sections: sectionOrder(projectSections), sectionHeading: copy, sectionAriaLabel: copy }).strict(),
+    z.object({ category: z.literal('about'), title: copy, itemTitle: copy.optional(), meta: copy.optional(), contactProfileLabels: z.array(copy).min(1).optional() }).strict(),
+    z.object({ category: z.literal('honor'), ...ordered, meta: copy.optional(), summary: copy, certificatePath: copy.optional(), images: z.array(image).min(1).optional() }).strict(),
+    z.object({ category: z.literal('learning'), ...ordered }).strict(),
     z.object({ category: z.literal('education'), ...ordered, meta: copy, subtitle: copy }).strict(),
     z.object({ category: z.literal('experience'), ...ordered, organization: copy }).strict(),
     z.object({ category: z.literal('skill'), ...ordered }).strict(),

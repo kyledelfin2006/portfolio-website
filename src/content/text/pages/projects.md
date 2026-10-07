@@ -3,6 +3,7 @@ category: page-projects
 title: Projects — Aldrin Kyle Delfin
 description: 'Project notes on Libro, Tabang, and FaceLog: backend APIs, community flood response, and offline attendance.'
 eyebrow: Selected work
+sections: [projects]
 sectionHeading: Project Case Studies
 sectionAriaLabel: Project Case Studies
 ---

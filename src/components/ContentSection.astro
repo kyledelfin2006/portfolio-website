@@ -1,0 +1,25 @@
+---
+import Education from './Education.astro';
+import Experience from './Experience.astro';
+import Projects from './Projects.astro';
+import Skills from './Skills.astro';
+import Workshops from './Workshops.astro';
+import Honors from './Honors.astro';
+import Learning from './Learning.astro';
+import AboutSection from './AboutSection.astro';
+import { getRequiredEntry } from '../content/load';
+import type { SectionId } from '../content/sections';
+interface Props { section: SectionId; heading?: string; ariaLabel?: string; }
+const { section, heading, ariaLabel } = Astro.props;
+const proseSections = ['biography', 'engineering-philosophy', 'technical-direction', 'resume-and-contact'];
+const aboutEntry = proseSections.includes(section) ? await getRequiredEntry(`about/${section}`, 'about') : undefined;
+if (!aboutEntry && (!heading || !ariaLabel)) throw new Error(`Section "${section}" needs a heading and accessible label.`);
+---
+{section === 'education' && <Education heading={heading!} ariaLabel={ariaLabel!} id={section} />}
+{section === 'experience' && <Experience heading={heading!} ariaLabel={ariaLabel!} id={section} />}
+{section === 'projects' && <Projects heading={heading!} ariaLabel={ariaLabel!} id={section} />}
+{section === 'skills' && <Skills heading={heading!} ariaLabel={ariaLabel!} id={section} />}
+{section === 'workshops' && <Workshops heading={heading!} ariaLabel={ariaLabel!} id={section} />}
+{section === 'honors' && <Honors heading={heading!} id={section} />}
+{section === 'learning' && <Learning heading={heading!} id={section} />}
+{aboutEntry && <AboutSection entry={aboutEntry} />}

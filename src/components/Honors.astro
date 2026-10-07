@@ -1,0 +1,23 @@
+---
+import { getEntries, getRequiredEntry } from '../content/load';
+import SectionHeading from './SectionHeading.astro';
+interface Props { heading: string; id?: string; }
+const { heading, id } = Astro.props;
+const honors = await getEntries('honor');
+const { data: site } = await getRequiredEntry('site', 'site');
+---
+<section id={id} aria-label={heading}>
+  <SectionHeading title={heading} />
+  <div class="entries">
+    {honors.map((honor) => <article class="honor-item">
+      <div class="split-row"><h3>{honor.data.title}</h3>{honor.data.meta && <span class="meta">{honor.data.meta}</span>}</div>
+      <p>{honor.data.summary}</p>
+      {honor.data.images && <div class="honor-gallery no-print">
+        {honor.data.images.map((image) => <figure class="honor-figure">
+          <img src={`${import.meta.env.BASE_URL}${image.path}`} alt={image.alt} width={image.width} height={image.height} loading="lazy" decoding="async" />
+        </figure>)}
+      </div>}
+      {honor.data.certificatePath && <a class="credential-link no-print" href={`${import.meta.env.BASE_URL}${honor.data.certificatePath}`} target="_blank" rel="noopener noreferrer">{site.credentialLink}</a>}
+    </article>)}
+  </div>
+</section>

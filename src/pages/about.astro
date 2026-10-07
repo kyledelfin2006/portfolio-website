@@ -1,17 +1,16 @@
 ---
 import ResumeLayout from '../layouts/ResumeLayout.astro';
-import Workshops from '../components/Workshops.astro';
-import AboutSection from '../components/AboutSection.astro';
-import { getEntries, getRequiredEntry } from '../content/load';
+import ContentSection from '../components/ContentSection.astro';
+import { getRequiredEntry } from '../content/load';
 const pageEntry = await getRequiredEntry('pages/about', 'page-about');
 const page = pageEntry.data;
-const sections = await getEntries('about');
-const { data: site } = await getRequiredEntry('site', 'site');
 ---
 <ResumeLayout title={page.title} description={page.description}>
   <div class="about-sections">
-    {sections.filter(({ data }) => data.order < page.workshopsOrder).map((entry) => <AboutSection entry={entry} email={site.email} profiles={site.profiles} certificateLabel={site.credentialLink} />)}
-    <Workshops heading={page.workshopsHeading} ariaLabel={page.workshopsAriaLabel} />
-    {sections.filter(({ data }) => data.order > page.workshopsOrder).map((entry) => <AboutSection entry={entry} email={site.email} profiles={site.profiles} certificateLabel={site.credentialLink} />)}
+    {page.sections.map((section) => <ContentSection
+      section={section}
+      heading={section === 'honors' ? page.honorsHeading : section === 'learning' ? page.learningHeading : section === 'workshops' ? page.workshopsHeading : undefined}
+      ariaLabel={section === 'honors' ? page.honorsHeading : section === 'learning' ? page.learningHeading : section === 'workshops' ? page.workshopsAriaLabel : undefined}
+    />)}
   </div>
 </ResumeLayout>

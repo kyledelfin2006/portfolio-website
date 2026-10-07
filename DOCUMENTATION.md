@@ -92,7 +92,7 @@ portfolio-website/
 │   │   ├── Learning.astro         Current learning goals
 │   │   ├── SectionHeading.astro   Shared title and thin rule
 │   │   ├── Education.astro        University and degree
-│   │   ├── Experience.astro       FlyRank and DevGuild
+│   │   ├── Experience.astro       Ordered experience entries and optional organization logos
 │   │   ├── Projects.astro         Ordered project summaries and links
 │   │   ├── Skills.astro           Plain categorized skill list
 │   │   └── Workshops.astro        Shared workshop rendering
@@ -129,7 +129,7 @@ All published copy lives in `src/content/text/` as Markdown. Never add biography
 | `honors/*.md` | `honor` | `title`, `order`, `summary`; optional `meta`, `certificatePath`, and `images` with `path`, `alt`, `width`, `height` |
 | `learning/*.md` | `learning` | `title`, `order`; body describes the current learning goal |
 | `education/*.md` | `education` | `title`, `order`, `meta`, `subtitle`; body is supporting detail |
-| `experience/*.md` | `experience` | `title`, `order`, `organization`; body contains bullets |
+| `experience/*.md` | `experience` | `title`, `order`, `organization`; optional `logo` with `path`, `alt`, `width`, and `height`; body contains bullets |
 | `skills/*.md` | `skill` | `title`, `order`; body contains the skill list |
 | `workshops/*.md` | `workshop` | `title`, `order`, `issuerOrOrganizer`; optional `date`, `certificatePath`; body contains takeaways |
 | `projects/*.md` | `project` | `title`, `order`, `description`, `projectCategory`, `stack`, `repository`, `highlights`; optional `date`, `certificatePath`, and `logo` with `path`, `alt`, `width`, and `height`; body is the case study |
@@ -182,13 +182,17 @@ Each file under `src/content/text/honors/` keeps one honor’s summary, media, a
 - `assets/Tabang.jpg` → `public/images/tabang.jpg`
 - `assets/RSTW.jpeg` → `public/images/rstw-award.jpeg`
 - `assets/rstw-finalist.jpg` → `public/images/rstw-team.jpg`
+- `assets/DEVGUILD_LOGO.png` → `public/images/devguild-logo.png`
+- `assets/FLYRANK_LOGO.png` → `public/images/flyrank-logo.webp` (the source contains WebP data despite its `.png` filename)
 - `references/certificates/TABANG.RISKREADY.CERTIFICATE.png` → `public/certificates/tabang-komsaihack-2026.png`
 
 Honors entries are ordered newest first, so the October 2, 2026 RSTW award appears above the June and April entries. The RSTW Paindis-Indis It Inobasyon entry leads with Poultri, the agritech startup founded by Aldrin Kyle Delfin, and records its second-place finish among eight Western Visayas finalists, the ₱20,000 prize, incubation with TechNest TBI, and the ABL Sports Complex venue. Its two images, the DWIA award and Python training images, and the two Tabang finalist images render uncropped in equal 3:2 containers, side by side on wider screens and stacked on narrow screens. They use the Honors photo filters listed above. The figures and certificate actions are omitted from print.
 
-When replacing supporting media, update the immutable source first, copy it to the documented public path without cropping or recompression, retain explicit intrinsic dimensions and descriptive alternative text in content, then check both themes and narrow layouts. Project `logo` and `certificatePath` are optional; projects that omit either field render no placeholder or corresponding action.
+When replacing supporting media, update the immutable source first, copy it to the documented public path without cropping or recompression, retain explicit intrinsic dimensions and descriptive alternative text in content, then check both themes and narrow layouts. Project `logo` and `certificatePath` are optional; experience and project logos are optional, and entries that omit a logo render without a placeholder. To add a future experience logo, publish its source under `public/images/` and add `logo: { path, alt, width, height }` to that experience entry’s frontmatter.
 
 Project logos are fully contained in compact 128 × 96px framed `surface-strong` panels, reduced to 112 × 84px below 640px. The hard rule, restrained dark-theme filter, and grayscale print treatment follow the site’s existing visual system; logos are never cropped, stretched, linked, or used in place of project titles.
+
+Experience logos sit beside the organization name in a 56 × 56px framed tile. They retain their source colors in both themes, use `object-fit: contain`, and are grayscale in print. Organization names remain visible whether or not a logo is supplied.
 
 ### Generate or replace the PDF
 

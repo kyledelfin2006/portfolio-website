@@ -76,6 +76,9 @@ main { margin-top: var(--space-6); }
 .split-row { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-2) var(--space-5); }
 h3 { font-size: 17px; font-weight: 700; line-height: 1.3; }
 .experience h3 { color: var(--accent-ink); }
+.experience-organization { display: flex; align-items: center; gap: var(--space-3); }
+.experience-logo { display: flex; flex: 0 0 56px; align-items: center; justify-content: center; width: 56px; height: 56px; padding: var(--space-1); border: var(--rule-width) solid var(--rule-strong); background: var(--surface-strong); }
+.experience-logo img { width: 100%; height: 100%; object-fit: contain; }
 .meta { flex-shrink: 0; color: var(--muted); font-size: 11px; letter-spacing: .03em; text-align: right; text-transform: uppercase; }
 .entry-subtitle { margin-top: var(--space-1); color: var(--muted); font-size: 12px; }
 .entries { display: grid; gap: var(--space-5); }
@@ -193,6 +196,8 @@ footer { display: flex; justify-content: space-between; gap: var(--space-4); mar
   .section-heading { margin-right: calc(var(--space-4) * -1); margin-bottom: var(--space-4); margin-left: calc(var(--space-4) * -1); }
   .split-row { flex-direction: column; align-items: flex-start; gap: var(--space-1); }
   .meta { flex-shrink: 1; text-align: left; }
+  .experience-organization { max-width: 100%; }
+  .experience-organization .meta { overflow-wrap: anywhere; }
   .project-summary, .case-header-grid { grid-template-columns: 1fr; }
   .project-logo { grid-row: 1; width: 112px; height: 84px; }
   .honor-gallery { grid-template-columns: 1fr; }
@@ -243,6 +248,8 @@ footer { display: flex; justify-content: space-between; gap: var(--space-4); mar
   .entries > article + article { padding-top: 0; border-top: 0; }
   .project-logo { border-color: #000; background: #fff; }
   .project-logo img { filter: grayscale(1) !important; }
+  .experience-logo { border-color: #000; background: #fff; }
+  .experience-logo img { filter: grayscale(1) !important; }
   ul { margin-top: 1mm; padding-left: 4mm; }
   li + li { margin-top: .5mm; }
   .skills { display: block; border: 0; }

@@ -8,6 +8,18 @@ const entries = await getEntries('experience');
 <section id={id} class="experience" aria-label={ariaLabel}>
   <SectionHeading title={heading} />
   <div class="entries">
-    {await Promise.all(entries.map(async ({ data, render }) => { const { Content } = await render(); return <article><div class="split-row"><h3>{data.title}</h3><span class="meta">{data.organization}</span></div><Content /></article>; }))}
+    {await Promise.all(entries.map(async ({ data, render }) => {
+      const { Content } = await render();
+      return <article>
+        <div class="split-row">
+          <h3>{data.title}</h3>
+          <div class="experience-organization">
+            {data.logo && <span class="experience-logo"><img src={data.logo.path} alt={data.logo.alt} width={data.logo.width} height={data.logo.height} loading="lazy" decoding="async" /></span>}
+            <span class="meta">{data.organization}</span>
+          </div>
+        </div>
+        <Content />
+      </article>;
+    }))}
   </div>
 </section>

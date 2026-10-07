@@ -3,6 +3,7 @@ category: experience
 title: Co-Founder
 order: 2
 organization: DevGuild
+logo: { path: /images/devguild-logo.png, alt: DevGuild logo, width: 3162, height: 3162 }
 ---
 
 - Led a community of 25+ student developers building real-world software products, following agentic-first and modern workflows.

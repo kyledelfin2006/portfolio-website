@@ -65,7 +65,7 @@ portfolio-website/
 │   ├── 1x1.png                     Unused published copy of the supplied portrait
 │   ├── certificates/              Public certificate PDFs and images linked from content
 │   ├── images/                    Publishable copies of supporting content images
-│   └── resume.pdf                  One-page A4 export of the resume
+│   └── resume.pdf                  Two-page A4 export of the resume
 ├── src/
 │   ├── content/
 │   │   ├── config.ts              Strict schemas for every text category
@@ -101,7 +101,7 @@ portfolio-website/
 │   │   └── BlogPostLayout.astro   Project heading, source link, Markdown prose
 │   ├── pages/
 │   │   ├── index.astro            Main page
-│   │   ├── about.astro            Learning, background, principles, skills, workshops, contact
+│   │   ├── about.astro            Learning, background, principles, workshops, contact
 │   │   └── projects/
 │   │       ├── index.astro        Project index
 │   │       └── [slug].astro       Statically generated case studies
@@ -123,7 +123,7 @@ All published copy lives in `src/content/text/` as Markdown. Never add biography
 | --- | --- | --- |
 | `site.md` | `site` | `fullName`, `shortName`, `professionalSubtitle`, `location`, `email`, `portraitAlt`, `navigationAriaLabel`, `navigation`, `profiles`, `theme`, `skipLink`, `downloadResume`, `projectLinks`, `credentialLink` |
 | `pages/home.md` | `page-home` | `title`, `description`, `sectionOrder`, `sections` labels |
-| `pages/about.md` | `page-about` | `title`, `description`, ordered `sections`, `learningHeading`, `skillsHeading`, `skillsAriaLabel`, `workshopsHeading`, `workshopsAriaLabel` |
+| `pages/about.md` | `page-about` | `title`, `description`, ordered `sections`, `learningHeading`, `workshopsHeading`, `workshopsAriaLabel` |
 | `pages/projects.md` | `page-projects` | `title`, `description`, `eyebrow`, ordered `sections`, `sectionHeading`, `sectionAriaLabel`; body is the introduction |
 | `about/*.md` | `about` | `title`; optional `itemTitle`, `meta`, `contactProfileLabels`; body is section prose |
 | `honors/*.md` | `honor` | `title`, `order`, `summary`; optional `meta`, `certificatePath`, and `images` with `path`, `alt`, `width`, `height` |
@@ -139,7 +139,7 @@ URLs must be absolute and valid. Orders are nonnegative integers. Required strin
 ### Add, edit, reorder, rename, or delete
 
 - Edit shared identity, navigation, theme, footer, contact, and reusable action labels in `site.md`. Edit a page singleton for its title, SEO description, introduction, or section labels.
-- Reorder or hide page sections by editing `sectionOrder` in `pages/home.md` or `sections` in `pages/about.md` and `pages/projects.md`. Remove an ID from the list to hide that section without deleting its content; add it back to show it. These lists can be empty. Main contains Education, Experience, Selected Projects, and Activities & Achievements. About contains Learning, biography, engineering principles and focus, Technical Skills, Workshops & Certifications, and contact.
+- Reorder or hide page sections by editing `sectionOrder` in `pages/home.md` or `sections` in `pages/about.md` and `pages/projects.md`. Remove an ID from the list to hide that section without deleting its content; add it back to show it. These lists can be empty. Main contains Education, Experience, Selected Projects, Activities & Achievements, and Technical Skills. Activities & Achievements and Technical Skills span the full desktop grid. About contains Learning, biography, engineering principles and focus, Workshops & Certifications, and contact.
 - The supported IDs live in `src/content/sections.ts`, and `ContentSection.astro` maps them to their renderers. Adding a new kind of section requires an ID, a validated content category where needed, and a renderer. Existing section types need only a page-list change to move or show them.
 - Add repeatable content by copying a file in the appropriate directory, giving it a lowercase kebab-case filename, changing its content, and setting `order`. No component or TypeScript edit is needed.
 - Reorder an item by changing `order`. Equal orders use filenames as a deterministic tie-breaker.
@@ -192,7 +192,7 @@ Project logos are fully contained in compact 128 × 96px framed `surface-strong`
 
 ### Generate or replace the PDF
 
-`public/resume.pdf` is a static asset; rebuilding the website does **not** regenerate it. The included PDF was exported from this site’s print stylesheet and visually reviewed as one A4 page.
+`public/resume.pdf` is a static asset; rebuilding the website does **not** regenerate it. The included PDF was exported from this site’s print stylesheet and visually reviewed as two A4 pages.
 
 To update it:
 

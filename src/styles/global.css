@@ -171,7 +171,7 @@ footer { display: flex; justify-content: space-between; gap: var(--space-4); mar
 @media (min-width: 640px) { .document-shell { padding: var(--space-7) var(--space-6); } }
 @media (min-width: 860px) {
   .resume-sections { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
-  .resume-sections > :is(#experience, #projects) { grid-column: 1 / -1; }
+  .resume-sections > :is(#experience, #projects, #honors, #skills) { grid-column: 1 / -1; }
 }
 @media (max-width: 639px) {
   .intro-label { padding-inline: var(--space-4); }

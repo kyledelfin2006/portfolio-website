@@ -17,7 +17,6 @@ const { data: site } = await getRequiredEntry('site', 'site');
           <a href={`${import.meta.env.BASE_URL}${certificate.certificatePath}`} target="_blank" rel="noopener noreferrer">
             <img src={`${import.meta.env.BASE_URL}${certificate.path}`} alt={certificate.alt} width={certificate.width} height={certificate.height} loading="lazy" />
           </a>
-          <figcaption>{certificate.title}</figcaption>
         </figure>)}
       </div>}
       {data.certificatePath && <a class="credential-link" href={`${import.meta.env.BASE_URL}${data.certificatePath}`} target="_blank" rel="noopener noreferrer">{site.credentialLink}</a>}

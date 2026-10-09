@@ -107,14 +107,13 @@ li + li { margin-top: var(--space-1); }
 .honor-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); width: 100%; margin: var(--space-4) 0 var(--space-3); }
 .honor-figure { position: relative; aspect-ratio: 3 / 2; overflow: hidden; border: var(--rule-width) solid var(--rule-strong); background: var(--canvas); }
 .honor-figure::after { position: absolute; inset: 0; content: ""; pointer-events: none; background: repeating-linear-gradient(to bottom, transparent 0, transparent 3px, rgb(0 0 0 / 8%) 4px); }
-.honor-figure img { width: 100%; height: 100%; object-fit: contain; filter: saturate(.88) contrast(1.04); }
-:root.dark .honor-figure img { filter: brightness(.86) saturate(.8) contrast(1.08); }
-.workshop-certificates { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); margin-top: var(--space-3); }
-.workshop-certificates figure { width: min(100%, 180px); }
+.honor-figure img, .workshop-certificates img { filter: saturate(.88) contrast(1.04); }
+:root.dark .honor-figure img, :root.dark .workshop-certificates img { filter: brightness(.86) saturate(.8) contrast(1.08); }
+.honor-figure img { width: 100%; height: 100%; object-fit: contain; }
+.workshop-certificates { display: flex; gap: var(--space-3); margin-top: var(--space-3); }
+.workshop-certificates figure { flex: 0 1 180px; min-width: 0; }
 .workshop-certificates a { display: block; border: var(--rule-width) solid var(--rule-strong); background: var(--canvas); }
-.workshop-certificates img { display: block; width: 100%; height: auto; filter: saturate(.88) contrast(1.04); }
-:root.dark .workshop-certificates img { filter: brightness(.86) saturate(.8) contrast(1.08); }
-.workshop-certificates figcaption { margin-top: var(--space-1); color: var(--muted); font-family: var(--mono); font-size: 10px; line-height: 1.4; }
+.workshop-certificates img { width: 100%; height: auto; }
 .skills { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: var(--rule-width) solid var(--rule); border-left: var(--rule-width) solid var(--rule); }
 .skills > div { padding: var(--space-3); border-right: var(--rule-width) solid var(--rule); border-bottom: var(--rule-width) solid var(--rule); }
 .skills dt { display: block; margin-bottom: var(--space-1); font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }

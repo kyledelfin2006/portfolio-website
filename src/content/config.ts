@@ -46,7 +46,7 @@ const text = defineCollection({
     z.object({ category: z.literal('skill'), ...ordered }).strict(),
     z.object({
       category: z.literal('workshop'), ...ordered, issuerOrOrganizer: copy, date: copy.optional(), certificatePath: copy.optional(),
-      certificateImages: z.array(image.extend({ title: copy, certificatePath: copy })).min(1).optional(),
+      certificateImages: z.array(image.extend({ certificatePath: copy })).min(1).optional(),
     }).strict(),
     z.object({
       category: z.literal('project'), ...ordered, description: copy, projectCategory: copy,

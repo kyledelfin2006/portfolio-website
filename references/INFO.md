@@ -67,7 +67,7 @@ No internship dates, scholarship dates, or completed DataCamp tracks are current
 - Awarded by: Department of Information and Communications Technology Region VI
 - Program: Python Programming Essentials Training
 - Date: June 19, 2026
-- Basis: Strong analytical skills, logical reasoning, and effective problem-solving
+- Basis: Analytical reasoning, problem-solving, OpenCV, Matplotlib, Pandas, and data structures
 - Certificate: `certificates/DWIA-MOST-ANALYTICAL-PROGRAMMER.pdf`
 - Award photo: `../assets/DELFIN_DWIA_AWARD.jpg`
 

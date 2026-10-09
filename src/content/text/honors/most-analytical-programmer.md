@@ -3,7 +3,7 @@ category: honor
 title: Most Analytical Programmer Award
 order: 2
 meta: June 2026
-summary: Recognized during DICT Region VI’s Python Programming Essentials Training for strong analytical reasoning and effective problem-solving.
+summary: Recognized during DICT Region VI’s Python Programming Essentials Training for analytical reasoning, problem-solving, OpenCV, Matplotlib, Pandas, data structures.
 certificatePath: certificates/python-programming-essentials-most-analytical-programmer.pdf
 images:
   - path: images/dwia-most-analytical-programmer.jpg

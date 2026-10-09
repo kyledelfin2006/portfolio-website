@@ -35,7 +35,7 @@ Libro uses explicit DTOs at the API boundary, centralized handling for applicati
 | Category | Flood reporting and response |
 | Repository | <https://github.com/kyledelfin2006/tabang-hackathon-project> |
 | Event | UPV KomsaiHack 2026 |
-| Result | 7th place among more than 25 teams |
+| Result | Top 10 finalist among teams from across Western Visayas; 7th place among more than 25 teams |
 | Certificate | `certificates/TABANG.RISKREADY.CERTIFICATE.png` (states Top 10 placement) |
 
 ### Summary
@@ -51,7 +51,7 @@ Tabang is a flood reporting and response application for Aklan. It coordinates i
 
 ### Context
 
-Tabang was originally built for UPV KomsaiHack 2026 and placed seventh among more than 25 teams.
+Tabang was originally built for UPV KomsaiHack 2026. It secured a Top 10 spot among teams from across Western Visayas and placed seventh among more than 25 teams.
 
 ## FaceLog
 

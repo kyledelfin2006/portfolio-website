@@ -63,7 +63,7 @@ portfolio-website/
 ├── public/
 │   ├── 1x1-bw.jpg                  Clean black-and-white portfolio portrait
 │   ├── 1x1.png                     Unused published copy of the supplied portrait
-│   ├── certificates/              Public certificate PDFs and images linked from content
+│   ├── certificates/              Public certificate PDFs and compact page previews linked from content
 │   ├── images/                    Publishable copies of supporting content images
 │   └── resume.pdf                  Two-page A4 export of the resume
 ├── src/
@@ -131,7 +131,7 @@ All published copy lives in `src/content/text/` as Markdown. Never add biography
 | `education/*.md` | `education` | `title`, `order`, `meta`, `subtitle`; body is supporting detail |
 | `experience/*.md` | `experience` | `title`, `order`, `organization`; optional `logo` with `path`, `alt`, `width`, and `height`; body contains bullets |
 | `skills/*.md` | `skill` | `title`, `order`; body contains the skill list |
-| `workshops/*.md` | `workshop` | `title`, `order`, `issuerOrOrganizer`; optional `date`, `certificatePath`; body contains takeaways |
+| `workshops/*.md` | `workshop` | `title`, `order`, `issuerOrOrganizer`; optional `date`, `certificatePath`, and `certificateImages` with image details and PDF paths; body contains takeaways |
 | `projects/*.md` | `project` | `title`, `order`, `description`, `projectCategory`, `stack`, `repository`, `highlights`; optional `date`, `certificatePath`, and `logo` with `path`, `alt`, `width`, and `height`; body is the case study |
 
 URLs must be absolute and valid. Orders are nonnegative integers. Required strings and content arrays cannot be empty; page section lists may be empty. Unknown optional facts should be omitted, not represented by empty strings. Invalid fields, misspelled categories, incompatible frontmatter, and missing singleton files fail `npm run check` or `npm run build`.
@@ -168,7 +168,7 @@ Every photograph rendered inside the site has a CSS filter. The exact screen and
 | Honors photos (`.honor-figure img`) | `saturate(.88) contrast(1.04)` | `brightness(.86) saturate(.8) contrast(1.08)` | Hidden with the Honors gallery |
 | Project logos (`.project-logo img`) | No filter | `brightness(.9) saturate(.9)` | `grayscale(1)` |
 
-The Honors figures also have a subtle scanline overlay. Project logos are images rather than photographs, so their filter varies by theme. Linked certificate images open as standalone files and do not receive page CSS filters. The original `public/1x1.png` remains available but is not rendered by the site. No favicon is currently configured, and no external image service is involved.
+The Honors figures also have a subtle scanline overlay. Project logos are images rather than photographs, so their filter varies by theme. Certificate previews in Workshops & Certifications use the same theme filters as Honors photos and open the full PDF when selected. The original `public/1x1.png` remains available but is not rendered by the site. No favicon is currently configured, and no external image service is involved.
 
 ### Honors and project evidence
 
@@ -184,6 +184,8 @@ Each file under `src/content/text/honors/` keeps one honor’s summary, media, a
 - `assets/rstw-finalist.jpg` → `public/images/rstw-team.jpg`
 - `assets/DEVGUILD_LOGO.png` → `public/images/devguild-logo.png`
 - `assets/FLYRANK_LOGO.png` → `public/images/flyrank-logo.webp` (the source contains WebP data despite its `.png` filename)
+- `references/certificates/DWIA-MOST-ANALYTICAL-PROGRAMMER.pdf` → `public/certificates/DWIA-MOST-ANALYTICAL-PROGRAMMER.pdf` (full PDF) and `public/certificates/dwia-most-analytical-programmer.png` (compact first-page preview)
+- `references/certificates/DWIA-CERT-AKLAN_DELFIN.pdf` → `public/certificates/DWIA-CERT-AKLAN_DELFIN.pdf` (full PDF) and `public/certificates/dwia-python-programming-essentials.png` (compact first-page preview)
 - `references/certificates/TABANG.RISKREADY.CERTIFICATE.png` → `public/certificates/tabang-komsaihack-2026.png`
 
 Honors entries are ordered newest first, so the October 2, 2026 RSTW award appears above the June and April entries. The RSTW Paindis-Indis It Inobasyon entry leads with Poultri, the agritech startup founded by Aldrin Kyle Delfin, and records its second-place finish among eight Western Visayas finalists, the ₱20,000 prize, incubation with TechNest TBI, and the ABL Sports Complex venue. Its two images, the DWIA award and Python training images, and the two Tabang finalist images render uncropped in equal 3:2 containers, side by side on wider screens and stacked on narrow screens. They use the Honors photo filters listed above. The figures and certificate actions are omitted from print.

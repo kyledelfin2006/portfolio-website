@@ -44,7 +44,10 @@ const text = defineCollection({
     z.object({ category: z.literal('education'), ...ordered, meta: copy, subtitle: copy }).strict(),
     z.object({ category: z.literal('experience'), ...ordered, organization: copy, logo: image.optional() }).strict(),
     z.object({ category: z.literal('skill'), ...ordered }).strict(),
-    z.object({ category: z.literal('workshop'), ...ordered, issuerOrOrganizer: copy, date: copy.optional(), certificatePath: copy.optional() }).strict(),
+    z.object({
+      category: z.literal('workshop'), ...ordered, issuerOrOrganizer: copy, date: copy.optional(), certificatePath: copy.optional(),
+      certificateImages: z.array(image.extend({ title: copy, certificatePath: copy })).min(1).optional(),
+    }).strict(),
     z.object({
       category: z.literal('project'), ...ordered, description: copy, projectCategory: copy,
       date: copy.optional(), stack: z.array(copy).min(1), repository: z.string().url(), certificatePath: copy.optional(),

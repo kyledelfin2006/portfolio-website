@@ -58,8 +58,7 @@ No internship dates, scholarship dates, or completed DataCamp tracks are current
 - Award: ₱20,000 and incubation with TechNest TBI
 - Startup: Poultri, an agritech startup founded by Aldrin Kyle Delfin
 - Team: Agritech, Aklan State University – Kalibo Campus
-- Date: October 2, 2026
-- Venue: ABL Sports Complex, Kalibo, Aklan
+- Date: October 2026
 - Evidence: `../assets/RSTW.jpeg` and `../assets/rstw-finalist.jpg`
 
 ### Most Analytical Programmer Award
@@ -74,7 +73,6 @@ No internship dates, scholarship dates, or completed DataCamp tracks are current
 ### Python Programming Essentials Training
 
 - Organizer: Department of Information and Communications Technology Region VI, ICT Literacy and Competency Development Bureau
-- Duration: 40 hours
 - Dates: June 15–19, 2026
 - Location: Digital Transformation Center – Aklan Tourism and Trade Investment Promotions Center, Capitol Site, Kalibo, Aklan
 - Certificate: `certificates/DWIA-CERT-AKLAN_DELFIN.pdf`

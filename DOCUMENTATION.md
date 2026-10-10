@@ -62,10 +62,10 @@ portfolio-website/
 │   └── 1x1.png                    Original supplied portrait
 ├── public/
 │   ├── 1x1-bw.jpg                  Clean black-and-white portfolio portrait
-│   ├── 1x1.png                     Unused published copy of the supplied portrait
 │   ├── certificates/              Public certificate PDFs and compact page previews linked from content
 │   ├── images/                    Publishable copies of supporting content images
-│   └── resume.pdf                  Two-page A4 export of the resume
+│   ├── icons/                     Official local vector mark used by About skills
+│   └── resume.pdf                  Exact public copy of the supplied current resume
 ├── src/
 │   ├── content/
 │   │   ├── config.ts              Strict schemas for every text category
@@ -76,7 +76,6 @@ portfolio-website/
 │   │       ├── pages/             Required home, About, and projects page copy
 │   │       ├── about/             About prose sections
 │   │       ├── honors/            One honor per Markdown file
-│   │       ├── learning/          One current learning goal per Markdown file
 │   │       ├── education/         Ordered education entries
 │   │       ├── experience/        Ordered experience entries
 │   │       ├── skills/            Ordered skill groups
@@ -89,7 +88,7 @@ portfolio-website/
 │   │   ├── ContentSection.astro  Shared section renderer
 │   │   ├── AboutSection.astro     About prose and contact
 │   │   ├── Honors.astro           Honors and supporting photos
-│   │   ├── Learning.astro         Current learning goals
+│   │   ├── AboutSkills.astro      About-only skill catalog with text labels
 │   │   ├── SectionHeading.astro   Shared title and thin rule
 │   │   ├── Education.astro        University and degree
 │   │   ├── Experience.astro       Ordered experience entries and optional organization logos
@@ -101,7 +100,7 @@ portfolio-website/
 │   │   └── BlogPostLayout.astro   Project heading, source link, Markdown prose
 │   ├── pages/
 │   │   ├── index.astro            Main page
-│   │   ├── about.astro            Learning, background, principles, workshops, contact
+│   │   ├── about.astro            About Me, skills, certifications, philosophy, contact
 │   │   └── projects/
 │   │       ├── index.astro        Project index
 │   │       └── [slug].astro       Statically generated case studies
@@ -123,11 +122,10 @@ All published copy lives in `src/content/text/` as Markdown. Never add biography
 | --- | --- | --- |
 | `site.md` | `site` | `fullName`, `shortName`, `professionalSubtitle`, `location`, `email`, `portraitAlt`, `navigationAriaLabel`, `navigation`, `profiles`, `theme`, `skipLink`, `downloadResume`, `projectLinks`, `credentialLink` |
 | `pages/home.md` | `page-home` | `title`, `description`, `sectionOrder`, `sections` labels |
-| `pages/about.md` | `page-about` | `title`, `description`, ordered `sections`, `learningHeading`, `workshopsHeading`, `workshopsAriaLabel` |
+| `pages/about.md` | `page-about` | `title`, `description`, ordered `sections`, `technicalSkillsHeading`, `technicalSkills`, `workshopsHeading`, `workshopsAriaLabel` |
 | `pages/projects.md` | `page-projects` | `title`, `description`, `eyebrow`, ordered `sections`, `sectionHeading`, `sectionAriaLabel`; body is the introduction |
 | `about/*.md` | `about` | `title`; optional `itemTitle`, `meta`, `contactProfileLabels`; body is section prose |
 | `honors/*.md` | `honor` | `title`, `order`, `summary`; optional `meta`, `certificatePath`, and `images` with `path`, `alt`, `width`, `height` |
-| `learning/*.md` | `learning` | `title`, `order`; body describes the current learning goal |
 | `education/*.md` | `education` | `title`, `order`, `meta`, `subtitle`; body is supporting detail |
 | `experience/*.md` | `experience` | `title`, `order`, `organization`; optional `logo` with `path`, `alt`, `width`, and `height`; body contains bullets |
 | `skills/*.md` | `skill` | `title`, `order`; body contains the skill list |
@@ -139,7 +137,7 @@ URLs must be absolute and valid. Orders are nonnegative integers. Required strin
 ### Add, edit, reorder, rename, or delete
 
 - Edit shared identity, navigation, theme, footer, contact, and reusable action labels in `site.md`. Edit a page singleton for its title, SEO description, introduction, or section labels.
-- Reorder or hide page sections by editing `sectionOrder` in `pages/home.md` or `sections` in `pages/about.md` and `pages/projects.md`. Remove an ID from the list to hide that section without deleting its content; add it back to show it. These lists can be empty. Main contains Education, Experience, Selected Projects, Activities & Achievements, and Technical Skills. Activities & Achievements and Technical Skills span the full desktop grid. About contains Learning, biography, engineering principles and focus, Workshops & Certifications, and contact.
+- Reorder or hide page sections by editing `sectionOrder` in `pages/home.md` or `sections` in `pages/about.md` and `pages/projects.md`. Remove an ID from the list to hide that section without deleting its content; add it back to show it. These lists can be empty. Main contains Education, Experience, Selected Projects, Activities & Achievements, and Technical Skills. Activities & Achievements and Technical Skills span the full desktop grid. About contains About Me, its own Technical Skills catalog, Certifications & Workshops, Engineering Philosophy, and Resume & Contact.
 - The supported IDs live in `src/content/sections.ts`, and `ContentSection.astro` maps them to their renderers. Adding a new kind of section requires an ID, a validated content category where needed, and a renderer. Existing section types need only a page-list change to move or show them.
 - Add repeatable content by copying a file in the appropriate directory, giving it a lowercase kebab-case filename, changing its content, and setting `order`. No component or TypeScript edit is needed.
 - Reorder an item by changing `order`. Equal orders use filenames as a deterministic tie-breaker.
@@ -168,11 +166,11 @@ Every photograph rendered inside the site has a CSS filter. The exact screen and
 | Honors photos (`.honor-figure img`) | `saturate(.88) contrast(1.04)` | `brightness(.86) saturate(.8) contrast(1.08)` | Hidden with the Honors gallery |
 | Project logos (`.project-logo img`) | No filter | `brightness(.9) saturate(.9)` | `grayscale(1)` |
 
-The Honors figures also have a subtle scanline overlay. Project logos are images rather than photographs, so their filter varies by theme. Certificate previews in Workshops & Certifications use the same theme filters as Honors photos and open the full PDF when selected. The original `public/1x1.png` remains available but is not rendered by the site. No favicon is currently configured, and no external image service is involved.
+The Honors figures also have a subtle scanline overlay. Project logos are images rather than photographs, so their filter varies by theme. Certificate previews in Workshops & Certifications use the same theme filters as Honors photos and open the full PDF when selected. The unused duplicate portrait copy was removed. The About skills list uses the unaltered official Python logo SVG for its Python entry. Other skills remain text-only because their official marks are restricted or no permitted local vector asset was confirmed. See the [Python logo guidance](https://www.python.org/community/logos/), [Java brand guidelines](https://www.oracle.com/a/ocom/docs/java-licensing-logo-guidelines-1908204.pdf), [Spring trademark guidelines](https://spring.io/trademarks/), [PostgreSQL trademark policy](https://www.postgresql.org/about/policies/trademarks/), [MySQL logo usage guidelines](https://www.mysql.com/about/legal/trademark.html), and [Docker trademark guidelines](https://www.docker.com/legal/trademark-guidelines/). No runtime CDN or external image service is involved.
 
 ### Honors and project evidence
 
-Each file under `src/content/text/honors/` keeps one honor’s summary, media, and certificate together. The separate Learning section lists current learning goals from `src/content/text/learning/`; completed training stays under Workshops & Certifications. Public paths are relative to Astro’s configured base path. Keep originals immutable and publish copies under `public/`:
+Each file under `src/content/text/honors/` keeps one honor’s summary, media, and certificate together. Completed training stays under Workshops & Certifications. Public paths are relative to Astro’s configured base path. Keep originals immutable and publish copies under `public/`:
 
 - `assets/DELFIN_DWIA_AWARD.jpg` → `public/images/dwia-most-analytical-programmer.jpg`
 - `assets/DWIA_PICTURE_POSTER.jpg` → `public/images/dwia-python-training-poster.jpg`
@@ -184,11 +182,12 @@ Each file under `src/content/text/honors/` keeps one honor’s summary, media, a
 - `assets/rstw-finalist.jpg` → `public/images/rstw-team.jpg`
 - `assets/DEVGUILD_LOGO.png` → `public/images/devguild-logo.png`
 - `assets/FLYRANK_LOGO.png` → `public/images/flyrank-logo.webp` (the source contains WebP data despite its `.png` filename)
+- Python Software Foundation official logo → `public/icons/python-logo-only.svg` (unaltered SVG, used beside the Python skills label)
 - `references/certificates/DWIA-MOST-ANALYTICAL-PROGRAMMER.pdf` → `public/certificates/DWIA-MOST-ANALYTICAL-PROGRAMMER.pdf` (full PDF) and `public/certificates/dwia-most-analytical-programmer.png` (compact first-page preview)
 - `references/certificates/DWIA-CERT-AKLAN_DELFIN.pdf` → `public/certificates/DWIA-CERT-AKLAN_DELFIN.pdf` (full PDF) and `public/certificates/dwia-python-programming-essentials.png` (compact first-page preview)
 - `references/certificates/TABANG.RISKREADY.CERTIFICATE.png` → `public/certificates/tabang-komsaihack-2026.png`
 
-Honors entries are ordered newest first, so the October 2, 2026 RSTW award appears above the June and April entries. The RSTW Paindis-Indis It Inobasyon entry leads with Poultri, the agritech startup founded by Aldrin Kyle Delfin, and records its second-place finish among eight Western Visayas finalists, the ₱20,000 prize, incubation with TechNest TBI, and the ABL Sports Complex venue. Its two images, the DWIA award and Python training images, and the two Tabang finalist images render uncropped in equal 3:2 containers, side by side on wider screens and stacked on narrow screens. They use the Honors photo filters listed above. The figures and certificate actions are omitted from print.
+Honors entries are ordered newest first, so the October 2026 RSTW award appears above the June and April entries. The RSTW Paindis-Indis It Inobasyon entry leads with Poultri, the agritech startup founded by Aldrin Kyle Delfin, and records its second-place finish among eight Western Visayas finalists, the ₱20,000 prize, incubation with TechNest TBI, and the ABL Sports Complex venue in the source references. Its two images, the DWIA award and Python training images, and the two Tabang finalist images render uncropped in equal 3:2 containers, side by side on wider screens and stacked on narrow screens. They use the Honors photo filters listed above. The figures and certificate actions are omitted from print.
 
 When replacing supporting media, update the immutable source first, copy it to the documented public path without cropping or recompression, retain explicit intrinsic dimensions and descriptive alternative text in content, then check both themes and narrow layouts. Project `logo` and `certificatePath` are optional; experience and project logos are optional, and entries that omit a logo render without a placeholder. To add a future experience logo, publish its source under `public/images/` and add `logo: { path, alt, width, height }` to that experience entry’s frontmatter.
 
@@ -198,16 +197,9 @@ Experience logos sit beside the organization name in a 56 × 56px framed tile. T
 
 ### Generate or replace the PDF
 
-`public/resume.pdf` is a static asset; rebuilding the website does **not** regenerate it. The included PDF was exported from this site’s print stylesheet and visually reviewed as two A4 pages.
+`public/resume.pdf` is the exact delivery copy of the user-supplied `references/CURRENT_RESUME.pdf`. Rebuilding the website does **not** regenerate it. The homepage’s Print or download resume link opens the PDF in the browser so its native print command prints the supplied resume; printing the portfolio page itself still prints the website layout.
 
-To update it:
-
-1. Complete the resume content edits and run `npm run dev`.
-2. Open the homepage in Chrome or Edge and use **Print → Save as PDF**.
-3. Choose A4, portrait, 100% scale, and disable the browser’s headers and footers. Let the stylesheet’s margins apply; inspect the preview before saving.
-4. Save to `public/resume.pdf`, replacing the previous export. Alternatively, copy an owner-supplied finished resume into that path.
-5. Open the actual saved PDF, inspect every page, and confirm the portrait, links, final section, and page count. More content may require a second page; reduce copy before reducing readable type.
-6. Rebuild so the current PDF is copied into `dist/`. Check both the footer download and About page view link.
+To replace it, the owner must supply or explicitly authorize a new master resume. Copy that file unchanged to `public/resume.pdf`; do not export the portfolio page as a substitute. Rebuild so the PDF is copied into `dist/`, then check the homepage link and generated `/resume.pdf` asset.
 
 For automated exports, use a local Chromium printing tool with `preferCSSPageSize: true`, print media, and `printBackground: true`. Browser automation is a QA tool, not an application dependency. The included export removes localhost link targets while preserving external contact links. Generate from the final deployment origin if you need internal project links to remain clickable in a future PDF.
 

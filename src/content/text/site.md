@@ -14,7 +14,7 @@ profiles:
   - { label: DevGuild ↗, url: 'https://www.linkedin.com/company/aklan-devguild' }
 theme: { lightMode: Light mode, darkMode: Dark mode, switchToLight: Switch to light theme, switchToDark: Switch to dark theme }
 skipLink: Skip to content
-downloadResume: Download resume (PDF) ↓
+downloadResume: Print or download resume (PDF) ↓
 projectLinks: { caseStudy: Read case study →, sourceCode: Source code ↗, viewSource: View source on GitHub ↗, returnToMain: ← Return to Main, notes: Project notes }
 credentialLink: View certificate ↗
 ---

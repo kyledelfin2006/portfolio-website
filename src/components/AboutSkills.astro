@@ -1,0 +1,15 @@
+---
+import SectionHeading from './SectionHeading.astro';
+interface Props { heading: string; skills: { name: string; icon?: string }[]; }
+const { heading, skills } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+<section id="technical-skills" aria-label={heading}>
+  <SectionHeading title={heading} />
+  <ul class="about-skills">
+    {skills.map(({ name, icon }) => <li>
+      {icon && <img src={`${base}${icon}`} alt="" width="32" height="32" aria-hidden="true" />}
+      <span>{name}</span>
+    </li>)}
+  </ul>
+</section>

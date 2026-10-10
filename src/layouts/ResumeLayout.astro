@@ -63,7 +63,7 @@ const { data: site } = await getRequiredEntry('site', 'site');
     <div class="document-shell">
       <Header />
       <main id="main-content" tabindex="-1"><slot /></main>
-      <footer class="no-print"><span>{site.fullName}</span><a href={`${base}resume.pdf`} download>{site.downloadResume}</a></footer>
+      <footer class="no-print"><span>{site.fullName}</span><a href={`${base}resume.pdf`} target="_blank" rel="noopener">{site.downloadResume}</a></footer>
     </div>
     {resume && <script is:inline>
       const root = document.documentElement;

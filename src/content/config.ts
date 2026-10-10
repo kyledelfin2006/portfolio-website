@@ -39,7 +39,7 @@ const text = defineCollection({
     z.object({
       category: z.literal('page-about'), title: copy, description: copy, sections: sectionOrder(aboutSections),
       technicalSkillsHeading: copy,
-      technicalSkills: z.array(z.object({ name: copy, icon: copy.optional() }).strict()).min(1),
+      technicalSkills: z.array(z.object({ name: copy }).strict()).min(1),
       workshopsHeading: copy, workshopsAriaLabel: copy,
     }).strict(),
     z.object({ category: z.literal('page-projects'), title: copy, description: copy, eyebrow: copy, sections: sectionOrder(projectSections), sectionHeading: copy, sectionAriaLabel: copy }).strict(),

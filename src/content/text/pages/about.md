@@ -11,7 +11,7 @@ technicalSkills:
   - { name: MySQL }
   - { name: SQLite }
   - { name: Docker }
-  - { name: Python desktop applications, icon: icons/python-logo-only.svg }
+  - { name: Python }
   - { name: 'Automated testing (JUnit 5, Mockito)' }
   - { name: 'API documentation (OpenAPI / Swagger)' }
 workshopsHeading: Certifications & Workshops

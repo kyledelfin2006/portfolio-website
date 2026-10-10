@@ -64,7 +64,6 @@ portfolio-website/
 │   ├── 1x1-bw.jpg                  Clean black-and-white portfolio portrait
 │   ├── certificates/              Public certificate PDFs and compact page previews linked from content
 │   ├── images/                    Publishable copies of supporting content images
-│   ├── icons/                     Official local vector mark used by About skills
 │   └── resume.pdf                  Exact public copy of the supplied current resume
 ├── src/
 │   ├── content/
@@ -166,7 +165,7 @@ Every photograph rendered inside the site has a CSS filter. The exact screen and
 | Honors photos (`.honor-figure img`) | `saturate(.88) contrast(1.04)` | `brightness(.86) saturate(.8) contrast(1.08)` | Hidden with the Honors gallery |
 | Project logos (`.project-logo img`) | No filter | `brightness(.9) saturate(.9)` | `grayscale(1)` |
 
-The Honors figures also have a subtle scanline overlay. Project logos are images rather than photographs, so their filter varies by theme. Certificate previews in Workshops & Certifications use the same theme filters as Honors photos and open the full PDF when selected. The unused duplicate portrait copy was removed. The About skills list uses the unaltered official Python logo SVG for its Python entry. Other skills remain text-only because their official marks are restricted or no permitted local vector asset was confirmed. See the [Python logo guidance](https://www.python.org/community/logos/), [Java brand guidelines](https://www.oracle.com/a/ocom/docs/java-licensing-logo-guidelines-1908204.pdf), [Spring trademark guidelines](https://spring.io/trademarks/), [PostgreSQL trademark policy](https://www.postgresql.org/about/policies/trademarks/), [MySQL logo usage guidelines](https://www.mysql.com/about/legal/trademark.html), and [Docker trademark guidelines](https://www.docker.com/legal/trademark-guidelines/). No runtime CDN or external image service is involved.
+The Honors figures also have a subtle scanline overlay. Project logos are images rather than photographs, so their filter varies by theme. Certificate previews in Workshops & Certifications use the same theme filters as Honors photos and open the full PDF when selected. The unused duplicate portrait copy was removed. About skills use consistently aligned text labels in a responsive grid and remain separate from Main-page skills.
 
 ### Honors and project evidence
 
@@ -182,7 +181,6 @@ Each file under `src/content/text/honors/` keeps one honor’s summary, media, a
 - `assets/rstw-finalist.jpg` → `public/images/rstw-team.jpg`
 - `assets/DEVGUILD_LOGO.png` → `public/images/devguild-logo.png`
 - `assets/FLYRANK_LOGO.png` → `public/images/flyrank-logo.webp` (the source contains WebP data despite its `.png` filename)
-- Python Software Foundation official logo → `public/icons/python-logo-only.svg` (unaltered SVG, used beside the Python skills label)
 - `references/certificates/DWIA-MOST-ANALYTICAL-PROGRAMMER.pdf` → `public/certificates/DWIA-MOST-ANALYTICAL-PROGRAMMER.pdf` (full PDF) and `public/certificates/dwia-most-analytical-programmer.png` (compact first-page preview)
 - `references/certificates/DWIA-CERT-AKLAN_DELFIN.pdf` → `public/certificates/DWIA-CERT-AKLAN_DELFIN.pdf` (full PDF) and `public/certificates/dwia-python-programming-essentials.png` (compact first-page preview)
 - `references/certificates/TABANG.RISKREADY.CERTIFICATE.png` → `public/certificates/tabang-komsaihack-2026.png`

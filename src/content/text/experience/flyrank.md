@@ -3,6 +3,7 @@ category: experience
 title: Backend AI Engineer Intern
 order: 1
 organization: FlyRank
+date: July 2026 – September 2026
 logo: { path: /images/flyrank-logo.webp, alt: FlyRank logo, width: 1200, height: 1200 }
 ---
 

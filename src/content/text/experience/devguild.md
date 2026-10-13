@@ -3,6 +3,7 @@ category: experience
 title: Co-Founder
 order: 2
 organization: DevGuild
+date: August 2026 - Present
 logo: { path: /images/devguild-logo.png, alt: DevGuild logo, width: 3162, height: 3162 }
 ---
 

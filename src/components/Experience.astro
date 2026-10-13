@@ -12,7 +12,10 @@ const entries = await getEntries('experience');
       const { Content } = await render();
       return <article>
         <div class="split-row">
-          <h3>{data.title}</h3>
+          <div>
+            <h3>{data.title}</h3>
+            {data.date && <p class="entry-subtitle">{data.date}</p>}
+          </div>
           <div class="experience-organization">
             {data.logo && <span class="experience-logo"><img src={data.logo.path} alt={data.logo.alt} width={data.logo.width} height={data.logo.height} loading="lazy" decoding="async" /></span>}
             <span class="meta">{data.organization}</span>

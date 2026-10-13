@@ -4,4 +4,4 @@ title: Cloud & DevOps
 order: 4
 ---
 
-Docker, AWS (learning), Linux (Mint / Ubuntu), Git, GitHub, Maven
+AWS EC2, S3, RDS, IAM, Cognito, Docker, GitHub Actions, CI/CD, OCI

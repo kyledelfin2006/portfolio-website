@@ -89,16 +89,15 @@ No internship dates, scholarship dates, or completed DataCamp tracks are current
 
 | Area | Technologies |
 | --- | --- |
-| Languages | Java 21+, Python 3.x, SQL, Bash |
-| Backend | Spring Boot 3.x, Spring MVC, Spring Data JPA, Spring Security, Hibernate, REST APIs |
-| Databases | PostgreSQL, MySQL, SQLite, Flyway |
-| Cloud and DevOps | Docker, Linux (Mint and Ubuntu), Git, GitHub, Maven |
-| Testing and API tools | JUnit 5, Mockito, Swagger/OpenAPI, Postman |
-| Development tools | IntelliJ IDEA, PyCharm |
+| Languages | Java, Python, SQL, Bash |
+| Backend | Spring Boot, Spring MVC, Spring Data JPA, Spring Security, REST APIs, Hibernate |
+| Databases | PostgreSQL, MySQL, DynamoDB |
+| Cloud and DevOps | AWS EC2, S3, RDS, IAM, Cognito, Docker, GitHub Actions, CI/CD, OCI |
+| Testing | JUnit, Mockito, Testcontainers, JaCoCo |
+| Tools | Git, Maven, Flyway, Swagger/OpenAPI, Postman, Linux, IntelliJ IDEA |
 
 ## Currently learning
 
-- AWS cloud services and infrastructure
 - Secure DevOps pipelines and deployment automation
 - Responsible AI integration in production systems
 

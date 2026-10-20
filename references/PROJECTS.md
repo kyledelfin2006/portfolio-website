@@ -23,10 +23,12 @@ Libro is a Spring Boot REST API for managing books. It combines catalog maintena
 - DTO-driven request validation
 - Centralized exception handling
 - Versioned database migrations with Flyway
+- 150+ unit and integration tests, including Testcontainers-backed PostgreSQL testing
+- Docker Compose development and testing environments with persistent PostgreSQL storage and environment-based configuration
 
 ### Architecture and data
 
-Libro uses explicit DTOs at the API boundary, centralized handling for application failures, PostgreSQL for persistence, and Flyway for schema migrations. Docker provides a reproducible environment for the application and its required services.
+Libro uses explicit DTOs at the API boundary, centralized handling for application failures, PostgreSQL for persistence, and Flyway for schema migrations. All schema changes are automated through Flyway across development, CI, and deployment environments. Docker Compose containerizes the API and PostgreSQL database, with persistent storage and environment-based configuration for reproducible development and testing.
 
 ## Tabang
 

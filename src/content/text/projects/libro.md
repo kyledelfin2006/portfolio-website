@@ -13,7 +13,9 @@ logo:
 order: 1
 highlights:
   - Developed a containerized Library REST API with 15+ endpoints for search, pagination, and data aggregation using Java 25, Spring Boot 4.1, and PostgreSQL.
-  - Automated database schema migrations with Flyway and standardized API error handling through a centralized global exception handler, improving deployment consistency and preventing unhandled application errors across all REST endpoints..
+  - Automated database schema migrations with Flyway and standardized API error handling through a centralized global exception handler, improving deployment consistency and preventing unhandled application errors across all REST endpoints.
+  - Validated application behavior through 150+ unit and integration tests, including Testcontainers-backed PostgreSQL testing, while automating 100% of schema changes through Flyway migrations across development, CI, and deployment environments.
+  - Standardized local environments with Docker Compose, containerizing the API and PostgreSQL database with persistent storage and environment-based configuration for reproducible development and testing.
 ---
 
 ## The problem

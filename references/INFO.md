@@ -44,7 +44,9 @@ No graduation date, GPA, or academic distinction is currently established.
 - Role: Co-Founder
 - Organization: Student-led developer community based in Aklan
 - Community size: More than 30 student developers
-- Purpose: Build real-world software products, solve practical problems, and learn modern engineering workflows and industry tools
+- Purpose: Work with startups to build software, solve practical problems, and learn modern engineering workflows and industry tools
+- Leadership: Managed and mentored members while improving team workflows, DevOps practices, and automation pipelines
+- Startup collaboration: Worked with incubated startups Poultri, Anihub, and AqOne on software design and product development
 - Operations work: Designed and managed Docker-based containerization workflows for three internal development groups using standardized Dockerfiles, image registries, and Docker Compose
 - Reported result: Reduced deployment and QA turnaround from seven days to two–three days
 

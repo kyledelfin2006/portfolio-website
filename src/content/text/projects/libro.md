@@ -12,7 +12,7 @@ logo:
   height: 1166
 order: 1
 highlights:
-  - Validated service, API, and persistence behavior with 190 automated test methods, including Testcontainers-backed PostgreSQL integration tests; managed schema changes through versioned Flyway migrations, with Hibernate schema validation at startup.
+  - 190 automated test methods cover service, API, and persistence behavior, including PostgreSQL integration tests.
   - Containerized the Spring Boot API and PostgreSQL with Docker Compose, configuring health-checked startup, persistent database storage, and environment-based credentials for reproducible local development.
 ---
 

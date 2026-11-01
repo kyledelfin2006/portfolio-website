@@ -195,7 +195,7 @@ Experience logos sit beside the organization name in a 56 × 56px framed tile. T
 
 ### Generate or replace the PDF
 
-`public/resume.pdf` is the exact delivery copy of the user-supplied `references/CURRENT_RESUME.pdf`. Rebuilding the website does **not** regenerate it. The homepage’s Print or download resume link opens the PDF in the browser so its native print command prints the supplied resume; printing the portfolio page itself still prints the website layout.
+`public/resume.pdf` is the exact delivery copy of the user-supplied `references/CURRENT_RESUME.pdf`. Rebuilding the website does **not** regenerate it. The homepage’s **Open provided resume PDF to print or download** link opens this PDF in the browser so its native print command prints the supplied resume; printing the portfolio page itself still prints the website layout.
 
 To replace it, the owner must supply or explicitly authorize a new master resume. Copy that file unchanged to `public/resume.pdf`; do not export the portfolio page as a substitute. Rebuild so the PDF is copied into `dist/`, then check the homepage link and generated `/resume.pdf` asset.
 
@@ -301,7 +301,7 @@ The September 8, 2026 dependency refactor removed Tailwind, its Astro integratio
 
 ## 6. Design and print standards
 
-The site uses a raw cyber-brutalist/editorial resume system: a dark-first near-black canvas, warm off-white text, muted metadata, and a tight analogous family of flat acid, chartreuse, and leaf-green accents. Acid marks the professional subtitle, project names, experience titles, structural signals, and emphasis; project categories stay neutral ink on project listings and case-study headers across themes; dark project descriptions use warm-white ink; and `rgb(109, 179, 63)` identifies dark-mode technology stacks. Light mode keeps chartreuse descriptions and uses the darker related `#3f6f24` for stacks so both remain readable without background fields. Print returns accent text to black. Red is reserved for future warning or error states. Exposed grids, modular panels, hard rules, monospace metadata, and a restrained CSS scanline layer clarify structure without competing with the CV content. Avoid generic neon glows, gradients, rainbow or per-project color cycling, glossy 3D, holographic effects, stock imagery, decorative AI artwork, and excessive glitch noise. Keep the document-like hierarchy and A4 print behavior.
+The site uses a restrained cyber-brutalist/editorial resume system: a dark-first charcoal canvas, warm off-white text, muted metadata, and a small sage accent family. Sage marks key titles, structural signals, links, and selected states; large areas use neutral surfaces and soft sage fills. Project categories stay neutral ink across themes, while project descriptions and stack labels use readable themed text accents. Print returns accent text to black. Red is reserved for warning or error states. Exposed grids, modular panels, hard rules, monospace metadata, and a faint CSS scanline layer clarify structure without competing with the CV content. Avoid neon glows, gradients, rainbow or per-project color cycling, glossy 3D, holographic effects, stock imagery, decorative AI artwork, and excessive glitch noise. Keep the document-like hierarchy and A4 print behavior.
 
 Navigation stays limited to Main, About, and Projects, with numbered monospace labels, a high-contrast active tab, `aria-current="page"`, and all destinations reachable from every route. A project case study marks Projects active. Hover, focus, pressed, and theme feedback is brief and purposeful; no essential information depends on hover. Do not add simulated loading, scroll-jacking, remote fonts, runtime UI dependencies, or motion without a reduced-motion fallback.
 
@@ -311,16 +311,17 @@ The Main page also provides a screen-only native-anchor section navigator using 
 
 | Token | Dark | Light | Print |
 | --- | --- | --- | --- |
-| Canvas | `#090b09` | `#f4f1e8` | `#ffffff` |
-| Panel surface | `#10130f` | `#fffdf6` | `#ffffff` |
-| Strong surface | `#1a1e18` | `#e7e2d4` | `#ffffff` |
-| Main ink | `#f1eee4` | `#121411` | `#000000` |
-| Muted text | `#a8aea1` | `#565b51` | `#333333` |
-| Rules | `#4b5148` / `#e2dfd5` | `#74796d` / `#121411` | `#777777` / `#000000` |
-| Acid accent | `#b8ff3d` | `#314800` for text, `#b8ff3d` for fills | removed |
-| Project description | `#f1eee4` | `#425f00` | `#000000` |
-| Stack green | `#6db33f` / `rgb(109, 179, 63)` | `#3f6f24` | `#000000` |
-| Reserved error | `#ff665a` | `#a5261f` | `#000000` |
+| Canvas | `#10120f` | `#f1efe8` | `#ffffff` |
+| Panel surface | `#171a16` | `#faf8f1` | `#ffffff` |
+| Strong surface | `#20241e` | `#e8e5da` | `#ffffff` |
+| Main ink | `#eeece3` | `#1a1b17` | `#000000` |
+| Muted text | `#aeb2a4` | `#62665c` | `#333333` |
+| Rules | `#62695b` / `#d4d3c8` | `#858a7c` / `#282a23` | `#777777` / `#000000` |
+| Accent fill / ink | `#30392a` / `#f1eee4` | `#dce5cc` / `#26331d` | removed |
+| Accent text | `#b4c391` | `#3f5530` | `#000000` |
+| Project description | `#eeece3` | `#4c6341` | `#000000` |
+| Stack text | `#a9bf8a` | `#496445` | `#000000` |
+| Reserved error | `#de776e` | `#a5261f` | `#000000` |
 
 Long-form content uses `"Times New Roman", Times, "Nimbus Roman No9 L", serif`. Navigation, dates, labels, metadata, and actions use the local system stack `"Cascadia Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace`. No font is downloaded. The screen container is capped at 1080px; panels use square corners, flat fills, and centralized spacing and rule tokens in `src/styles/global.css`.
 
@@ -338,7 +339,7 @@ Long-form content uses `"Times New Roman", Times, "Nimbus Roman No9 L", serif`. 
 | Case-study introduction | 19px, line-height 1.55 |
 | Markdown section heading | 18px monospace uppercase |
 
-Main page sections use a responsive exposed grid: Experience and Projects span both columns at 860px and above, while every section becomes a single reading column below that breakpoint. Section panels have 16px gaps and entries have 24px gaps. Rules are 1px. Link feedback uses acid-green underline/fill changes and a 1px pressed offset over 150ms. Theme cross-dissolve is 180ms and does not move the document. On the first Main page visit in a tab, a decorative 720ms editorial reveal draws an acid seam for 180ms before the panels split over 540ms above the already-rendered page; session storage prevents replay and interaction dismisses it. Reduced motion, unavailable storage, disabled JavaScript, and print show the page immediately; a 950ms timeout clears the overlay if its completion handler fails. Internal page switches use the same split material as a 150ms close and 250ms open. There are no section entrance animations, hidden sections, carousels, or synthetic loading states.
+Main page sections use a responsive exposed grid: Experience and Projects span both columns at 860px and above, while every section becomes a single reading column below that breakpoint. Section panels have 16px gaps and entries have 24px gaps. Rules are 1px. Link feedback uses muted sage fills, underline changes, and a 1px pressed offset over 150ms. Project entries reveal a short sage rail on hover or keyboard focus; the theme marker rotates with the selected theme. Theme cross-dissolve is 180ms and does not move the document. On the first Main page visit in a tab, a decorative 720ms editorial reveal draws a sage seam for 180ms before the panels split over 540ms above the already-rendered page; session storage prevents replay and interaction dismisses it. Reduced motion, unavailable storage, disabled JavaScript, and print show the page immediately; a 950ms timeout clears the overlay if its completion handler fails. Internal page switches use the same split material as a 150ms close and 250ms open. There are no section entrance animations, hidden sections, carousels, or synthetic loading states. The home project list shows each project description and one highlight, with the full case study available from the project link.
 
 Below 640px, primary navigation remains a three-column row, the theme control moves below it, and the identity keeps a compact two-column arrangement with a narrow portrait. Split rows and skill grids become a single column so labels and metadata cannot collide. At larger widths the portrait anchors the right-hand grid boundary and row metadata aligns right. Content and navigation are tested against a 320px minimum viewport without intentional horizontal scrolling.
 

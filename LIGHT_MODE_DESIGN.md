@@ -1,6 +1,6 @@
 # Light Mode Design
 
-Light mode carries the portfolio’s editorial, cyber-brutalist resume style into a calm palette. It should feel like a carefully typeset document on warm paper: quiet, readable at a glance, with restrained sage signals that preserve the site’s technical character.
+Light mode carries the portfolio’s editorial, cyber-brutalist resume style into a calm palette. It should feel like a carefully typeset document on warm paper: quiet, readable at a glance, with restrained Spring Boot green signals that preserve the site’s technical character.
 
 ## Palette and surfaces
 
@@ -8,9 +8,10 @@ Light mode carries the portfolio’s editorial, cyber-brutalist resume style int
 - Content panels use a slightly lighter paper tone (`#faf8f1`); section-heading bands use a muted beige (`#e8e5da`).
 - Main text is near-black (`#1a1b17`). Secondary labels and dates use subdued gray-green (`#62665c`).
 - Thin rules use gray-green (`#858a7c`), with stronger near-black rules to frame major regions.
-- Sage (`#dce5cc`) provides a low-saturation fill for selected and hover states, with dark foreground text (`#26331d`). Text accents use darker greens—`#3f5530` for the primary accent, `#4c6341` for project descriptions, and `#496445` for technology stacks—so they remain readable on the light surfaces.
+- A pale green tint (`#e3eedc`) provides a low-saturation fill for selected and hover states, with dark foreground text (`#1d2a18`). Text accents use accessible green shades—`#3e6c2d` for the primary accent and `#416f2e` for project descriptions and technology stacks—so they remain readable on light surfaces.
+- The Spring Boot reference green is `#6db33f` ([Simple Icons Spring Boot entry](https://simpleicons.org/?q=springboot)). Use it directly only for small accents on dark surfaces; on light surfaces, use the darker green variants above to preserve contrast.
 
-The result is warm and readable without the glare of a white canvas or the visual noise of large neon fills. Sage marks focus and interaction in small areas. Red remains reserved for warning or error states.
+The result is warm and readable without the glare of a white canvas or the visual noise of large neon fills. Spring Boot green marks focus and interaction in small areas. Red remains reserved for warning or error states.
 
 ## Structure and hierarchy
 
@@ -20,7 +21,7 @@ Long-form text uses a traditional serif face. Navigation, section labels, dates,
 
 ## Accent use and interaction
 
-Sage communicates hierarchy and interaction rather than decorating every surface. It marks key titles and structural cues, link underlines, list markers, keyboard focus, and the current navigation tab. Selected and hovered states use a muted sage fill with readable foreground text and a clear inset rule; hover and focus states remain brief and easy to identify. Theme changes cross-dissolve over 180ms without moving the layout, and the theme marker rotates to acknowledge the switch.
+Spring Boot green communicates hierarchy and interaction rather than decorating every surface. It marks key titles and structural cues, link underlines, list markers, keyboard focus, and the current navigation tab. Selected and hovered states use a pale green fill with readable foreground text and a clear inset rule; hover and focus states remain brief and easy to identify. Theme changes cross-dissolve over 180ms without moving the layout, and the theme marker rotates to acknowledge the switch.
 
 ## Images
 

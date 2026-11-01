@@ -2,7 +2,8 @@
   color-scheme: light;
   --canvas: #f1efe8; --surface: #faf8f1; --surface-strong: #e8e5da;
   --ink: #1a1b17; --muted: #62665c; --rule: #858a7c; --rule-strong: #282a23;
-  --accent-fill: #dce5cc; --accent-fill-ink: #26331d; --accent-ink: #3f5530; --accent-soft: #4c6341; --stack-accent: #496445; --danger: #a5261f;
+  --spring-green: #6db33f;
+  --accent-fill: #e3eedc; --accent-fill-ink: #1d2a18; --accent-ink: #3e6c2d; --accent-soft: #416f2e; --stack-accent: #416f2e; --danger: #a5261f;
   --serif: "Times New Roman", Times, "Nimbus Roman No9 L", serif;
   --mono: "Cascadia Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
@@ -13,7 +14,7 @@
   color-scheme: dark;
   --canvas: #10120f; --surface: #171a16; --surface-strong: #20241e;
   --ink: #eeece3; --muted: #aeb2a4; --rule: #62695b; --rule-strong: #d4d3c8;
-  --accent-fill: #30392a; --accent-fill-ink: #f1eee4; --accent-ink: #b4c391; --accent-soft: var(--ink); --stack-accent: #a9bf8a; --danger: #de776e;
+  --accent-fill: #293522; --accent-fill-ink: #f1eee4; --accent-ink: var(--spring-green); --accent-soft: var(--ink); --stack-accent: #83bd63; --danger: #de776e;
 }
 *, *::before, *::after { box-sizing: border-box; }
 html { background: var(--canvas); color: var(--ink); font-family: var(--serif); }

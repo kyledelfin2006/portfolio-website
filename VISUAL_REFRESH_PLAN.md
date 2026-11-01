@@ -8,7 +8,7 @@ This plan guided the first implementation pass. The completed changes and remain
 
 ## Implemented in the first pass
 
-- Replaced broad chartreuse fills with warm neutral surfaces and muted sage accents in `src/styles/global.css`. Primary ink, muted text, accent text, and stack text contrast range from 5.53:1 to 16.29:1 in light mode and 8.12:1 to 14.84:1 in dark mode. Checked accent-fill and rule pairs are at least 6.31:1 in light mode and 6.40:1 in dark mode.
+- Replaced broad chartreuse fills with warm neutral surfaces and Spring Boot green accents in `src/styles/global.css`. The brand reference `#6db33f` is used for small dark-theme accents; darker variants and pale green fills serve light mode. Primary accent/description/stack text contrast is at least 5.59:1 in light mode and 6.83:1 in dark mode. Accent text on fills is at least 5.02:1; selected fills also retain an inset accent rule.
 - Reduced the homepage project summaries to a short description and one highlight per project. Tightened selected About and Libro copy while leaving full case studies available.
 - Added short CSS feedback for hover and keyboard focus, a small project-entry rail, and a theme-marker rotation. Existing page and route reveals remain in place. No animation dependency was added; [ANIMATION_RESEARCH.md](ANIMATION_RESEARCH.md) recommends native CSS and browser APIs for this scope.
 - Kept the supplied resume as the print/download asset. `references/CURRENT_RESUME.pdf`, `public/resume.pdf`, and the built `dist/resume.pdf` have matching SHA-256 hashes. The visible link now says “Open provided resume PDF to print or download.”
@@ -29,7 +29,7 @@ The existing browser preview was inspected at 320px in dark mode. Its theme cont
 ### 1. Soften the palette without reducing legibility
 
 - Keep warm paper surfaces in light mode and deep charcoal/green-black surfaces in dark mode. Use nearby low-saturation surface shades to create depth rather than adding multiple new hues.
-- Keep chartreuse as a small brand signal: a thin seam, underline, marker, or restrained icon. Replace broad neon fills with a subdued surface token or a low-saturation sage fill paired with a dark foreground.
+- Keep Spring Boot green (`#6db33f`) as a small brand signal: a thin seam, underline, marker, or restrained icon. Replace broad saturated fills with pale green surfaces paired with a dark foreground.
 - Retain clear text and focus colors. Do not make body text, metadata, links, borders, or focus rings faint just to make the page look softer.
 - Add or refine semantic tokens such as `--surface-raised`, `--accent-muted`, and `--accent-strong` only where a real component needs them. Avoid hard-coded colors in component rules.
 - Calculate contrast for normal text (at least 4.5:1), large text (at least 3:1), and essential control graphics/boundaries (at least 3:1) in both themes, including hover, active, selected, and focus states. Use color plus an underline, border, icon, or other cue for link/state differences.

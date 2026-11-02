@@ -54,13 +54,6 @@ No internship dates, scholarship dates, or completed DataCamp tracks are current
 
 ## Honors and training
 
-### HackForGov5 Region VI Regional Qualifying Round
-
-- Result: Fifth place in the 2026 HackForGov5 Region VI Regional Qualifying Round
-- Team: CyberGuild (ASU Developers’ Guild)
-- Focus: Ethical hacking and cybersecurity principles
-- Evidence: `../assets/HACK4GOV.png` and `../assets/CYBERGUILD2.jpg`
-
 ### RSTW Paindis-Indis It Inobasyon Student Startup Competition
 
 - Result: Second place among eight finalists from across Western Visayas
@@ -69,6 +62,13 @@ No internship dates, scholarship dates, or completed DataCamp tracks are current
 - Team: Agritech, Aklan State University – Kalibo Campus
 - Date: October 2026
 - Evidence: `../assets/RSTW.jpeg` and `../assets/rstw-finalist.jpg`
+
+### HackForGov5 Region VI Regional Qualifying Round
+
+- Result: Fifth place in the 2026 HackForGov5 Region VI Regional Qualifying Round
+- Team: CyberGuild (ASU Developers’ Guild)
+- Focus: Ethical hacking and cybersecurity principles
+- Evidence: `../assets/HACK4GOV.png` and `../assets/CYBERGUILD2.jpg`
 
 ### Most Analytical Programmer Award
 

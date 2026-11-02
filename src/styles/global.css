@@ -4,6 +4,8 @@
   --ink: #1a1b17; --muted: #62665c; --rule: #858a7c; --rule-strong: #282a23;
   --spring-green: #6db33f;
   --accent-fill: #e3eedc; --accent-fill-ink: #1d2a18; --accent-ink: #3e6c2d; --accent-soft: #416f2e; --stack-accent: #416f2e; --danger: #a5261f;
+  --cobalt: #315f9f; --cobalt-fill: #e3ebf8; --cobalt-ink: #172740;
+  --amber: #875600; --amber-fill: #f5e9cf; --amber-ink: #30220c;
   --serif: "Times New Roman", Times, "Nimbus Roman No9 L", serif;
   --mono: "Cascadia Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
@@ -15,6 +17,8 @@
   --canvas: #10120f; --surface: #171a16; --surface-strong: #20241e;
   --ink: #eeece3; --muted: #aeb2a4; --rule: #62695b; --rule-strong: #d4d3c8;
   --accent-fill: #293522; --accent-fill-ink: #f1eee4; --accent-ink: var(--spring-green); --accent-soft: var(--ink); --stack-accent: #83bd63; --danger: #de776e;
+  --cobalt: #8bb8ff; --cobalt-fill: #1e2c42; --cobalt-ink: #eef5ff;
+  --amber: #f2bd65; --amber-fill: #3a2c15; --amber-ink: #fff6e3;
 }
 *, *::before, *::after { box-sizing: border-box; }
 html { background: var(--canvas); color: var(--ink); font-family: var(--serif); }
@@ -62,6 +66,14 @@ h1 { max-width: 720px; margin-bottom: var(--space-2); font-size: clamp(36px, 7vw
 .portrait { width: 100%; height: 100%; min-height: 188px; border-left: var(--rule-width) solid var(--rule-strong); object-fit: cover; filter: grayscale(1) contrast(1.08); }
 
 main { margin-top: var(--space-6); }
+.home-actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-3); }
+.home-actions a { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 14px; border: var(--rule-width) solid var(--rule-strong); font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: .04em; text-decoration: none; text-transform: uppercase; transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms cubic-bezier(.16, 1, .3, 1); }
+.home-action-primary { color: var(--accent-fill-ink); background: var(--accent-fill); border-color: var(--accent-ink) !important; }
+.home-action-secondary { color: var(--cobalt-ink); background: var(--cobalt-fill); border-color: var(--cobalt) !important; }
+.home-actions a:is(:hover, :focus-visible) { transform: translateY(-2px); }
+.home-action-primary:is(:hover, :focus-visible) { color: var(--accent-fill-ink); background: color-mix(in srgb, var(--accent-fill) 70%, var(--accent-ink)); }
+.home-action-secondary:is(:hover, :focus-visible) { color: var(--cobalt-ink); background: color-mix(in srgb, var(--cobalt-fill) 75%, var(--cobalt)); }
+.home-actions a:active { transform: translateY(0); }
 .section-navigator { margin-bottom: var(--space-4); border: var(--rule-width) solid var(--rule-strong); background: var(--surface); font-family: var(--mono); font-size: 11px; letter-spacing: .045em; text-transform: uppercase; }
 .section-navigator ol { display: grid; grid-template-columns: repeat(var(--section-count), minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; }
 .section-navigator li { min-width: 0; margin: 0; border-right: var(--rule-width) solid var(--rule); }
@@ -75,6 +87,8 @@ main { margin-top: var(--space-6); }
 .resume-sections > section, .about-sections > section { padding: 0 var(--space-5) var(--space-5); }
 .section-heading { display: flex; align-items: center; min-height: 42px; margin: 0 calc(var(--space-5) * -1) var(--space-5); padding: 0 var(--space-3); border-bottom: var(--rule-width) solid var(--rule-strong); background: var(--surface-strong); font-family: var(--mono); font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
 .section-heading::before { margin-right: var(--space-2); color: var(--accent-ink); content: "//"; }
+.resume-page #projects .section-heading::before, .resume-page #skills .section-heading::before { color: var(--cobalt); }
+.resume-page #honors .section-heading::before { color: var(--amber); }
 .split-row { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-2) var(--space-5); }
 h3 { font-size: 17px; font-weight: 700; line-height: 1.3; }
 .experience h3 { color: var(--accent-ink); }
@@ -88,6 +102,11 @@ h3 { font-size: 17px; font-weight: 700; line-height: 1.3; }
 #projects .entries > article { position: relative; }
 #projects .entries > article::before { position: absolute; top: var(--space-5); bottom: var(--space-5); left: -8px; width: 2px; content: ""; background: var(--accent-ink); transform: scaleY(0); transform-origin: top; transition: transform 200ms cubic-bezier(.16, 1, .3, 1); }
 #projects .entries > article:is(:hover, :focus-within)::before { transform: scaleY(1); }
+.resume-page #projects .entries > article::before { background: var(--cobalt); }
+.resume-page #projects .entries > article { transition: background-color 180ms ease, transform 180ms cubic-bezier(.16, 1, .3, 1); }
+.resume-page #projects .entries > article:is(:hover, :focus-within) { background: color-mix(in srgb, var(--cobalt-fill) 45%, transparent); transform: translateY(-2px); }
+.resume-page #projects .project-links a:is(:hover, :focus-visible) { color: var(--cobalt-ink); background: var(--cobalt-fill); border-color: var(--cobalt); }
+.resume-page #projects .project-links a:is(:hover, :focus-visible)::before { color: var(--cobalt); }
 ul { margin: var(--space-2) 0 0; padding-left: 20px; list-style: square; }
 li::marker { color: var(--accent-ink); }
 li + li { margin-top: var(--space-1); }
@@ -97,6 +116,7 @@ li + li { margin-top: var(--space-1); }
 .project-summary .entry-subtitle { margin-top: var(--space-2); }
 .project-summary .project-description { color: var(--muted); font-family: var(--serif); font-size: 15px; line-height: 1.45; }
 .project-category { color: var(--ink); font-weight: 400; }
+.resume-page .project-category { color: var(--cobalt); }
 .case-body strong { color: var(--accent-ink); }
 :root.dark .subtitle, :root.dark .project-summary h3 > a, :root.dark .case-header h2 { color: var(--accent-ink); }
 .project-stack { color: var(--stack-accent); }
@@ -108,7 +128,12 @@ li + li { margin-top: var(--space-1); }
 .project-links a::before, .case-actions a::before, .credential-link::before, .back-link::before { margin-right: 6px; color: var(--accent-ink); content: "↗"; }
 .project-links a:is(:hover, :focus-visible), .case-actions a:is(:hover, :focus-visible), .credential-link:is(:hover, :focus-visible), .back-link:is(:hover, :focus-visible) { color: var(--accent-fill-ink); background: var(--accent-fill); transform: translateY(-1px); }
 .project-links a:is(:hover, :focus-visible)::before, .case-actions a:is(:hover, :focus-visible)::before, .credential-link:is(:hover, :focus-visible)::before, .back-link:is(:hover, :focus-visible)::before { color: var(--accent-fill-ink); }
+.project-tags { display: flex; flex-wrap: wrap; gap: var(--space-1); margin-top: var(--space-3); padding: 0; list-style: none; }
+.project-tags li { margin: 0; padding: 3px 7px; border: var(--rule-width) solid color-mix(in srgb, var(--cobalt) 50%, var(--rule)); color: var(--cobalt-ink); background: var(--cobalt-fill); font-family: var(--mono); font-size: 10px; line-height: 1.4; }
 .honor-item p { margin-top: var(--space-2); }
+.resume-page .honor-item h3, .resume-page #honors .meta { color: var(--amber); }
+.resume-page #honors .entries > article { transition: background-color 180ms ease, transform 180ms cubic-bezier(.16, 1, .3, 1); }
+.resume-page #honors .entries > article:is(:hover, :focus-within) { background: color-mix(in srgb, var(--amber-fill) 42%, transparent); transform: translateY(-2px); }
 .entries article > h3 + p { margin-top: var(--space-2); }
 .honor-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); width: 100%; margin: var(--space-4) 0 var(--space-3); }
 .honor-figure { position: relative; aspect-ratio: 3 / 2; overflow: hidden; border: var(--rule-width) solid var(--rule-strong); background: var(--canvas); }
@@ -124,6 +149,11 @@ li + li { margin-top: var(--space-1); }
 .skills > div { padding: var(--space-3); border-right: var(--rule-width) solid var(--rule); border-bottom: var(--rule-width) solid var(--rule); }
 .skills dt { display: block; margin-bottom: var(--space-1); font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
 .skills dd, .skills dd p { display: inline; }
+.resume-page .skills > div { padding: var(--space-3) var(--space-4); }
+.resume-page .skills dt { color: var(--cobalt); }
+.resume-page .skills dd { display: block; margin: 0; }
+.resume-page .skills dd ul { display: flex; flex-wrap: wrap; gap: var(--space-1); margin: 0; padding: 0; list-style: none; }
+.resume-page .skills dd li { margin: 0; padding: 2px 6px; border: var(--rule-width) solid color-mix(in srgb, var(--cobalt) 42%, var(--rule)); color: var(--cobalt-ink); background: var(--cobalt-fill); font-family: var(--mono); font-size: 10px; line-height: 1.4; }
 .about-skills { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; padding: 0; border-top: var(--rule-width) solid var(--rule); border-left: var(--rule-width) solid var(--rule); list-style: none; }
 .about-skills li { min-width: 0; padding: var(--space-3); overflow-wrap: anywhere; border-right: var(--rule-width) solid var(--rule); border-bottom: var(--rule-width) solid var(--rule); }
 .credential-link { margin-top: var(--space-3); font-family: var(--mono); font-size: 11px; text-transform: uppercase; }
@@ -157,6 +187,9 @@ footer { display: flex; justify-content: space-between; gap: var(--space-4); mar
 .skip-link { position: absolute; top: -100px; left: var(--space-4); z-index: 10; padding: var(--space-3) var(--space-4); border: var(--rule-width) solid var(--rule-strong); color: var(--accent-fill-ink); background: var(--accent-fill); font-family: var(--mono); }
 .skip-link:focus { top: var(--space-2); }
 
+.resume-page .scroll-reveal { opacity: 0; transform: translateY(12px); transition: opacity 320ms cubic-bezier(.16, 1, .3, 1), transform 320ms cubic-bezier(.16, 1, .3, 1); }
+.resume-page .scroll-reveal.is-visible { opacity: 1; transform: translateY(0); }
+
 .intro-reveal { display: none; }
 :root.intro-active .intro-reveal { position: fixed; inset: 0; z-index: 9; display: grid; grid-template-rows: 1fr 1fr; pointer-events: none; }
 .intro-panel { min-height: 0; background: var(--canvas); }
@@ -187,7 +220,7 @@ footer { display: flex; justify-content: space-between; gap: var(--space-4); mar
 @media (min-width: 640px) { .document-shell { padding: var(--space-7) var(--space-6); } }
 @media (min-width: 860px) {
   .resume-sections { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
-  .resume-sections > :is(#experience, #projects, #honors, #skills) { grid-column: 1 / -1; }
+  .resume-sections > :is(#experience, #projects, #honors) { grid-column: 1 / -1; }
 }
 @media (max-width: 639px) {
   .intro-label { padding-inline: var(--space-4); }
@@ -234,11 +267,13 @@ footer { display: flex; justify-content: space-between; gap: var(--space-4); mar
   .toggle-marker { transition: none; }
   #projects .entries > article:is(:hover, :focus-within)::before { transform: scaleY(1); transition: none; }
   .document-shell { animation: none !important; }
+  .resume-page .scroll-reveal, .resume-page .scroll-reveal.is-visible { opacity: 1; transform: none; transition: none; }
+  .resume-page #projects .entries > article, .resume-page #honors .entries > article, .resume-page .home-actions a { transition: none; }
 }
 
 @page { size: A4; margin: 12mm 14mm; }
 @media print {
-  :root, :root.dark { color-scheme: light; --canvas: #fff; --surface: #fff; --surface-strong: #fff; --ink: #000; --muted: #333; --rule: #777; --rule-strong: #000; --accent-fill: #fff; --accent-fill-ink: #000; --accent-ink: #000; --accent-soft: #000; --stack-accent: #000; }
+  :root, :root.dark { color-scheme: light; --canvas: #fff; --surface: #fff; --surface-strong: #fff; --ink: #000; --muted: #333; --rule: #777; --rule-strong: #000; --accent-fill: #fff; --accent-fill-ink: #000; --accent-ink: #000; --accent-soft: #000; --stack-accent: #000; --cobalt: #000; --cobalt-fill: #fff; --cobalt-ink: #000; --amber: #000; --amber-fill: #fff; --amber-ink: #000; }
   html, body { background: #fff !important; color: #000 !important; }
   body { font-size: 10pt; line-height: 1.25; }
   body::before, .no-print, .skip-link, .section-navigator, .case-toc, .intro-reveal, .route-reveal { display: none !important; }
@@ -273,6 +308,12 @@ footer { display: flex; justify-content: space-between; gap: var(--space-4); mar
   .skills > div + div { margin-top: .5mm; }
   .skills dt { display: inline; margin: 0; font-family: var(--serif); font-size: 10pt; text-transform: none; }
   .skills dd { display: inline; }
+  .resume-page .skills dd ul { display: inline; margin: 0; padding: 0; }
+  .resume-page .skills dd li { display: inline; padding: 0; border: 0; color: #000; background: #fff; font-family: var(--serif); font-size: 10pt; }
+  .resume-page .skills dd li:not(:last-child)::after { content: ", "; }
+  .resume-page .scroll-reveal, .resume-page .scroll-reveal.is-visible { opacity: 1; transform: none; transition: none; }
+  .resume-page #projects .entries > article:is(:hover, :focus-within), .resume-page #honors .entries > article:is(:hover, :focus-within) { background: transparent; transform: none; }
+  .resume-page #projects .entries > article::before { transform: scaleY(0); }
   .about-skills li { padding: 1.5mm; border-color: #777; }
   a { color: #000 !important; text-decoration: none; }
   article, .resume-sections section, .about-sections section { break-inside: avoid; }

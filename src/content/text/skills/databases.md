@@ -4,4 +4,6 @@ title: Databases
 order: 3
 ---
 
-PostgreSQL, MySQL, DynamoDB
+- PostgreSQL
+- MySQL
+- DynamoDB

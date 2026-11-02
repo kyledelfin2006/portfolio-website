@@ -1,8 +1,8 @@
 ---
 import { contentId, getEntries, getRequiredEntry } from '../content/load';
 import SectionHeading from './SectionHeading.astro';
-interface Props { heading: string; ariaLabel: string; id?: string; }
-const { heading, ariaLabel, id } = Astro.props;
+interface Props { heading: string; ariaLabel: string; id?: string; compact?: boolean; }
+const { heading, ariaLabel, id, compact = false } = Astro.props;
 const projects = await getEntries('project');
 const { data: site } = await getRequiredEntry('site', 'site');
 const base = import.meta.env.BASE_URL;
@@ -14,8 +14,13 @@ const base = import.meta.env.BASE_URL;
       <div class="project-summary">
         <div>
           <div class="split-row"><h3><a href={`${base}projects/${contentId(project).split('/').at(-1)}/`}>{project.data.title}</a><span class="project-category"> — {project.data.projectCategory}</span></h3>{project.data.date && <span class="meta">{project.data.date}</span>}</div>
-          <p class="entry-subtitle project-description">{project.data.description}</p>
-          <ul>{project.data.highlights.slice(0, 1).map((highlight) => <li>{highlight}</li>)}</ul>
+          {compact ? <>
+            <p class="entry-subtitle project-description">{project.data.homeSummary}</p>
+            <ul class="project-tags no-print">{project.data.stack.slice(0, 3).map((item) => <li>{item}</li>)}</ul>
+          </> : <>
+            <p class="entry-subtitle project-description">{project.data.description}</p>
+            <ul>{project.data.highlights.slice(0, 1).map((highlight) => <li>{highlight}</li>)}</ul>
+          </>}
           <div class="project-links no-print"><a href={`${base}projects/${contentId(project).split('/').at(-1)}/`}>{site.projectLinks.caseStudy}</a><a href={project.data.repository} target="_blank" rel="noopener noreferrer">{site.projectLinks.sourceCode}</a>{project.data.certificatePath && <a href={`${base}${project.data.certificatePath}`} target="_blank" rel="noopener noreferrer">{site.credentialLink}</a>}</div>
         </div>
         {project.data.logo && <figure class="project-logo"><img src={`${base}${project.data.logo.path}`} alt={project.data.logo.alt} width={project.data.logo.width} height={project.data.logo.height} loading="lazy" decoding="async" /></figure>}

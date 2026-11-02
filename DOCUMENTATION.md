@@ -1,6 +1,6 @@
 # Portfolio developer and maintainer manual
 
-This repository implements Aldrin Kyle Delfin’s dark-first cyber-brutalist Main page, About page, and Markdown project case studies. The site is static, immediately readable, and usable without JavaScript. Its optional browser scripts handle the light/dark toggle, first-visit Main page reveal, and internal page transitions.
+This repository implements Aldrin Kyle Delfin’s dark-first cyber-brutalist Main page, About page, and Markdown project case studies. The site is static, immediately readable, and usable without JavaScript. Its optional browser scripts handle the light/dark toggle, first-visit Main page reveal, one-time project and achievement scroll reveals, and internal page transitions.
 
 ## 1. Architecture and decisions
 
@@ -24,7 +24,7 @@ Astro and TypeScript are the complete application dependency list. The checker i
 6. Required singleton files are loaded by exact ID and fail the build with a named-file error when missing.
 7. `ResumeLayout.astro` supplies the common document and presentation while its metadata, header, controls, and footer labels come from Markdown.
 
-No React, component library, global state manager, backend, contact form service, animation library, analytics, remote fonts, or generated illustration is used. Navigation uses native anchors with a progressive CSS/JavaScript shutter for internal page links; without JavaScript or session storage, links navigate immediately. The Resume reveal uses CSS animation and a small inline session-storage script. Contact opens the visitor’s email client.
+No React, component library, global state manager, backend, contact form service, animation library, analytics, remote fonts, or generated illustration is used. Navigation uses native anchors with a progressive CSS/JavaScript shutter for internal page links; without JavaScript or session storage, links navigate immediately. The Resume reveal uses CSS animation and a small inline session-storage script. Main-page project and achievement rows use a native `IntersectionObserver` reveal that leaves content visible without JavaScript, with reduced motion, and in print. Contact opens the visitor’s email client.
 
 ### Theme and accessibility
 
@@ -122,7 +122,7 @@ All published copy lives in `src/content/text/` as Markdown. Never add biography
 | Directory/file | `category` | Required fields beyond `category` |
 | --- | --- | --- |
 | `site.md` | `site` | `fullName`, `shortName`, `professionalSubtitle`, `location`, `email`, `portraitAlt`, `navigationAriaLabel`, `navigation`, `profiles`, `theme`, `skipLink`, `downloadResume`, `projectLinks`, `credentialLink` |
-| `pages/home.md` | `page-home` | `title`, `description`, `sectionOrder`, `sections` labels |
+| `pages/home.md` | `page-home` | `title`, `description`, `sectionOrder`, `actions`, `sections` labels |
 | `pages/about.md` | `page-about` | `title`, `description`, ordered `sections`, `technicalSkillsHeading`, `technicalSkills`, `workshopsHeading`, `workshopsAriaLabel` |
 | `pages/projects.md` | `page-projects` | `title`, `description`, `eyebrow`, ordered `sections`, `sectionHeading`, `sectionAriaLabel`; body is the introduction |
 | `about/*.md` | `about` | `title`; optional `itemTitle`, `meta`, `contactProfileLabels`; body is section prose |
@@ -131,16 +131,17 @@ All published copy lives in `src/content/text/` as Markdown. Never add biography
 | `experience/*.md` | `experience` | `title`, `order`, `organization`; optional `logo` with `path`, `alt`, `width`, and `height`; body contains bullets |
 | `skills/*.md` | `skill` | `title`, `order`; body contains the skill list |
 | `workshops/*.md` | `workshop` | `title`, `order`, `issuerOrOrganizer`; optional `date`, `certificatePath`, and `certificateImages` with image details and PDF paths; body contains takeaways |
-| `projects/*.md` | `project` | `title`, `order`, `description`, `projectCategory`, `stack`, `repository`, `highlights`; optional `date`, `certificatePath`, and `logo` with `path`, `alt`, `width`, and `height`; body is the case study |
+| `projects/*.md` | `project` | `title`, `order`, `description`, `homeSummary`, `projectCategory`, `stack`, `repository`, `highlights`; optional `date`, `certificatePath`, and `logo` with `path`, `alt`, `width`, and `height`; body is the case study |
 
 URLs must be absolute and valid. Orders are nonnegative integers. Required strings and content arrays cannot be empty; page section lists may be empty. Unknown optional facts should be omitted, not represented by empty strings. Invalid fields, misspelled categories, incompatible frontmatter, and missing singleton files fail `npm run check` or `npm run build`.
 
 ### Add, edit, reorder, rename, or delete
 
 - Edit shared identity, navigation, theme, footer, contact, and reusable action labels in `site.md`. Edit a page singleton for its title, SEO description, introduction, or section labels.
-- Reorder or hide page sections by editing `sectionOrder` in `pages/home.md` or `sections` in `pages/about.md` and `pages/projects.md`. Remove an ID from the list to hide that section without deleting its content; add it back to show it. These lists can be empty. Main contains Education, Experience, Selected Projects, Activities & Achievements, and Technical Skills. Activities & Achievements and Technical Skills span the full desktop grid. About contains About Me, its own Technical Skills catalog, Certifications & Workshops, Engineering Philosophy, and Resume & Contact.
+- Reorder or hide page sections by editing `sectionOrder` in `pages/home.md` or `sections` in `pages/about.md` and `pages/projects.md`. Remove an ID from the list to hide that section without deleting its content; add it back to show it. These lists can be empty. Main orders Experience, Selected Projects, Education, Technical Skills, and Activities & Achievements; Education and Technical Skills pair on wide screens, while Experience, Projects, and Activities & Achievements span the full row. About contains About Me, its own Technical Skills catalog, Certifications & Workshops, Engineering Philosophy, and Resume & Contact.
 - The supported IDs live in `src/content/sections.ts`, and `ContentSection.astro` maps them to their renderers. Adding a new kind of section requires an ID, a validated content category where needed, and a renderer. Existing section types need only a page-list change to move or show them.
 - Add repeatable content by copying a file in the appropriate directory, giving it a lowercase kebab-case filename, changing its content, and setting `order`. No component or TypeScript edit is needed.
+- Give every project a concise `homeSummary`; the Main page uses it with up to three stack labels, while the Projects index keeps its fuller description and first highlight.
 - Reorder an item by changing `order`. Equal orders use filenames as a deterministic tie-breaker.
 - Delete an item by deleting its Markdown file. Its rendered entry disappears automatically.
 - Rename any repeatable file to change its stable content identifier. For projects, the filename is also the route slug: `projects/my-project.md` produces `/projects/my-project/`. Renaming or deleting it removes the old route at the next build, so arrange a host redirect for an already-published URL when needed.
@@ -309,7 +310,7 @@ The site uses a restrained cyber-brutalist/editorial resume system: a dark-first
 
 Navigation stays limited to Main, About, and Projects, with numbered monospace labels, a high-contrast active tab, `aria-current="page"`, and all destinations reachable from every route. A project case study marks Projects active. Hover, focus, pressed, and theme feedback is brief and purposeful; no essential information depends on hover. Do not add simulated loading, scroll-jacking, remote fonts, runtime UI dependencies, or motion without a reduced-motion fallback.
 
-The Main page also provides a screen-only native-anchor section navigator using the existing section names. It is a reading and wayfinding aid, not new portfolio content, and is hidden in print. Project case studies with at least three existing Markdown level-two headings render a screen-only table of contents from those headings; the article remains complete and navigable without JavaScript.
+The Main page provides two screen-only calls to action, a native-anchor section navigator, and one-time reveals for project and achievement rows. Action labels live in `pages/home.md`; the contact action opens the existing email address. These are wayfinding and interaction aids, not new portfolio claims, and are hidden in print. Project case studies with at least three existing Markdown level-two headings render a screen-only table of contents from those headings; the article remains complete and navigable without JavaScript.
 
 ### Exact tokens
 
@@ -344,7 +345,7 @@ Long-form content uses `"Times New Roman", Times, "Nimbus Roman No9 L", serif`. 
 | Case-study introduction | 19px, line-height 1.55 |
 | Markdown section heading | 18px monospace uppercase |
 
-Main page sections use a responsive exposed grid: Experience and Projects span both columns at 860px and above, while every section becomes a single reading column below that breakpoint. Section panels have 16px gaps and entries have 24px gaps. Rules are 1px. Link feedback uses pale green fills, Spring Boot green underline changes, and a 1px pressed offset over 150ms. Project entries reveal a short green rail on hover or keyboard focus; the theme marker rotates with the selected theme. Theme cross-dissolve is 180ms and does not move the document. On the first Main page visit in a tab, a decorative 720ms editorial reveal draws a green seam for 180ms before the panels split over 540ms above the already-rendered page; session storage prevents replay and interaction dismisses it. Reduced motion, unavailable storage, disabled JavaScript, and print show the page immediately; a 950ms timeout clears the overlay if its completion handler fails. Internal page switches use the same split material as a 150ms close and 250ms open. There are no section entrance animations, hidden sections, carousels, or synthetic loading states. The home project list shows each project description and one highlight, with the full case study available from the project link.
+Main page sections use a responsive grid: Experience, Projects, and Activities & Achievements span both columns at 860px and above, while Education and Technical Skills share a row; below that breakpoint, sections stack in reading order. Section panels have 16px gaps and entries have 24px gaps. Main-page color accents pair the existing spring green with cobalt for project and skill details and amber for achievements; About and Projects retain the shared palette. Rules are 1px. Link feedback uses colored fills, underline changes, and a 1px pressed offset. Project rows use a cobalt rail on hover or keyboard focus; achievement rows respond with a restrained amber tint. The theme marker rotates with the selected theme. Theme cross-dissolve is 180ms and does not move the document. On the first Main page visit in a tab, the decorative 720ms editorial reveal draws its green seam before the panels split above the already-rendered page; session storage prevents replay and interaction dismisses it. Project and achievement rows reveal once as they enter the viewport through `IntersectionObserver`; content remains visible without JavaScript, with reduced motion, and in print. Internal page switches use the same split material as a 150ms close and 250ms open. The home project list uses each concise `homeSummary` and up to three stack labels; the Projects index keeps each project description and first highlight, and full case studies remain unchanged.
 
 Below 640px, primary navigation remains a three-column row, the theme control moves below it, and the identity keeps a compact two-column arrangement with a narrow portrait. Split rows and skill grids become a single column so labels and metadata cannot collide. At larger widths the portrait anchors the right-hand grid boundary and row metadata aligns right. Content and navigation are tested against a 320px minimum viewport without intentional horizontal scrolling.
 

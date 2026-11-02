@@ -28,6 +28,7 @@ const text = defineCollection({
     z.object({
       category: z.literal('page-home'), title: copy, description: copy,
       sectionOrder: sectionOrder(resumeSections),
+      actions: z.object({ ariaLabel: copy, projects: copy, contact: copy }).strict(),
       sections: z.object({
         education: z.object({ heading: copy, ariaLabel: copy }).strict(),
         experience: z.object({ heading: copy, ariaLabel: copy }).strict(),
@@ -54,7 +55,7 @@ const text = defineCollection({
     }).strict(),
     z.object({
       category: z.literal('project'), ...ordered, description: copy, projectCategory: copy,
-      date: copy.optional(), stack: z.array(copy).min(1), repository: z.string().url(), certificatePath: copy.optional(),
+      date: copy.optional(), homeSummary: copy, stack: z.array(copy).min(1), repository: z.string().url(), certificatePath: copy.optional(),
       logo: image.optional(),
       highlights: z.array(copy).min(1),
     }).strict(),

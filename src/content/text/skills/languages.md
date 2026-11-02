@@ -4,4 +4,7 @@ title: Languages
 order: 1
 ---
 
-Java, Python, SQL, Bash
+- Java
+- Python
+- SQL
+- Bash

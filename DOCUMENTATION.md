@@ -50,6 +50,8 @@ portfolio-website/
 ├── tsconfig.json                  Strict Astro TypeScript settings
 ├── assets/                        Immutable owner-supplied source media
 │   ├── DELFIN_DWIA_AWARD.jpg      Original DWIA award photo
+│   ├── CYBERGUILD2.jpg            Original HackForGov5 team photo
+│   ├── HACK4GOV.png               Original HackForGov5 fifth-place graphic
 │   ├── DWIA_PICTURE_POSTER.jpg    Original Python training photo
 │   ├── libro_logo.jpeg            Current Libro logo
 │   ├── TABANG_LOGO.png            Original Tabang logo
@@ -172,6 +174,8 @@ The Honors figures also have a subtle scanline overlay. Project logos are images
 Each file under `src/content/text/honors/` keeps one honor’s summary, media, and certificate together. Completed training stays under Workshops & Certifications. Public paths are relative to Astro’s configured base path. Keep originals immutable and publish copies under `public/`:
 
 - `assets/DELFIN_DWIA_AWARD.jpg` → `public/images/dwia-most-analytical-programmer.jpg`
+- `assets/HACK4GOV.png` → `public/images/hackforgov5-cyberguild-fifth-place.png`
+- `assets/CYBERGUILD2.jpg` → `public/images/hackforgov5-cyberguild-team.jpg`
 - `assets/DWIA_PICTURE_POSTER.jpg` → `public/images/dwia-python-training-poster.jpg`
 - `assets/libro_logo.jpeg` → `public/images/libro-logo.jpeg`
 - `assets/TABANG_LOGO.png` → `public/images/tabang-logo.png`
@@ -185,7 +189,7 @@ Each file under `src/content/text/honors/` keeps one honor’s summary, media, a
 - `references/certificates/DWIA-CERT-AKLAN_DELFIN.pdf` → `public/certificates/DWIA-CERT-AKLAN_DELFIN.pdf` (full PDF) and `public/certificates/dwia-python-programming-essentials.png` (compact first-page preview)
 - `references/certificates/TABANG.RISKREADY.CERTIFICATE.png` → `public/certificates/tabang-komsaihack-2026.png`
 
-Honors entries are ordered newest first, so the October 2026 RSTW award appears above the June and April entries. The RSTW Paindis-Indis It Inobasyon entry leads with Poultri, the agritech startup founded by Aldrin Kyle Delfin, and records its second-place finish among eight Western Visayas finalists, the ₱20,000 prize, incubation with TechNest TBI, and the ABL Sports Complex venue in the source references. Its two images, the DWIA award and Python training images, and the two Tabang finalist images render uncropped in equal 3:2 containers, side by side on wider screens and stacked on narrow screens. They use the Honors photo filters listed above. The figures and certificate actions are omitted from print.
+Honors entries are ordered newest first, with the 2026 HackForGov5 fifth-place entry above the October 2026 RSTW award, June, and April entries. The HackForGov5 entry records CyberGuild’s fifth-place result, team name, and focus on ethical hacking and cybersecurity principles. The RSTW Paindis-Indis It Inobasyon entry leads with Poultri, the agritech startup founded by Aldrin Kyle Delfin, and records its second-place finish among eight Western Visayas finalists, the ₱20,000 prize, incubation with TechNest TBI, and the ABL Sports Complex venue in the source references. Honors photos render uncropped in equal 3:2 containers, side by side on wider screens and stacked on narrow screens. They use the Honors photo filters listed above. The figures and certificate actions are omitted from print.
 
 When replacing supporting media, update the immutable source first, copy it to the documented public path without cropping or recompression, retain explicit intrinsic dimensions and descriptive alternative text in content, then check both themes and narrow layouts. Project `logo` and `certificatePath` are optional; experience and project logos are optional, and entries that omit a logo render without a placeholder. To add a future experience logo, publish its source under `public/images/` and add `logo: { path, alt, width, height }` to that experience entry’s frontmatter.
 

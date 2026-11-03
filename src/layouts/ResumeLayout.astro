@@ -50,7 +50,7 @@ const { data: site } = await getRequiredEntry('site', 'site');
       } catch { /* A failed storage read never hides the page. */ }
     </script>
   </head>
-  <body class:list={[{ 'resume-page': resume }]}>
+  <body class:list={[{ 'resume-page': resume, 'content-page': !resume }]}>
     <a class="skip-link" href="#main-content">{site.skipLink}</a>
     {resume && <div class="intro-reveal" aria-hidden="true">
       <div class="intro-panel intro-panel-top"><span class="intro-label">00 / {site.fullName}</span></div>

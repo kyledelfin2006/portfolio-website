@@ -7,3 +7,8 @@ subtitle: Bachelor of Science in Information Technology
 ---
 
 Major in Software Engineering
+
+#### Currently learning
+
+- Secure DevOps pipelines and deployment automation
+- Responsible AI integration in production systems

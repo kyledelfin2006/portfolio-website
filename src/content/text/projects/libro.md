@@ -14,7 +14,7 @@ logo:
 order: 1
 highlights:
   - 192 passing tests cover service, API, and persistence behavior, including PostgreSQL integration tests.
-  - Containerized the Spring Boot API and PostgreSQL with Docker Compose, configuring health-checked startup, persistent database storage, and environment-based credentials for reproducible local development.
+  - Containerized the API and PostgreSQL with Docker Compose, using health-checked startup and persistent storage.
 ---
 
 ## The problem

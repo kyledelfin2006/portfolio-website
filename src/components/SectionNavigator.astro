@@ -7,3 +7,19 @@ const { sections } = Astro.props;
     {sections.map(({ id, label }) => <li><a href={`#${id}`}>{label}</a></li>)}
   </ol>
 </nav>
+<script>
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('.section-navigator a')];
+  const targets = links.map((a) => document.getElementById(a.hash.slice(1))).filter((el): el is HTMLElement => !!el);
+  if ('IntersectionObserver' in window && targets.length) {
+    const visible = new Set<Element>();
+    const mark = () => {
+      const current = targets.find((el) => visible.has(el));
+      links.forEach((a) => (current && a.hash === `#${current.id}` ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current')));
+    };
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => (e.isIntersecting ? visible.add(e.target) : visible.delete(e.target)));
+      mark();
+    }, { rootMargin: '-20% 0px -60% 0px' });
+    targets.forEach((el) => io.observe(el));
+  }
+</script>

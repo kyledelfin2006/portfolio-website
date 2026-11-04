@@ -122,7 +122,7 @@ All published copy lives in `src/content/text/` as Markdown. Never add biography
 | Directory/file | `category` | Required fields beyond `category` |
 | --- | --- | --- |
 | `site.md` | `site` | `fullName`, `shortName`, `professionalSubtitle`, `location`, `email`, `portraitAlt`, `navigationAriaLabel`, `navigation`, `profiles`, `theme`, `skipLink`, `downloadResume`, `projectLinks`, `credentialLink` |
-| `pages/home.md` | `page-home` | `title`, `description`, `sectionOrder`, `actions`, `sections` labels |
+| `pages/home.md` | `page-home` | `title`, `description`, `sectionOrder`, `sections` labels |
 | `pages/about.md` | `page-about` | `title`, `description`, ordered `sections`, `technicalSkillsHeading`, `technicalSkills`, `workshopsHeading`, `workshopsAriaLabel` |
 | `pages/projects.md` | `page-projects` | `title`, `description`, `eyebrow`, ordered `sections`, `sectionHeading`, `sectionAriaLabel`; body is the introduction |
 | `about/*.md` | `about` | `title`; optional `itemTitle`, `meta`, `contactProfileLabels`; body is section prose |
@@ -310,7 +310,7 @@ The site uses a restrained cyber-brutalist/editorial resume system: a dark-first
 
 Navigation stays limited to Main, About, and Projects, with numbered monospace labels, a high-contrast active tab, `aria-current="page"`, and all destinations reachable from every route. A project case study marks Projects active. Hover, focus, pressed, and theme feedback is brief and purposeful; no essential information depends on hover. Do not add simulated loading, scroll-jacking, remote fonts, runtime UI dependencies, or motion without a reduced-motion fallback.
 
-The Main page provides two screen-only calls to action, a native-anchor section navigator, and one-time reveals for project and achievement rows. Action labels live in `pages/home.md`; the contact action opens the existing email address. These are wayfinding and interaction aids, not new portfolio claims, and are hidden in print. Project case studies with at least three existing Markdown level-two headings render a screen-only table of contents from those headings; the article remains complete and navigable without JavaScript.
+The Main page provides a green native-anchor section navigator and one-time reveals for project and achievement rows. The navigator links directly to each section and is hidden in print. Project case studies with at least three existing Markdown level-two headings render a screen-only table of contents from those headings; the article remains complete and navigable without JavaScript.
 
 ### Exact tokens
 

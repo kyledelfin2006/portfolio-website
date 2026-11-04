@@ -5,13 +5,8 @@ import SectionNavigator from '../components/SectionNavigator.astro';
 import { getRequiredEntry } from '../content/load';
 const pageEntry = await getRequiredEntry('pages/home', 'page-home');
 const page = pageEntry.data;
-const { data: site } = await getRequiredEntry('site', 'site');
 ---
 <ResumeLayout title={page.title} description={page.description} resume>
-  <nav class="home-actions no-print" aria-label={page.actions.ariaLabel}>
-    <a class="home-action-primary" href="#projects">{page.actions.projects}</a>
-    <a class="home-action-secondary" href={`mailto:${site.email}`}>{page.actions.contact}</a>
-  </nav>
   {page.sectionOrder.length > 0 && <SectionNavigator sections={page.sectionOrder.map((id) => ({ id, label: page.sections[id].heading }))} />}
   <div class="resume-sections">
     {page.sectionOrder.map((section) => <ContentSection section={section} compactProjects={section === 'projects'} {...page.sections[section]} />)}

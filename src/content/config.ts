@@ -28,7 +28,6 @@ const text = defineCollection({
     z.object({
       category: z.literal('page-home'), title: copy, description: copy,
       sectionOrder: sectionOrder(resumeSections),
-      actions: z.object({ ariaLabel: copy, projects: copy, contact: copy }).strict(),
       sections: z.object({
         education: z.object({ heading: copy, ariaLabel: copy }).strict(),
         experience: z.object({ heading: copy, ariaLabel: copy }).strict(),

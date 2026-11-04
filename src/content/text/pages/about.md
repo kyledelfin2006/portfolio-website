@@ -5,15 +5,18 @@ description: Kyle Delfin’s background, technical skills, engineering principle
 sections: [biography, technical-skills, workshops, engineering-philosophy, resume-and-contact]
 technicalSkillsHeading: Technical Skills
 technicalSkills:
-  - { name: Java 21+ }
-  - { name: Spring Boot }
-  - { name: PostgreSQL }
-  - { name: MySQL }
-  - { name: SQLite }
-  - { name: Docker }
-  - { name: Python }
-  - { name: 'Automated testing (JUnit 5, Mockito)' }
-  - { name: 'API documentation (OpenAPI / Swagger)' }
+  - category: Languages
+    items: [Java 21+, Python]
+  - category: Backend framework
+    items: [Spring Boot]
+  - category: Databases
+    items: [PostgreSQL, MySQL, SQLite]
+  - category: Containerization
+    items: [Docker]
+  - category: Testing
+    items: [JUnit 5, Mockito]
+  - category: API documentation
+    items: [OpenAPI, Swagger]
 workshopsHeading: Certifications & Workshops
 workshopsAriaLabel: Certifications & Workshops
 ---

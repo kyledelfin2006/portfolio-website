@@ -147,8 +147,10 @@ li + li { margin-top: var(--space-1); }
 .resume-page #education .education-details ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2) var(--space-4); margin-top: var(--space-2); padding-left: var(--space-4); }
 .resume-page #education .education-details li::marker { color: var(--stack-accent); }
 .resume-page #education .education-details li + li { margin-top: 0; }
-.about-skills { display: flex; flex-wrap: wrap; gap: var(--space-1); margin: 0; padding: 0; list-style: none; }
-.about-skills li { min-width: 0; max-width: 100%; margin: 0; padding: 2px 6px; overflow-wrap: anywhere; border: var(--rule-width) solid var(--stack-accent); color: var(--accent-fill-ink); background: var(--accent-fill); font-family: var(--mono); font-size: 10px; line-height: 1.4; }
+.about-skills { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-2) var(--space-4); margin: 0; }
+.about-skills > div { min-width: 0; padding-top: var(--space-2); border-top: var(--rule-width) solid var(--rule); }
+.about-skills dt { color: var(--stack-accent); font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+.about-skills dd { margin: var(--space-1) 0 0; overflow-wrap: anywhere; line-height: 1.5; }
 .credential-link { margin-top: var(--space-3); font-family: var(--mono); font-size: 11px; text-transform: uppercase; }
 footer { display: flex; justify-content: space-between; gap: var(--space-4); margin-top: var(--space-4); padding: var(--space-3) var(--space-4); border: var(--rule-width) solid var(--rule-strong); color: var(--muted); background: var(--surface); font-family: var(--mono); font-size: 11px; text-transform: uppercase; }
 
@@ -316,8 +318,11 @@ footer { display: flex; justify-content: space-between; gap: var(--space-4); mar
   .resume-page #projects .entries > article:is(:hover, :focus-within), .resume-page #honors .entries > article:is(:hover, :focus-within) { background: transparent; transform: none; }
   .resume-page #projects .entries > article::before { transform: scaleY(0); }
   .about-skills { display: block; }
-  .about-skills li { display: inline; margin: 0; padding: 0; border: 0; color: #000; background: transparent; font-family: var(--serif); font-size: 10pt; line-height: inherit; }
-  .about-skills li:not(:last-child)::after { content: ", "; }
+  .about-skills > div { display: inline; padding: 0; border: 0; }
+  .about-skills > div + div::before { content: "; "; }
+  .about-skills dt, .about-skills dd { display: inline; color: #000; font-family: var(--serif); font-size: 10pt; line-height: inherit; }
+  .about-skills dt { font-weight: 700; letter-spacing: normal; text-transform: none; }
+  .about-skills dd { margin: 0; }
   a { color: #000 !important; text-decoration: none; }
   article, .resume-sections section, .about-sections section { break-inside: avoid; }
   .case-study { break-inside: auto; }

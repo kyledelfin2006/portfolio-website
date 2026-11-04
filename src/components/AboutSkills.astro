@@ -1,11 +1,11 @@
 ---
 import SectionHeading from './SectionHeading.astro';
-interface Props { heading: string; skills: { name: string }[]; }
+interface Props { heading: string; skills: { category: string; items: string[] }[]; }
 const { heading, skills } = Astro.props;
 ---
 <section id="technical-skills" aria-label={heading}>
   <SectionHeading title={heading} />
-  <ul class="about-skills">
-    {skills.map(({ name }) => <li>{name}</li>)}
-  </ul>
+  <dl class="about-skills">
+    {skills.map(({ category, items }) => <div><dt>{category}</dt><dd>{items.join(', ')}</dd></div>)}
+  </dl>
 </section>

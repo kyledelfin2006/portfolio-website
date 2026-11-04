@@ -15,7 +15,7 @@ const base = import.meta.env.BASE_URL;
         <div>
           <div class="split-row"><h3><a href={`${base}projects/${contentId(project).split('/').at(-1)}/`}>{project.data.title}</a><span class="project-category"> — {project.data.projectCategory}</span></h3>{project.data.date && <span class="meta">{project.data.date}</span>}</div>
           {compact ? <>
-            <p class="entry-subtitle project-description">{contentId(project).endsWith('/libro') ? <strong>{project.data.homeSummary}</strong> : project.data.homeSummary}</p>
+            <p class="entry-subtitle project-description">{project.data.homeSummary}</p>
             <ul class="project-tags no-print">{project.data.stack.slice(0, 3).map((item) => <li>{item}</li>)}</ul>
           </> : <>
             <p class="entry-subtitle project-description">{project.data.description}</p>

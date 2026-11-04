@@ -8,11 +8,11 @@ This document is the canonical source of truth for Kyle’s projects. Portfolio 
 | --- | --- |
 | Category | Spring Boot Library API |
 | Repository | <https://github.com/kyledelfin2006/libro-library-system> |
-| Technologies | Java, Spring Boot, PostgreSQL 18, Docker, Flyway |
+| Technologies | Java, Spring Boot, PostgreSQL 18, Docker, Maven, Flyway, JUnit, Docker Compose |
 
 ### Summary
 
-Libro is a Spring Boot Library API with JWT security, Docker Compose, PostgreSQL-backed loan tracking, and 192 passing tests.
+Libro is a library API with JWT security and PostgreSQL-backed loan tracking.
 
 ### Capabilities
 

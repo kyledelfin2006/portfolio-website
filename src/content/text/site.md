@@ -4,6 +4,7 @@ fullName: Aldrin Kyle Delfin
 shortName: Kyle Delfin
 professionalSubtitle: Backend Developer · Spring Boot · Cloud & DevOps Enthusiast
 location: Aklan, Philippines
+status: { label: Now, text: Co-Founder at DevGuild · Learning secure DevOps and responsible AI }
 email: kyle.delfin.dev@gmail.com
 portraitAlt: Aldrin Kyle Delfin
 navigationAriaLabel: Main navigation

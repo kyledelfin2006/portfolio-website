@@ -83,7 +83,7 @@ const { data: site } = await getRequiredEntry('site', 'site');
       }
     </script>}
     {resume && <script is:inline>
-      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window && !CSS.supports('animation-timeline: view()')) {
         const targets = document.querySelectorAll('.resume-page #projects .entries > article, .resume-page #honors .entries > article');
         const observer = new IntersectionObserver((entries) => {
           entries.forEach((entry) => {

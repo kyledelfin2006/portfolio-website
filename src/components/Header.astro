@@ -29,7 +29,7 @@ const links = [
       <h1>{site.fullName}</h1>
       <p class="subtitle">{site.professionalSubtitle}</p>
       <p class="location">{site.location}</p>
-      <p class="status no-print"><span class="status-label">{site.status.label}</span> {site.status.text}<span class="caret" aria-hidden="true"></span></p>
+      <p class="status no-print">{site.status.text}<span class="caret" aria-hidden="true"></span></p>
       <div class="contact-links">
         <a href={`mailto:${site.email}`}>{site.email}</a>
         {site.profiles.map((profile) => <><span aria-hidden="true">·</span><a href={profile.url} target="_blank" rel="noopener noreferrer">{profile.label}</a></>)}

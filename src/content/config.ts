@@ -18,7 +18,7 @@ const text = defineCollection({
     z.object({
       category: z.literal('site'), fullName: copy, shortName: copy,
       professionalSubtitle: copy, location: copy, email: z.string().email(), portraitAlt: copy,
-      status: z.object({ label: copy, text: copy }).strict(),
+      status: z.object({ text: copy }).strict(),
       navigationAriaLabel: copy,
       navigation: z.object({ main: copy, about: copy, projects: copy }).strict(),
       profiles: z.array(z.object({ label: copy, url: z.string().url() }).strict()),

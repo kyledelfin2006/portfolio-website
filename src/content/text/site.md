@@ -11,10 +11,10 @@ navigation: { main: Main, about: About, projects: Projects }
 profiles:
   - { label: LinkedIn ↗, url: 'https://www.linkedin.com/in/aldrin-kyle-delfin/' }
   - { label: GitHub ↗, url: 'https://github.com/kyledelfin2006' }
-  - { label: DevGuild ↗, url: 'https://www.linkedin.com/company/aklan-devguild' }
+  - { label: DevGuild ↗, url: 'https://www.facebook.com/profile.php?id=61595101453457' }
 theme: { lightMode: Light mode, darkMode: Dark mode, switchToLight: Switch to light theme, switchToDark: Switch to dark theme }
 skipLink: Skip to content
 downloadResume: Open provided resume PDF to print or download ↓
-projectLinks: { caseStudy: Read case study →, sourceCode: Source code ↗, viewSource: View source on GitHub ↗, returnToMain: ← Return to Main, notes: Project notes }
+projectLinks: { caseStudy: Read case study →, sourceCode: Source code ↗, viewSource: View source on GitHub ↗, returnToMain: Return to Main, notes: Project notes }
 credentialLink: View certificate ↗
 ---

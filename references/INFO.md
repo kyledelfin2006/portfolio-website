@@ -12,7 +12,7 @@ This document is the canonical source of truth for facts about Aldrin Kyle Delfi
 | Email | kyle.delfin.dev@gmail.com |
 | LinkedIn | <https://www.linkedin.com/in/aldrin-kyle-delfin/> |
 | GitHub | <https://github.com/kyledelfin2006> |
-| DevGuild | <https://www.linkedin.com/company/aklan-devguild> |
+| DevGuild | <https://www.facebook.com/profile.php?id=61595101453457> |
 
 ## Professional profile
 

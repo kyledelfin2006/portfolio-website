@@ -187,6 +187,17 @@ footer { display: flex; justify-content: space-between; gap: var(--space-4); mar
 .case-body p, .case-body ul { margin-top: var(--space-4); }
 .case-body h2 + p, .case-body h2 + ul, .case-body > :first-child { margin-top: 0; }
 .case-body li + li { margin-top: var(--space-2); }
+.case-pager { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); margin-top: var(--space-4); font-family: var(--mono); font-size: 14px; }
+.case-pager a { display: block; min-height: 44px; padding: var(--space-3) var(--space-4); border: var(--rule-width) solid var(--rule-strong); background: var(--surface); text-decoration: none; }
+.case-pager a span { display: block; color: var(--muted); font-size: 12px; text-transform: uppercase; }
+.case-pager .pager-next { grid-column: 2; text-align: right; }
+.case-pager a:is(:hover, :focus-visible) { color: var(--accent-fill-ink); background: var(--accent-fill); }
+.case-pager a:is(:hover, :focus-visible) span { color: var(--accent-fill-ink); }
+.scroll-progress { display: none; }
+@supports (animation-timeline: scroll()) {
+  .scroll-progress { position: fixed; top: 0; left: 0; z-index: 8; display: block; width: 100%; height: 3px; background: var(--accent-ink); pointer-events: none; transform: scaleX(0); transform-origin: left; animation: scroll-progress linear both; animation-timeline: scroll(root); }
+  @keyframes scroll-progress { to { transform: scaleX(1); } }
+}
 .skip-link { position: absolute; top: -100px; left: var(--space-4); z-index: 10; padding: var(--space-3) var(--space-4); border: var(--rule-width) solid var(--rule-strong); color: var(--accent-fill-ink); background: var(--accent-fill); font-family: var(--mono); }
 .skip-link:focus { top: var(--space-2); }
 
@@ -265,6 +276,8 @@ footer { display: flex; justify-content: space-between; gap: var(--space-4); mar
   .case-toc ol { display: grid; gap: var(--space-1); }
   .case-toc a { min-height: 44px; }
   footer { flex-wrap: wrap; }
+  .case-pager { grid-template-columns: 1fr; }
+  .case-pager .pager-next { grid-column: 1; text-align: left; }
 }
 @media (prefers-reduced-motion: reduce) {
   .intro-reveal, .route-reveal { display: none !important; }
@@ -273,6 +286,7 @@ footer { display: flex; justify-content: space-between; gap: var(--space-4); mar
   .toggle-marker { transition: none; }
   #projects .entries > article:is(:hover, :focus-within)::before { transform: scaleY(1); transition: none; }
   .document-shell { animation: none !important; }
+  .scroll-progress { display: none !important; }
   .resume-page .scroll-reveal, .resume-page .scroll-reveal.is-visible { opacity: 1; transform: none; transition: none; }
   .resume-page #projects .entries > article, .resume-page #honors .entries > article { transition: none; }
 }

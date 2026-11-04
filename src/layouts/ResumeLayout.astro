@@ -60,10 +60,11 @@ const { data: site } = await getRequiredEntry('site', 'site');
       <div class="route-panel route-panel-top"><span class="intro-label">{site.fullName}</span></div>
       <div class="route-panel route-panel-bottom"></div>
     </div>
+    <div class="scroll-progress no-print" aria-hidden="true"></div>
     <div class="document-shell">
       <Header />
       <main id="main-content" tabindex="-1"><slot /></main>
-      <footer class="no-print"><span>{site.fullName}</span><a href={`${base}resume.pdf`} target="_blank" rel="noopener">{site.downloadResume}</a></footer>
+      <footer class="no-print"><span>{site.fullName}</span><a href="#main-content">{site.projectLinks.backToTop}</a><a href={`${base}resume.pdf`} target="_blank" rel="noopener">{site.downloadResume}</a></footer>
     </div>
     {resume && <script is:inline>
       const root = document.documentElement;

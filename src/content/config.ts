@@ -23,7 +23,7 @@ const text = defineCollection({
       profiles: z.array(z.object({ label: copy, url: z.string().url() }).strict()),
       theme: z.object({ lightMode: copy, darkMode: copy, switchToLight: copy, switchToDark: copy }).strict(),
       skipLink: copy, downloadResume: copy, credentialLink: copy,
-      projectLinks: z.object({ caseStudy: copy, sourceCode: copy, viewSource: copy, returnToMain: copy, notes: copy }).strict(),
+      projectLinks: z.object({ caseStudy: copy, sourceCode: copy, viewSource: copy, returnToMain: copy, notes: copy, previous: copy, next: copy, readingTime: copy, backToTop: copy }).strict(),
     }).strict(),
     z.object({
       category: z.literal('page-home'), title: copy, description: copy,

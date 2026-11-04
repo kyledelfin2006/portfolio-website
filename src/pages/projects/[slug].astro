@@ -2,10 +2,17 @@
 import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
 import { contentId, getEntries, type TextEntryOf } from '../../content/load';
 export async function getStaticPaths() {
-  return (await getEntries('project')).map((project) => ({ params: { slug: contentId(project).split('/').at(-1) }, props: { project } }));
+  const projects = await getEntries('project');
+  const slugOf = (project: TextEntryOf<'project'>) => contentId(project).split('/').at(-1) as string;
+  return projects.map((project, index) => ({
+    params: { slug: slugOf(project) },
+    props: { project, previous: projects[index - 1], next: projects[index + 1] }
+  }));
 }
-interface Props { project: TextEntryOf<'project'>; }
-const { project } = Astro.props;
+interface Props { project: TextEntryOf<'project'>; previous?: TextEntryOf<'project'>; next?: TextEntryOf<'project'>; }
+const { project, previous, next } = Astro.props as Props;
 const { Content, headings } = await project.render();
+const minutes = Math.max(1, Math.round((project.body ?? '').split(/\s+/).filter(Boolean).length / 200));
+const link = (entry?: TextEntryOf<'project'>) => entry && { title: entry.data.title, slug: contentId(entry).split('/').at(-1) as string };
 ---
-<BlogPostLayout project={project} headings={headings}><Content /></BlogPostLayout>
+<BlogPostLayout project={project} headings={headings} minutes={minutes} previous={link(previous)} next={link(next)}><Content /></BlogPostLayout>

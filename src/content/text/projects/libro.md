@@ -2,7 +2,7 @@
 category: project
 title: Libro
 description: A Spring Boot REST API for managing books, with a Docker-first workflow and a PostgreSQL database.
-homeSummary: Book management API with 190 tests, including PostgreSQL integration.
+homeSummary: Spring Boot Library API with JWT security, Docker Compose, PostgreSQL-backed loan tracking, and 192 passing tests.
 projectCategory: Library Management System
 stack: [Java, Spring Boot, PostgreSQL 18, Docker, Flyway]
 repository: https://github.com/kyledelfin2006/libro-library-system
@@ -13,7 +13,7 @@ logo:
   height: 1166
 order: 1
 highlights:
-  - 190 automated test methods cover service, API, and persistence behavior, including PostgreSQL integration tests.
+  - 192 passing tests cover service, API, and persistence behavior, including PostgreSQL integration tests.
   - Containerized the Spring Boot API and PostgreSQL with Docker Compose, configuring health-checked startup, persistent database storage, and environment-based credentials for reproducible local development.
 ---
 

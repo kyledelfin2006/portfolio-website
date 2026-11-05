@@ -4,7 +4,7 @@ title: Libro
 description: A Spring Boot REST API for managing books, with a Docker-first workflow and a PostgreSQL database.
 homeSummary: Library API with JWT security and PostgreSQL-backed loan tracking.
 projectCategory: Library Management System
-stack: [Java, Spring Boot, PostgreSQL 18, Docker, Maven, Flyway, JUnit, Docker Compose]
+stack: [Java, Spring Boot, PostgreSQL 18, Docker, Maven, Flyway, JUnit, Docker Compose, Spring MVC, Spring Data JPA, Spring Security, Hibernate, SQL, Git, Mockito, Testcontainers, Postman, OpenAPI, Swagger, GitHub Actions, CI/CD]
 repository: https://github.com/kyledelfin2006/libro-library-system
 logo:
   path: images/libro-logo.jpeg

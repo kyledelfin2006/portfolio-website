@@ -8,7 +8,7 @@ This document is the canonical source of truth for Kyle’s projects. Portfolio 
 | --- | --- |
 | Category | Spring Boot Library API |
 | Repository | <https://github.com/kyledelfin2006/libro-library-system> |
-| Technologies | Java, Spring Boot, PostgreSQL 18, Docker, Maven, Flyway, JUnit, Docker Compose |
+| Technologies | Java, Spring Boot, PostgreSQL 18, Docker, Maven, Flyway, JUnit, Docker Compose, Spring MVC, Spring Data JPA, Spring Security, Hibernate, SQL, Git, Mockito, Testcontainers, Postman, OpenAPI, Swagger, GitHub Actions, CI/CD |
 
 ### Summary
 

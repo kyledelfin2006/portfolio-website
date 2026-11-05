@@ -18,4 +18,5 @@ skipLink: Skip to content
 downloadResume: Open provided resume PDF to print or download ↓
 projectLinks: { caseStudy: Read case study →, sourceCode: Source code ↗, viewSource: View source on GitHub ↗, returnToMain: Return to Main, notes: Project notes, previous: Previous project, next: Next project, readingTime: min read, titlePath: '~/projects/' }
 credentialLink: View certificate
+workshops: { certificate: certificate, certificates: certificates, scholarship: scholarship, scholarships: scholarships, closeLabel: Close certificate viewer, openPdf: Open PDF ↗ }
 ---

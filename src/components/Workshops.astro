@@ -5,21 +5,66 @@ interface Props { heading: string; ariaLabel: string; id?: string; }
 const { heading, ariaLabel, id } = Astro.props;
 const workshops = await getEntries('workshop');
 const { data: site } = await getRequiredEntry('site', 'site');
+const base = import.meta.env.BASE_URL;
+const words = site.workshops;
+// A card with no certificate is a quiet entry (a scholarship), so it sits below the credentials and makes no proof claim.
+const isQuiet = (data: (typeof workshops)[number]['data']) => !data.certificateImages && !data.certificatePath;
+const certificateCount = workshops.reduce((total, { data }) => total + (data.certificateImages?.length ?? (data.certificatePath ? 1 : 0)), 0);
+const quietCount = workshops.filter(({ data }) => isQuiet(data)).length;
+const noun = (count: number, one: string, many: string) => `${count} ${count === 1 ? one : many}`;
+const summary = [certificateCount && noun(certificateCount, words.certificate, words.certificates), quietCount && noun(quietCount, words.scholarship, words.scholarships)].filter(Boolean);
+const ordered = [...workshops.filter(({ data }) => !isQuiet(data)), ...workshops.filter(({ data }) => isQuiet(data))];
 ---
 <section id={id} aria-label={ariaLabel}>
   <SectionHeading title={heading} />
+  {summary.length > 0 && <p class="workshop-summary no-print">{summary.join(' · ')}</p>}
   <div class="entries">
-    {await Promise.all(workshops.map(async ({ data, render }) => { const { Content } = await render(); return <article>
-      <div class="split-row"><h3>{data.title}</h3>{data.date && <span class="meta">{data.date}</span>}</div>
-      <p class="entry-subtitle">{data.issuerOrOrganizer}</p><Content />
+    {await Promise.all(ordered.map(async ({ data, render }) => { const { Content } = await render(); return <article class:list={[{ 'is-quiet': isQuiet(data) }]}>
+      <div class="split-row"><h3>{data.title}{data.tag && <span class="entry-tag">{data.tag}</span>}</h3>{data.date && <span class="meta">{data.date}</span>}</div>
+      <p class="entry-subtitle">{data.issuerOrOrganizer}</p>
+      {data.certificateImages && <ul class="credential-badges no-print">
+        {data.certificateImages.filter((certificate) => certificate.label).map((certificate) => <li>{certificate.label}</li>)}
+      </ul>}
+      <Content />
       {data.certificateImages && <div class="workshop-certificates no-print">
         {data.certificateImages.map((certificate) => <figure>
-          <a href={`${import.meta.env.BASE_URL}${certificate.certificatePath}`} target="_blank" rel="noopener noreferrer">
-            <img src={`${import.meta.env.BASE_URL}${certificate.path}`} alt={certificate.alt} width={certificate.width} height={certificate.height} loading="lazy" />
+          <a class="cert-link" href={`${base}${certificate.certificatePath}`} target="_blank" rel="noopener noreferrer" data-label={certificate.label ?? ''}>
+            <img src={`${base}${certificate.path}`} alt={certificate.alt} width={certificate.width} height={certificate.height} loading="lazy" />
+            <figcaption>{certificate.label && <strong>{certificate.label}</strong>}<span>{site.credentialLink} ↗</span></figcaption>
           </a>
         </figure>)}
       </div>}
-      {data.certificatePath && <a class="credential-link" href={`${import.meta.env.BASE_URL}${data.certificatePath}`} target="_blank" rel="noopener noreferrer">{site.credentialLink}</a>}
+      {data.certificatePath && <a class="credential-link" href={`${base}${data.certificatePath}`} target="_blank" rel="noopener noreferrer">{site.credentialLink}</a>}
     </article>; }))}
   </div>
+  <dialog class="cert-dialog no-print" aria-label={words.certificates} data-pdf-label={words.openPdf}>
+    <form method="dialog"><button class="cert-close" aria-label={words.closeLabel}>✕</button></form>
+    <img class="cert-dialog-image" alt="" />
+    <p class="cert-dialog-caption"></p>
+    <a class="credential-link cert-dialog-pdf" target="_blank" rel="noopener noreferrer">{words.openPdf}</a>
+  </dialog>
 </section>
+<script>
+  // Certificates open in an in-page viewer; the PDF link and modified clicks keep native behavior.
+  const dialog = document.querySelector<HTMLDialogElement>('.cert-dialog');
+  if (dialog && typeof dialog.showModal === 'function') {
+    const image = dialog.querySelector<HTMLImageElement>('.cert-dialog-image')!;
+    const caption = dialog.querySelector<HTMLElement>('.cert-dialog-caption')!;
+    const pdf = dialog.querySelector<HTMLAnchorElement>('.cert-dialog-pdf')!;
+    document.querySelectorAll<HTMLAnchorElement>('.cert-link').forEach((link) => {
+      link.addEventListener('click', (event) => {
+        if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        const thumb = link.querySelector('img');
+        if (!thumb) return;
+        event.preventDefault();
+        image.src = thumb.currentSrc || thumb.src;
+        image.alt = thumb.alt;
+        caption.textContent = link.dataset.label ?? '';
+        pdf.href = link.href;
+        dialog.showModal();
+      });
+    });
+    // Clicking the dimmed backdrop closes the viewer; Escape and the close button are native.
+    dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
+  }
+</script>

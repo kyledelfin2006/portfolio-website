@@ -24,6 +24,7 @@ const text = defineCollection({
       profiles: z.array(z.object({ label: copy, url: z.string().url() }).strict()),
       theme: z.object({ lightMode: copy, darkMode: copy, switchToLight: copy, switchToDark: copy }).strict(),
       skipLink: copy, downloadResume: copy, credentialLink: copy,
+      workshops: z.object({ certificate: copy, certificates: copy, scholarship: copy, scholarships: copy, closeLabel: copy, openPdf: copy }).strict(),
       projectLinks: z.object({ caseStudy: copy, sourceCode: copy, viewSource: copy, returnToMain: copy, notes: copy, previous: copy, next: copy, readingTime: copy, titlePath: copy }).strict(),
     }).strict(),
     z.object({
@@ -52,8 +53,8 @@ const text = defineCollection({
     z.object({ category: z.literal('experience'), ...ordered, organization: copy, date: copy.optional(), logo: image.optional() }).strict(),
     z.object({ category: z.literal('skill'), ...ordered }).strict(),
     z.object({
-      category: z.literal('workshop'), ...ordered, issuerOrOrganizer: copy, date: copy.optional(), certificatePath: copy.optional(),
-      certificateImages: z.array(image.extend({ certificatePath: copy })).min(1).optional(),
+      category: z.literal('workshop'), ...ordered, issuerOrOrganizer: copy, date: copy.optional(), certificatePath: copy.optional(), tag: copy.optional(),
+      certificateImages: z.array(image.extend({ certificatePath: copy, label: copy.optional() })).min(1).optional(),
     }).strict(),
     z.object({
       category: z.literal('project'), ...ordered, description: copy, projectCategory: copy,

@@ -61,7 +61,7 @@ const links = [
     // Hold the caret solid while typing or deleting; it blinks again when idle.
     const typing = (on: boolean) => caret?.classList.toggle('is-typing', on);
     (async () => {
-      await wait(3200);
+      await wait(2000);
       for (;;) {
         const next = titles[1 - current];
         typing(true);
@@ -70,7 +70,7 @@ const links = [
         for (let i = 1; i <= next.length; i++) { label.textContent = next.slice(0, i); await wait(55); }
         typing(false);
         current = 1 - current;
-        await wait(3200);
+        await wait(2000);
       }
     })();
   }

@@ -3,7 +3,7 @@ category: honor
 title: 'UPV KomsaiHack 2026: Risk Ready Finalist'
 order: 3
 meta: 'April 2026'
-summary: Tabang reached the Top 10 and placed seventh among [[25+]] teams at UPV KomsaiHack 2026.
+summary: Tabang reached the Top 10 and placed [[sixth]] among 25+ teams at UPV KomsaiHack 2026.
 images:
   - path: images/tabang-finalist.jpg
     alt: Tabang team members at UPV KomsaiHack 2026, shown in the event finalist graphic.

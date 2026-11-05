@@ -1,6 +1,6 @@
 ---
 category: page-projects
-title: Projects — Aldrin Kyle Delfin
+title: ~/projects — Aldrin Kyle Delfin
 description: 'Project notes on Libro, Tabang, and FaceLog: backend APIs, community flood response, and offline attendance.'
 eyebrow: Selected work
 sections: [projects]

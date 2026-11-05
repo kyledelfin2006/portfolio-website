@@ -1,6 +1,6 @@
 ---
 category: page-home
-title: Main — Aldrin Kyle Delfin
+title: ~/main — Aldrin Kyle Delfin
 description: Aklan-based backend developer and Software Engineering student. Spring Boot, PostgreSQL, Docker, and practical software projects.
 sectionOrder: [experience, projects, honors, education, skills]
 sections:

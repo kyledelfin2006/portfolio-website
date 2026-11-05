@@ -39,6 +39,17 @@ const { data: site } = await getRequiredEntry('site', 'site');
     </script>}
     <script is:inline>
       try {
+        if (!sessionStorage.getItem('name-reveal-seen') && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          sessionStorage.setItem('name-reveal-seen', '1');
+          const html = document.documentElement;
+          html.style.setProperty('--name-delay', html.classList.contains('intro-active') ? '650ms' : '0ms');
+          html.classList.add('name-intro');
+          window.setTimeout(() => html.classList.remove('name-intro'), 2400);
+        }
+      } catch { /* The name simply renders without the reveal. */ }
+    </script>
+    <script is:inline>
+      try {
         const pending = JSON.parse(sessionStorage.getItem('route-transition') || 'null');
         sessionStorage.removeItem('route-transition');
         if (pending?.path === location.pathname + location.search && Date.now() - pending.at < 10000 &&
@@ -64,7 +75,7 @@ const { data: site } = await getRequiredEntry('site', 'site');
     <div class="document-shell">
       <Header />
       <main id="main-content" tabindex="-1"><slot /></main>
-      <footer class="no-print"><span>{site.fullName}</span><a href="#main-content">{site.projectLinks.backToTop}</a><a href={`${base}resume.pdf`} target="_blank" rel="noopener">{site.downloadResume}</a></footer>
+      <footer class="no-print"><span>{site.fullName}</span><a href={`${base}resume.pdf`} target="_blank" rel="noopener">{site.downloadResume}</a></footer>
     </div>
     {resume && <script is:inline>
       const root = document.documentElement;
@@ -80,6 +91,42 @@ const { data: site } = await getRequiredEntry('site', 'site');
         panel.addEventListener('animationend', finish, { once: true });
         document.addEventListener('pointerdown', finish, { capture: true, once: true });
         window.addEventListener('keydown', finish, { capture: true, once: true });
+      }
+    </script>}
+    {resume && <script is:inline>
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+        const chips = [];
+        document.querySelectorAll('.stat').forEach((el) => {
+          const match = el.textContent.match(/^(\d[\d,]*)(.*)$/);
+          if (!match) return;
+          const target = Number(match[1].replace(/,/g, ''));
+          const visible = document.createElement('span');
+          const spoken = document.createElement('span');
+          visible.setAttribute('aria-hidden', 'true');
+          visible.textContent = '0' + match[2];
+          spoken.className = 'sr-only';
+          spoken.textContent = el.textContent;
+          el.textContent = '';
+          el.append(visible, spoken);
+          chips.push({ el, visible, target, suffix: match[2] });
+        });
+        const finish = (chip) => { chip.visible.textContent = chip.target.toLocaleString('en-US') + chip.suffix; };
+        const counter = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            counter.unobserve(entry.target);
+            const chip = chips.find((item) => item.el === entry.target);
+            const start = performance.now();
+            const tick = (now) => {
+              const t = Math.min(1, (now - start) / 900);
+              chip.visible.textContent = Math.round(chip.target * (1 - Math.pow(1 - t, 3))).toLocaleString('en-US') + chip.suffix;
+              if (t < 1) requestAnimationFrame(tick);
+            };
+            requestAnimationFrame(tick);
+          });
+        }, { threshold: 0.6 });
+        chips.forEach((chip) => counter.observe(chip.el));
+        window.addEventListener('beforeprint', () => chips.forEach(finish));
       }
     </script>}
     {resume && <script is:inline>

@@ -13,7 +13,7 @@ logo:
   height: 1166
 order: 1
 highlights:
-  - 192 passing tests cover service, API, and persistence behavior, including PostgreSQL integration tests.
+  - "[[192]] passing tests cover service, API, and persistence behavior, including PostgreSQL integration tests."
   - Containerized the API and PostgreSQL with Docker Compose, using health-checked startup and persistent storage.
 ---
 

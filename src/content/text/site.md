@@ -16,6 +16,6 @@ profiles:
 theme: { lightMode: Light mode, darkMode: Dark mode, switchToLight: Switch to light theme, switchToDark: Switch to dark theme }
 skipLink: Skip to content
 downloadResume: Open provided resume PDF to print or download ↓
-projectLinks: { caseStudy: Read case study →, sourceCode: Source code ↗, viewSource: View source on GitHub ↗, returnToMain: Return to Main, notes: Project notes, previous: Previous project, next: Next project, readingTime: min read, backToTop: Back to top ↑ }
+projectLinks: { caseStudy: Read case study →, sourceCode: Source code ↗, viewSource: View source on GitHub ↗, returnToMain: Return to Main, notes: Project notes, previous: Previous project, next: Next project, readingTime: min read, titlePath: '~/projects/' }
 credentialLink: View certificate
 ---

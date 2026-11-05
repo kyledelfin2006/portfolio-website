@@ -3,6 +3,8 @@ import ThemeToggle from './ThemeToggle.astro';
 import { getRequiredEntry } from '../content/load';
 const { data: site } = await getRequiredEntry('site', 'site');
 const base = import.meta.env.BASE_URL;
+const nameWords = site.fullName.split(' ');
+let letterIndex = 0;
 const current = Astro.url.pathname.replace(/\/$/, '');
 const links = [
   { label: site.navigation.main, href: base, active: current === base.replace(/\/$/, '') },
@@ -26,7 +28,7 @@ const links = [
   </div>
   <div class="identity">
     <div class="identity-copy">
-      <h1>{site.fullName}</h1>
+      <h1 aria-label={site.fullName}>{nameWords.map((word, wordIndex) => <><span class="name-word" aria-hidden="true">{[...word].map((letter) => <span class="name-letter" style={`--i:${letterIndex++}`}>{letter}</span>)}</span>{wordIndex < nameWords.length - 1 && ' '}</>)}</h1>
       <p class="subtitle">{site.professionalSubtitle}</p>
       <p class="location">{site.location}</p>
       <p class="status no-print">{site.status.text}<span class="caret" aria-hidden="true"></span></p>
@@ -35,6 +37,18 @@ const links = [
         {site.profiles.map((profile) => <><span aria-hidden="true">·</span><a href={profile.url} target="_blank" rel="noopener noreferrer">{profile.label}</a></>)}
       </div>
     </div>
-    <img class="portrait" src={`${base}1x1-bw.jpg`} alt={site.portraitAlt} width="112" height="112" loading="eager" />
+    <div class="portrait-frame">
+      <img class="portrait" src={`${base}1x1-bw.jpg`} alt={site.portraitAlt} width="112" height="112" loading="eager" />
+      <span class="portrait-scan no-print" aria-hidden="true"></span>
+    </div>
   </div>
 </header>
+<script>
+  const frame = document.querySelector<HTMLElement>('.portrait-frame');
+  if (frame && matchMedia('(hover: hover) and (prefers-reduced-motion: no-preference)').matches) {
+    frame.addEventListener('pointermove', (event) => {
+      const box = frame.getBoundingClientRect();
+      frame.style.setProperty('--py', String((event.clientY - box.top) / box.height));
+    });
+  }
+</script>

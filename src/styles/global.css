@@ -214,8 +214,30 @@ footer { display: flex; justify-content: space-between; gap: var(--space-4); mar
   @media (prefers-reduced-motion: no-preference) {
     .resume-page :is(#projects, #honors) .entries > article { animation: row-reveal linear both; animation-timeline: view(); animation-range: entry 0% entry 40%; }
     @keyframes row-reveal { from { opacity: 0; translate: 0 16px; } to { opacity: 1; translate: 0 0; } }
+    .section-heading { position: relative; border-bottom-color: transparent; }
+    .section-heading::after { position: absolute; right: 0; bottom: -1px; left: 0; height: var(--rule-width); content: ""; background: var(--rule-strong); transform-origin: left; animation: rule-draw linear both; animation-timeline: view(); animation-range: entry 0% entry 80%; }
+    .section-heading::before { display: inline-block; animation: marker-in linear both; animation-timeline: view(); animation-range: entry 0% entry 60%; }
+    @keyframes rule-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+    @keyframes marker-in { from { opacity: 0; translate: -8px 0; } to { opacity: 1; translate: 0 0; } }
+    .resume-page #projects .entries > article::before { transform: none; scale: 1 0; transition: none; animation: rail-fill linear both; animation-timeline: view(); animation-range: entry 10% cover 55%; }
+    @keyframes rail-fill { from { scale: 1 0; } to { scale: 1 1; } }
   }
 }
+@media (prefers-reduced-motion: no-preference) {
+  .resume-page .skills dd li { transition: transform var(--transition), box-shadow var(--transition); }
+  .resume-page .skills > div { transition: opacity 180ms ease; }
+  .resume-page .skills dd li:hover { transform: translateY(-2px); box-shadow: 0 2px 0 var(--stack-accent); }
+  @media (hover: hover) { .resume-page .skills:has(> div:hover) > div:not(:hover) { opacity: .65; } }
+}
+.name-word { display: inline-block; white-space: nowrap; }
+.name-letter { display: inline-block; }
+:root.name-intro .name-letter { animation: name-in 560ms cubic-bezier(.16, 1, .3, 1) backwards; animation-delay: calc(var(--name-delay, 0ms) + var(--i) * 32ms); }
+@keyframes name-in { from { clip-path: inset(0 100% 0 0); opacity: 0; filter: blur(6px); translate: 0 .2em; } to { clip-path: inset(-10% -20% -10% -20%); opacity: 1; filter: blur(0); translate: 0 0; } }
+.portrait-frame { position: relative; display: grid; min-width: 0; overflow: hidden; }
+.portrait-scan { position: absolute; inset: -6px 0; opacity: 0; pointer-events: none; background: repeating-linear-gradient(to bottom, transparent 0, transparent 3px, color-mix(in srgb, var(--accent-ink) 28%, transparent) 3px, color-mix(in srgb, var(--accent-ink) 28%, transparent) 4px); transform: translateY(calc(var(--py, .5) * 6px - 3px)); transition: opacity 200ms; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) { .portrait-frame:hover .portrait-scan { opacity: 1; } }
+.stat { display: inline-block; min-width: 3.4ch; padding: 0 6px; text-align: center; border: var(--rule-width) solid var(--stack-accent); color: var(--accent-fill-ink); background: var(--accent-fill); font-family: var(--mono); font-size: .82em; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.5; white-space: nowrap; }
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 
 .intro-reveal { display: none; }
 :root.intro-active .intro-reveal { position: fixed; inset: 0; z-index: 9; display: grid; grid-template-rows: 1fr 1fr; pointer-events: none; }
@@ -353,7 +375,10 @@ footer { display: flex; justify-content: space-between; gap: var(--space-4); mar
   .resume-page .scroll-reveal, .resume-page .scroll-reveal.is-visible { opacity: 1; transform: none; transition: none; }
   .resume-page :is(#projects, #honors) .entries > article { animation: none !important; opacity: 1; translate: none; }
   .resume-page #projects .entries > article:is(:hover, :focus-within), .resume-page #honors .entries > article:is(:hover, :focus-within) { background: transparent; transform: none; }
-  .resume-page #projects .entries > article::before { transform: scaleY(0); }
+  .resume-page #projects .entries > article::before, .section-heading::after, .portrait-scan { display: none !important; }
+  .section-heading { border-bottom: 1px solid #777 !important; }
+  .name-letter { animation: none !important; }
+  .stat { padding: 0; border: 0; color: #000; background: #fff; font: inherit; }
   .about-skills { display: block; }
   .about-skills > div { display: inline; padding: 0; border: 0; }
   .about-skills > div + div::before { content: "; "; }

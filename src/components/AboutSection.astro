@@ -14,6 +14,10 @@ const contactProfiles = site.profiles.filter(({ label }) => data.contactProfileL
 <section>
   <SectionHeading title={data.title} />
   {data.itemTitle && <div class="split-row"><h3>{data.itemTitle}</h3>{data.meta && <span class="meta">{data.meta}</span>}</div>}
+  {data.pullQuote && <figure class="pull-quote" aria-hidden="true">
+    <blockquote class="pull-quote-text">{data.pullQuote.lead} <mark>{data.pullQuote.emphasis}</mark></blockquote>
+    <div class="bounds">{data.pullQuote.boxes.map((box, index) => <>{index > 0 && <i class="bounds-link" style={`--i:${index * 2 - 1}`}></i>}<span class="bounds-box" style={`--i:${index * 2}`}>{box}</span></>)}</div>
+  </figure>}
   <Content />
   {data.contactProfileLabels && <div class="contact-links">
     <a href={`mailto:${site.email}`}>{site.email}</a>

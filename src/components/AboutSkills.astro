@@ -1,11 +1,88 @@
 ---
 import SectionHeading from './SectionHeading.astro';
-interface Props { heading: string; skills: { category: string; items: string[] }[]; }
-const { heading, skills } = Astro.props;
+import { contentId, getEntries } from '../content/load';
+interface Props { heading: string; hint: string; usedInLabel: string; toolkitLabel: string; skills: { category: string; items: string[] }[]; }
+const { heading, hint, usedInLabel, toolkitLabel, skills } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const [projects, experiences] = await Promise.all([getEntries('project'), getEntries('experience')]);
+// "Java 21+" and "PostgreSQL 18" compare as "Java" and "PostgreSQL"; a trailing "s" is ignored so "REST APIs" finds "REST API".
+const bare = (name: string) => name.replace(/\s+v?\d[\d.]*\+?$/i, '').toLowerCase();
+const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+type Evidence = { label: string; detail: string; href: string };
+// Evidence comes from the content itself: project stacks and write-ups, and experience write-ups.
+const evidenceFor = (item: string): Evidence[] => {
+  const name = bare(item);
+  const mention = new RegExp('\\b' + escapeRegExp(name.replace(/s$/, '')) + 's?\\b', 'i');
+  return [
+    ...projects
+      .filter((project) => project.data.stack.some((tech) => bare(tech) === name) || mention.test([project.body, project.data.description, ...project.data.highlights].join(' ')))
+      .map((project) => ({ label: project.data.title, detail: project.data.projectCategory, href: `${base}projects/${contentId(project).split('/').at(-1)}/` })),
+    ...experiences
+      .filter((experience) => mention.test(experience.body ?? ''))
+      .map((experience) => ({ label: experience.data.organization, detail: experience.data.title, href: `${base}#experience` })),
+  ];
+};
+// Skills with evidence stay in their group; the rest are gathered into one quiet toolkit row.
+const groups = skills.map(({ category, items }) => ({ category, proven: items.map((item) => ({ item, evidence: evidenceFor(item) })).filter(({ evidence }) => evidence.length) }));
+const toolkit = skills.flatMap(({ items }) => items.filter((item) => !evidenceFor(item).length));
+let chipIndex = 0;
+const proven = groups.map((group) => ({ ...group, proven: group.proven.map((entry) => ({ ...entry, id: `skill-panel-${chipIndex++}` })) }));
 ---
 <section id="technical-skills" aria-label={heading}>
   <SectionHeading title={heading} />
   <dl class="about-skills">
-    {skills.map(({ category, items }) => <div><dt>{category}</dt><dd>{items.join(', ')}</dd></div>)}
+    {proven.filter((group) => group.proven.length).map(({ category, proven: entries }) => <div>
+      <dt>{category}</dt>
+      <dd><ul class="chip-list">{entries.map(({ item, evidence, id }) => <li>
+        <button type="button" class="chip" aria-expanded="false" aria-controls={id}>{item}<span class="chip-count" aria-hidden="true">{evidence.length}</span><span class="sr-only"> — {usedInLabel} {evidence.map(({ label }) => label).join(', ')}</span></button>
+      </li>)}</ul></dd>
+    </div>)}
+    {toolkit.length > 0 && <div class="skills-toolkit">
+      <dt>{toolkitLabel}</dt>
+      <dd><ul class="chip-list">{toolkit.map((item) => <li><span class="chip chip-quiet">{item}</span></li>)}</ul></dd>
+    </div>}
   </dl>
+  <div class="skills-detail no-print">
+    <p class="skills-hint">{hint}</p>
+    {proven.flatMap((group) => group.proven).map(({ item, evidence, id }) => <div class="skills-panel" id={id} hidden>
+      <p class="skills-panel-title"><strong>{item}</strong> — {usedInLabel}</p>
+      <ul>{evidence.map(({ label, detail, href }) => <li><a href={href}>{label}</a> <span>· {detail}</span></li>)}</ul>
+    </div>)}
+  </div>
 </section>
+<script>
+  const list = document.querySelector<HTMLElement>('.about-skills');
+  const detail = document.querySelector<HTMLElement>('.skills-detail');
+  if (list && detail) {
+    const chips = [...list.querySelectorAll<HTMLButtonElement>('button.chip')];
+    const panels = [...detail.querySelectorAll<HTMLElement>('.skills-panel')];
+    const hint = detail.querySelector<HTMLElement>('.skills-hint');
+    const close = () => {
+      chips.forEach((chip) => { chip.setAttribute('aria-expanded', 'false'); chip.classList.remove('is-active'); });
+      panels.forEach((panel) => { panel.hidden = true; });
+      if (hint) hint.hidden = false;
+    };
+    const open = (chip: HTMLButtonElement) => {
+      close();
+      chip.setAttribute('aria-expanded', 'true');
+      chip.classList.add('is-active');
+      const panel = panels.find(({ id }) => id === chip.getAttribute('aria-controls'));
+      if (panel) panel.hidden = false;
+      if (hint) hint.hidden = true;
+    };
+    chips.forEach((chip) => chip.addEventListener('click', () => (chip.getAttribute('aria-expanded') === 'true' ? close() : open(chip))));
+    // Arrow keys move between skills; Escape closes the details.
+    list.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') { close(); return; }
+      const step = ['ArrowRight', 'ArrowDown'].includes(event.key) ? 1 : ['ArrowLeft', 'ArrowUp'].includes(event.key) ? -1 : 0;
+      const index = chips.indexOf(document.activeElement as HTMLButtonElement);
+      if (!step || index < 0) return;
+      event.preventDefault();
+      chips[(index + step + chips.length) % chips.length].focus();
+    });
+    document.addEventListener('click', (event) => {
+      const target = event.target as Node;
+      if (!list.contains(target) && !detail.contains(target)) close();
+    });
+  }
+</script>

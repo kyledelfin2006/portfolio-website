@@ -165,6 +165,75 @@ li + li { margin-top: var(--space-1); }
 .about-skills > div { min-width: 0; padding-top: var(--space-2); border-top: var(--rule-width) solid var(--rule); }
 .about-skills dt { color: var(--stack-accent); font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
 .about-skills dd { margin: var(--space-1) 0 0; overflow-wrap: anywhere; line-height: 1.5; }
+.chip-list { display: flex; flex-wrap: wrap; gap: var(--space-1); margin: 0; padding: 0; list-style: none; }
+.chip { display: inline-flex; align-items: center; gap: 6px; padding: 2px 8px; border: var(--rule-width) solid var(--rule); color: var(--ink); background: var(--surface-strong); font: 12px/1.5 var(--mono); }
+.chip-quiet { color: var(--muted); background: none; }
+/* Skills backed by a project or role are clickable: a dotted underline and a count mark them at rest. */
+button.chip { cursor: pointer; border-bottom-style: dotted; border-bottom-color: var(--stack-accent); }
+button.chip:focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 2px; }
+.chip-count { display: inline-block; min-width: 1.4em; padding: 0 4px; color: var(--stack-accent); background: color-mix(in srgb, var(--stack-accent) 14%, transparent); font-size: 10px; font-weight: 700; line-height: 1.5; text-align: center; }
+.chip.is-active { border-color: var(--stack-accent); box-shadow: 0 2px 0 var(--stack-accent); }
+.about-skills > div:first-child { grid-column: 1 / -1; border-top-color: var(--stack-accent); }
+.about-skills > div.skills-toolkit { grid-column: 1 / -1; margin-top: var(--space-2); }
+.skills-detail { min-height: 4.5em; margin-top: var(--space-4); padding: var(--space-3) var(--space-4); border: var(--rule-width) solid var(--rule); background: var(--surface-strong); font-family: var(--mono); font-size: 12px; }
+.skills-hint { margin: 0; color: var(--muted); }
+.skills-panel-title { margin: 0 0 var(--space-2); }
+.skills-panel-title strong { color: var(--stack-accent); }
+.skills-panel ul { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); margin: 0; padding: 0; list-style: none; }
+.skills-panel li { margin: 0; }
+.skills-panel li span { color: var(--muted); }
+@media (prefers-reduced-motion: no-preference) {
+  .chip { transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition); }
+  button.chip:is(:hover, :focus-visible) { transform: translateY(-2px); }
+  .skills-panel:not([hidden]) { animation: panel-in 160ms ease-out; }
+  @keyframes panel-in { from { opacity: 0; translate: 0 4px; } }
+}
+
+/* Journey: a rail that fills with scroll, and nodes that pulse once as each milestone arrives. */
+.journey { position: relative; display: grid; gap: var(--space-5); margin: 0; padding: 0 0 0 var(--space-6); list-style: none; }
+.journey::before, .journey::after { position: absolute; top: 6px; bottom: 6px; left: 5px; width: var(--rule-width); content: ""; }
+.journey::before { background: var(--rule); }
+.journey::after { background: var(--accent-ink); transform-origin: top; }
+.journey > li { position: relative; margin: 0; }
+.journey > li::before { position: absolute; top: 4px; left: calc(var(--space-6) * -1); width: 11px; height: 11px; box-sizing: border-box; border: var(--rule-width) solid var(--accent-ink); content: ""; background: var(--surface); }
+.journey > li.is-current::before { background: var(--accent-ink); }
+.journey-date { color: var(--accent-ink); font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
+.journey-title { margin: 2px 0 var(--space-1); font-size: 17px; font-weight: 700; line-height: 1.3; }
+.journey-detail { color: var(--muted); }
+@media (prefers-reduced-motion: no-preference) {
+  .journey-armed > li > * { transition: opacity 360ms ease, translate 360ms cubic-bezier(.16, 1, .3, 1); }
+  .journey-armed > li:not(.is-in) > * { opacity: 0; translate: 0 10px; }
+  .journey-armed > li::before { transition: scale 240ms cubic-bezier(.16, 1, .3, 1); }
+  .journey-armed > li:not(.is-in)::before { scale: 0; }
+  .journey-armed > li.is-in::before { animation: node-pulse 900ms ease-out 1; }
+  @keyframes node-pulse { from { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent-ink) 55%, transparent); } to { box-shadow: 0 0 0 14px transparent; } }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .journey::after { scale: 1 0; animation: journey-fill linear both; animation-timeline: view(); animation-range: entry 10% cover 70%; }
+    @keyframes journey-fill { to { scale: 1 1; } }
+  }
+}
+
+/* Philosophy pull-quote: the sentence, then boxes with clear borders that draw in. */
+.pull-quote { margin: var(--space-5) 0; }
+.pull-quote-text { max-width: 14em; font-size: clamp(28px, 6vw, 46px); font-weight: 700; letter-spacing: -.04em; line-height: 1.05; text-wrap: balance; }
+.pull-quote-text::before { color: var(--accent-ink); content: "\201C"; }
+.pull-quote mark { padding-bottom: 2px; color: var(--accent-ink); background: linear-gradient(currentColor, currentColor) 0 100% / 100% 2px no-repeat; }
+.bounds { display: flex; align-items: center; max-width: 420px; margin-top: var(--space-4); }
+.bounds-box { flex: 1 1 0; min-width: 0; padding: var(--space-2) var(--space-1); border: var(--rule-width) solid var(--rule-strong); background: var(--surface-strong); font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-align: center; text-transform: uppercase; }
+.bounds-link { flex: 0 0 var(--space-5); height: var(--rule-width); background: var(--accent-ink); transform-origin: left; }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .pull-quote-text { animation: row-reveal linear both; animation-timeline: view(); animation-range: entry 0% entry 45%; }
+    .pull-quote mark { background-size: 0 2px; animation: mark-draw linear both; animation-timeline: view(); animation-range: entry 25% entry 75%; }
+    .bounds-box { animation: box-wipe linear both; animation-timeline: view(); animation-range: entry calc(var(--i) * 7%) entry calc(30% + var(--i) * 7%); }
+    .bounds-link { animation: link-draw linear both; animation-timeline: view(); animation-range: entry calc(var(--i) * 7%) entry calc(30% + var(--i) * 7%); }
+    @keyframes mark-draw { to { background-size: 100% 2px; } }
+    @keyframes box-wipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0); } }
+    @keyframes link-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  }
+}
 .credential-link { margin-top: var(--space-3); font-family: var(--mono); font-size: 11px; text-transform: uppercase; }
 footer { display: flex; justify-content: space-between; gap: var(--space-4); margin-top: var(--space-4); padding: var(--space-3) var(--space-4); border: var(--rule-width) solid var(--rule-strong); color: var(--muted); background: var(--surface); font-family: var(--mono); font-size: 11px; text-transform: uppercase; }
 
@@ -390,6 +459,18 @@ footer { display: flex; justify-content: space-between; gap: var(--space-4); mar
   .name-letter { animation: none !important; }
   .stat { padding: 0; border: 0; color: #000; font: inherit; }
   .about-skills { display: block; }
+  .journey { display: block; padding: 0; }
+  .journey::before, .journey::after, .journey > li::before, .pull-quote, .skills-detail { display: none !important; }
+  .journey > li { break-inside: avoid; margin-bottom: 1.5mm; }
+  .journey-date { display: inline; color: #000; font-family: var(--serif); font-size: 10pt; font-weight: 700; letter-spacing: normal; text-transform: none; }
+  .journey-date::after { content: " — "; }
+  .journey-title { display: inline; margin: 0; font-size: 10pt; }
+  .journey-detail { color: #000; font-size: 10pt; }
+  .chip-list, .chip-list li { display: inline; }
+  .chip-list li + li::before { content: ", "; }
+  .chip { padding: 0; border: 0; color: #000; background: none; font: inherit; }
+  .chip .sr-only, .chip-count { display: none; }
+  .about-skills > div:first-child, .about-skills > div.skills-toolkit { margin: 0; }
   .about-skills > div { display: inline; padding: 0; border: 0; }
   .about-skills > div + div::before { content: "; "; }
   .about-skills dt, .about-skills dd { display: inline; color: #000; font-family: var(--serif); font-size: 10pt; line-height: inherit; }

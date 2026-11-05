@@ -1,6 +1,10 @@
 ---
 category: about
 title: Engineering Philosophy
+pullQuote:
+  lead: Simple systems with
+  emphasis: clear boundaries.
+  boxes: [API, Service, Data]
 ---
 
 I favor simple systems with clear boundaries. YAGNI keeps architecture aligned with demonstrated needs.

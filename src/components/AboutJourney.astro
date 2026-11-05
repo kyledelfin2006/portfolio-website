@@ -1,0 +1,31 @@
+---
+import SectionHeading from './SectionHeading.astro';
+interface Props { heading: string; entries: { date: string; title: string; detail: string; current?: boolean }[]; }
+const { heading, entries } = Astro.props;
+---
+<section id="journey" aria-label={heading}>
+  <SectionHeading title={heading} />
+  <ol class="journey">
+    {entries.map(({ date, title, detail, current }) => <li class:list={[{ 'is-current': current }]}>
+      <p class="journey-date">{date}</p>
+      <h3 class="journey-title">{title}</h3>
+      <p class="journey-detail">{detail}</p>
+    </li>)}
+  </ol>
+</section>
+<script>
+  // Each milestone's node pulses once as it scrolls into view. Content stays visible without JavaScript or with reduced motion.
+  const journey = document.querySelector<HTMLElement>('.journey');
+  if (journey && 'IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const items = [...journey.querySelectorAll<HTMLElement>(':scope > li')];
+    journey.classList.add('journey-armed');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-in');
+        observer.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.2 });
+    items.forEach((item) => observer.observe(item));
+  }
+</script>

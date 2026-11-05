@@ -402,3 +402,7 @@ No Cloudflare adapter, Worker, database, or runtime secret is required for this 
 ### Release checklist
 
 Run the checker and production build, update the PDF if resume content changed, inspect a narrow viewport and print preview, verify local links and the hosting base path, and review dependency advisories. Publish only the intended static output; never upload `references/`, `node_modules/`, or temporary QA files as website assets.
+
+## About page motion (Journey, skills, philosophy)
+
+The About page has three interactive blocks, all skipped for reduced motion and print and fully visible without JavaScript. **Journey** (`AboutJourney.astro`, copy in `pages/about.md`) is a dated milestone rail whose accent fill follows scroll where `animation-timeline: view()` exists, with each node pulsing once as it enters. **Technical Skills** (`AboutSkills.astro`, copy in `pages/about.md`) leads with Backend & Java. Skills backed by a project or role show a count and a dotted underline and open a detail panel on click (project and role links; arrow keys move between chips, Escape closes); skills with no backing evidence collect in one quiet "Also in my toolkit" row. Evidence is derived from project `stack` fields and write-ups and experience write-ups, so it stays grounded in content; the extra skills come from `references/INFO.md`. **Engineering Philosophy** takes an optional `pullQuote` (lead, emphasis, boxes) in its front matter and draws a large quote plus bordered boxes as they scroll in; it is decorative and `aria-hidden`.

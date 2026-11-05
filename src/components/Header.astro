@@ -31,7 +31,7 @@ const links = [
       <h1 aria-label={site.fullName}>{nameWords.map((word, wordIndex) => <><span class="name-word" aria-hidden="true">{[...word].map((letter) => <span class="name-letter" style={`--i:${letterIndex++}`}>{letter}</span>)}</span>{wordIndex < nameWords.length - 1 && ' '}</>)}</h1>
       <p class="subtitle">{site.professionalSubtitle}</p>
       <p class="location">{site.location}</p>
-      <p class="status no-print">{site.status.text}<span class="caret" aria-hidden="true"></span></p>
+      <p class="status no-print" data-status data-alternate={site.status.alternate}><span class="status-text">{site.status.text}</span><span class="caret" aria-hidden="true"></span></p>
       <div class="contact-links">
         <a href={`mailto:${site.email}`}>{site.email}</a>
         {site.profiles.map((profile) => <><span aria-hidden="true">·</span><a href={profile.url} target="_blank" rel="noopener noreferrer">{profile.label}</a></>)}
@@ -44,6 +44,37 @@ const links = [
   </div>
 </header>
 <script>
+  // Status line: the caret deletes the current title, then types the other, forever.
+  const status = document.querySelector<HTMLElement>('[data-status]');
+  const label = status?.querySelector<HTMLElement>('.status-text');
+  if (status && label && status.dataset.alternate && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const titles = [label.textContent ?? '', status.dataset.alternate];
+    const caret = status.querySelector<HTMLElement>('.caret');
+    // Screen readers get the stable first title instead of a constantly changing string.
+    const stable = document.createElement('span');
+    stable.className = 'sr-only';
+    stable.textContent = titles[0];
+    label.setAttribute('aria-hidden', 'true');
+    status.prepend(stable);
+    let current = 0;
+    const wait = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
+    // Hold the caret solid while typing or deleting; it blinks again when idle.
+    const typing = (on: boolean) => caret?.classList.toggle('is-typing', on);
+    (async () => {
+      await wait(3200);
+      for (;;) {
+        const next = titles[1 - current];
+        typing(true);
+        for (let i = titles[current].length; i >= 0; i--) { label.textContent = titles[current].slice(0, i); await wait(28); }
+        await wait(220);
+        for (let i = 1; i <= next.length; i++) { label.textContent = next.slice(0, i); await wait(55); }
+        typing(false);
+        current = 1 - current;
+        await wait(3200);
+      }
+    })();
+  }
+
   const frame = document.querySelector<HTMLElement>('.portrait-frame');
   if (frame && matchMedia('(hover: hover) and (prefers-reduced-motion: no-preference)').matches) {
     frame.addEventListener('pointermove', (event) => {

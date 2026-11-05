@@ -7,6 +7,15 @@ const { title, description, resume = false } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefined;
 const { data: site } = await getRequiredEntry('site', 'site');
+// Destination labels shown on the page-transition shutter, mirroring the numbered navigation.
+const projectsPath = base + 'projects/';
+const labels: Record<string, string> = {};
+labels[base] = '01 / ' + site.navigation.main;
+labels[base + 'about/'] = '02 / ' + site.navigation.about;
+labels[projectsPath] = '03 / ' + site.navigation.projects;
+const pathname = Astro.url.pathname.replace(/\/?$/, '/');
+const caseSlug = pathname.match(/\/projects\/([^/]+)\/$/)?.[1];
+const routeLabel = labels[pathname] ?? (caseSlug ? labels[projectsPath] + ' / ' + caseSlug.replace(/-/g, ' ') : site.fullName);
 ---
 <!doctype html>
 <html lang="en" class="dark">
@@ -48,15 +57,72 @@ const { data: site } = await getRequiredEntry('site', 'site');
         }
       } catch { /* The name simply renders without the reveal. */ }
     </script>
+    <link rel="expect" href="#main-content" blocking="render" />
     <script is:inline>
+      // Route helpers shared by the shutter, the view-transition handoff and the destination label.
+      const normalizePath = (path) => path.replace(/\/?$/, '/');
+      window.routeKind = (path) => /\/projects\/[^/]+\/$/.test(normalizePath(path)) ? 'case' : /\/about\/$/.test(normalizePath(path)) ? 'about' : 'list';
+      window.routeOrder = (path) => {
+        const kind = routeKind(path);
+        if (kind === 'case') return 3;
+        if (kind === 'about') return 1;
+        return /\/projects\/$/.test(normalizePath(path)) ? 2 : 0;
+      };
+      // A project list <-> case study move morphs the shared title and logo; every other move uses the shutter.
+      window.canMorph = (from, to) => 'PageRevealEvent' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches &&
+        [routeKind(from), routeKind(to)].sort().join() === 'case,list';
+      const tagShared = (path, otherPath) => {
+        const slug = (normalizePath(routeKind(path) === 'case' ? path : otherPath).match(/\/projects\/([^/]+)\/$/) || [])[1];
+        if (!slug) return;
+        const key = slug.replace(/[^\w-]/g, '-');
+        let title, logo;
+        if (routeKind(path) === 'case') {
+          title = document.querySelector('.case-header h2');
+          logo = document.querySelector('.case-header .project-logo');
+        } else {
+          const link = [...document.querySelectorAll('.entries h3 a')].find((a) => normalizePath(a.pathname).endsWith(`/projects/${slug}/`));
+          title = link;
+          logo = link?.closest('article')?.querySelector('.project-logo');
+        }
+        title?.classList.add('vt-title');
+        if (title) title.style.viewTransitionName = `pt-${key}`;
+        if (logo) logo.style.viewTransitionName = `pl-${key}`;
+      };
+      window.addEventListener('pageswap', (event) => {
+        if (!event.viewTransition) return;
+        const entry = event.activation?.entry;
+        const to = entry && new URL(entry.url);
+        if (!to || to.origin !== location.origin || !canMorph(location.pathname, to.pathname)) { event.viewTransition.skipTransition(); return; }
+        tagShared(location.pathname, to.pathname);
+      });
+      window.addEventListener('pagereveal', (event) => {
+        if (!event.viewTransition) return;
+        const fromEntry = window.navigation?.activation?.from;
+        const from = fromEntry && new URL(fromEntry.url);
+        if (!from || from.origin !== location.origin || !canMorph(from.pathname, location.pathname)) { event.viewTransition.skipTransition(); return; }
+        tagShared(location.pathname, from.pathname);
+        event.viewTransition.finished.finally(() => {
+          document.querySelectorAll('.vt-title').forEach((el) => el.classList.remove('vt-title'));
+          document.querySelectorAll('[style*="view-transition-name"]').forEach((el) => { el.style.viewTransitionName = ''; });
+        });
+      });
       try {
         const pending = JSON.parse(sessionStorage.getItem('route-transition') || 'null');
         sessionStorage.removeItem('route-transition');
         if (pending?.path === location.pathname + location.search && Date.now() - pending.at < 10000 &&
             !document.documentElement.classList.contains('intro-active') &&
             !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-          document.documentElement.classList.add('route-enter');
-          window.setTimeout(() => document.documentElement.classList.remove('route-enter'), 350);
+          const html = document.documentElement;
+          const morph = canMorph(pending.from, location.pathname);
+          html.style.setProperty('--route-dir', String(pending.dir || 1));
+          if (!morph) {
+            html.classList.add('route-enter');
+            window.setTimeout(() => html.classList.remove('route-enter'), 350);
+          }
+          // Replay the name reveal on every internal page swap, timed to start as the page appears.
+          html.style.setProperty('--name-delay', morph ? '260ms' : '200ms');
+          html.classList.add('name-intro');
+          window.setTimeout(() => html.classList.remove('name-intro'), 2400);
         }
       } catch { /* A failed storage read never hides the page. */ }
     </script>
@@ -67,8 +133,8 @@ const { data: site } = await getRequiredEntry('site', 'site');
       <div class="intro-panel intro-panel-top"><span class="intro-label">00 / {site.fullName}</span></div>
       <div class="intro-panel intro-panel-bottom"></div>
     </div>}
-    <div class="route-reveal" aria-hidden="true">
-      <div class="route-panel route-panel-top"><span class="intro-label">{site.fullName}</span></div>
+    <div class="route-reveal" aria-hidden="true" data-labels={JSON.stringify(labels)} data-projects={`${base}projects/`} data-fallback={site.fullName}>
+      <div class="route-panel route-panel-top"><span class="intro-label">{routeLabel}</span></div>
       <div class="route-panel route-panel-bottom"></div>
     </div>
     <div class="scroll-progress no-print" aria-hidden="true"></div>
@@ -158,10 +224,24 @@ const { data: site } = await getRequiredEntry('site', 'site');
         if (url.origin !== location.origin || !url.pathname.endsWith('/') ||
             url.pathname + url.search === location.pathname + location.search) return;
         if (leaveTimer) { event.preventDefault(); return; }
+        // Pager links keep their reading direction; other moves follow the order Main, About, Projects, case study.
+        const dir = link.relList.contains('prev') ? -1 : link.relList.contains('next') ? 1 :
+          (routeOrder(url.pathname) >= routeOrder(location.pathname) ? 1 : -1);
         try {
-          sessionStorage.setItem('route-transition', JSON.stringify({ path: url.pathname + url.search, at: Date.now() }));
+          sessionStorage.setItem('route-transition', JSON.stringify({ path: url.pathname + url.search, from: location.pathname, dir, at: Date.now() }));
         } catch { return; }
+        // A shared title/logo handoff takes over natively, so skip the shutter.
+        if (canMorph(location.pathname, url.pathname)) return;
         event.preventDefault();
+        const reveal = document.querySelector('.route-reveal');
+        const label = reveal?.querySelector('.intro-label');
+        if (reveal && label) {
+          const labels = JSON.parse(reveal.dataset.labels);
+          const slug = url.pathname.replace(/\/?$/, '/').match(/\/projects\/([^/]+)\/$/)?.[1];
+          label.textContent = labels[url.pathname.replace(/\/?$/, '/')] ??
+            (slug ? `${labels[reveal.dataset.projects]} / ${slug.replace(/-/g, ' ')}` : reveal.dataset.fallback);
+        }
+        routeRoot.style.setProperty('--route-dir', String(dir));
         routeRoot.classList.remove('route-enter');
         routeRoot.classList.add('route-leave');
         leaveTimer = window.setTimeout(() => location.assign(url.href), 150);

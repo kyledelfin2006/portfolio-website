@@ -251,18 +251,27 @@ footer { display: flex; justify-content: space-between; gap: var(--space-4); mar
 @keyframes intro-open-top { 0%, 25% { transform: translateY(0); } 100% { transform: translateY(-100%); } }
 @keyframes intro-open-bottom { 0%, 25% { transform: translateY(0); } 100% { transform: translateY(100%); } }
 .route-reveal { display: none; }
-:root:is(.route-leave, .route-enter) .route-reveal { position: fixed; inset: 0; z-index: 9; display: grid; grid-template-rows: 1fr 1fr; pointer-events: none; }
+:root:is(.route-leave, .route-enter) .route-reveal { position: fixed; inset: 0; z-index: 9; overflow: hidden; display: grid; grid-template-rows: 1fr 1fr; pointer-events: none; }
 .route-panel { min-height: 0; background: var(--canvas); }
 .route-panel-top { display: flex; align-items: end; justify-content: center; padding-bottom: var(--space-5); }
 .route-panel-bottom { border-top: var(--rule-width) solid var(--accent-ink); background: var(--surface-strong); }
-:root.route-leave .route-panel-top { animation: route-close-top 150ms cubic-bezier(.76, 0, .24, 1) both; }
-:root.route-leave .route-panel-bottom { animation: route-close-bottom 150ms cubic-bezier(.76, 0, .24, 1) both; }
-:root.route-enter .route-panel-top { animation: route-open-top 250ms cubic-bezier(.16, 1, .3, 1) both; }
-:root.route-enter .route-panel-bottom { animation: route-open-bottom 250ms cubic-bezier(.16, 1, .3, 1) both; }
-@keyframes route-close-top { from { transform: translateY(-100%); } to { transform: translateY(0); } }
-@keyframes route-close-bottom { from { transform: translateY(100%); } to { transform: translateY(0); } }
-@keyframes route-open-top { from { transform: translateY(0); } to { transform: translateY(-100%); } }
-@keyframes route-open-bottom { from { transform: translateY(0); } to { transform: translateY(100%); } }
+/* The shutter sweeps in the reading direction: --route-dir is 1 going forward, -1 going back. */
+:root.route-leave .route-panel { animation: route-close 150ms cubic-bezier(.76, 0, .24, 1) both; }
+:root.route-enter .route-panel { animation: route-open 250ms cubic-bezier(.16, 1, .3, 1) both; }
+@keyframes route-close { from { transform: translateX(calc(var(--route-dir, 1) * 100%)); } to { transform: translateX(0); } }
+@keyframes route-open { from { transform: translateX(0); } to { transform: translateX(calc(var(--route-dir, 1) * -100%)); } }
+
+/* Project title and logo morph between a list card and its case study (cross-document view transition). */
+.vt-title { display: inline-block; max-width: 100%; }
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+  ::view-transition-group(*) { animation-duration: 520ms; animation-timing-function: cubic-bezier(.16, 1, .3, 1); }
+  ::view-transition-old(*), ::view-transition-new(*) { mix-blend-mode: normal; }
+  ::view-transition-old(root) { animation: vt-fade-out 140ms ease-out both; }
+  ::view-transition-new(root) { animation: vt-fade-in 280ms ease-out 40ms both; }
+  @keyframes vt-fade-out { to { opacity: 0; } }
+  @keyframes vt-fade-in { from { opacity: 0; } }
+}
 
 @keyframes theme-cross-dissolve { 0%, 100% { opacity: 1; } 45% { opacity: .76; } }
 :root.theme-transition, :root.theme-transition *, :root.theme-transition *::before, :root.theme-transition *::after { transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, filter 180ms ease; }

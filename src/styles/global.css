@@ -236,7 +236,7 @@ footer { display: flex; justify-content: space-between; gap: var(--space-4); mar
 .portrait-frame { position: relative; display: grid; min-width: 0; overflow: hidden; }
 .portrait-scan { position: absolute; inset: -6px 0; opacity: 0; pointer-events: none; background: repeating-linear-gradient(to bottom, transparent 0, transparent 3px, color-mix(in srgb, var(--accent-ink) 28%, transparent) 3px, color-mix(in srgb, var(--accent-ink) 28%, transparent) 4px); transform: translateY(calc(var(--py, .5) * 6px - 3px)); transition: opacity 200ms; }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) { .portrait-frame:hover .portrait-scan { opacity: 1; } }
-.stat { display: inline-block; min-width: 3.4ch; padding: 0 6px; text-align: center; border: var(--rule-width) solid var(--stack-accent); color: var(--accent-fill-ink); background: var(--accent-fill); font-family: var(--mono); font-size: .82em; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.5; white-space: nowrap; }
+.stat { display: inline; padding: 0 1px; border-bottom: var(--rule-width) dotted var(--accent-ink); color: var(--accent-ink); font-family: var(--mono); font-size: .86em; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 
 .intro-reveal { display: none; }
@@ -378,7 +378,7 @@ footer { display: flex; justify-content: space-between; gap: var(--space-4); mar
   .resume-page #projects .entries > article::before, .section-heading::after, .portrait-scan { display: none !important; }
   .section-heading { border-bottom: 1px solid #777 !important; }
   .name-letter { animation: none !important; }
-  .stat { padding: 0; border: 0; color: #000; background: #fff; font: inherit; }
+  .stat { padding: 0; border: 0; color: #000; font: inherit; }
   .about-skills { display: block; }
   .about-skills > div { display: inline; padding: 0; border: 0; }
   .about-skills > div + div::before { content: "; "; }

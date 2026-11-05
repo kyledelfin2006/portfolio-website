@@ -66,6 +66,7 @@ No internship dates, scholarship dates, or completed DataCamp tracks are current
 ### HackForGov5 Region VI Regional Qualifying Round
 
 - Result: Fifth place in the 2026 HackForGov5 Region VI Regional Qualifying Round
+- Date: October 2026
 - Team: CyberGuild (ASU Developers’ Guild)
 - Focus: Ethical hacking and cybersecurity principles
 - Evidence: `../assets/HACK4GOV.png` and `../assets/CYBERGUILD2.jpg`

@@ -3,7 +3,7 @@ category: honor
 title: 2nd Place — RSTW Paindis-Indis It Inobasyon
 order: 0
 meta: October 2026
-summary: Poultri placed second among eight Western Visayas finalists, earning ₱20,000 and incubation with TechNest TBI.
+summary: Poultri placed [[second]] among eight Western Visayas finalists, earning [[₱20,000]] and incubation with TechNest TBI.
 images:
   - path: images/rstw-award.jpeg
     alt: Aldrin Kyle Delfin holding the second-place recognition certificate and award check for Team Agritech at the 2026 RSTW Paindis-Indis It Inobasyon competition.

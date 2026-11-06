@@ -39,7 +39,7 @@ Libro uses explicit DTOs at the API boundary, centralized handling for applicati
 | --- | --- |
 | Category | Flood reporting and response |
 | Repository | <https://github.com/kyledelfin2006/tabang-hackathon-project> |
-| Technologies | TypeScript, Supabase, Vite |
+| Technologies | TypeScript, Supabase, Vite, Git, REST APIs |
 | Event | UPV KomsaiHack 2026 |
 | Result | Top 10 finalist among teams from across Western Visayas; 6th place among more than 25 teams |
 | Certificate | `certificates/TABANG.RISKREADY.CERTIFICATE.png` (states Top 10 placement) |

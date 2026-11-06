@@ -102,9 +102,11 @@ h3 { font-size: 17px; font-weight: 700; line-height: 1.3; }
 .entries { display: grid; gap: var(--space-5); }
 .entries > article + article { padding-top: var(--space-5); border-top: var(--rule-width) dashed var(--rule); }
 #projects .entries > article { position: relative; }
-#projects .entries > article::before { position: absolute; top: var(--space-5); bottom: var(--space-5); left: -8px; width: 2px; content: ""; background: var(--accent-ink); transform: scaleY(0); transform-origin: top; transition: transform 200ms cubic-bezier(.16, 1, .3, 1); }
-#projects .entries > article:is(:hover, :focus-within)::before { transform: scaleY(1); }
-.resume-page #projects .entries > article::before { background: var(--stack-accent); }
+/* Each project gets a quiet index number in place of a side rail; it turns green with the hover/focus tint. */
+#projects .entries { counter-reset: project; }
+#projects .entries > article { counter-increment: project; }
+#projects .entries > article h3::before { margin-right: var(--space-2); color: var(--muted); content: counter(project, decimal-leading-zero); content: counter(project, decimal-leading-zero) / ""; font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: .06em; vertical-align: middle; transition: color 180ms ease; }
+#projects .entries > article:is(:hover, :focus-within) h3::before { color: var(--stack-accent); }
 .resume-page #projects .entries > article { transition: background-color 180ms ease, transform 180ms cubic-bezier(.16, 1, .3, 1); }
 .resume-page #projects .entries > article:is(:hover, :focus-within) { background: color-mix(in srgb, var(--accent-fill) 45%, transparent); transform: translateY(-2px); }
 .resume-page #projects .project-links a:is(:hover, :focus-visible) { color: var(--accent-fill-ink); background: var(--accent-fill); border-color: var(--stack-accent); }
@@ -318,8 +320,6 @@ footer { display: flex; justify-content: space-between; gap: var(--space-4); mar
     .section-heading::before { display: inline-block; animation: marker-in linear both; animation-timeline: view(); animation-range: entry 0% entry 60%; }
     @keyframes rule-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
     @keyframes marker-in { from { opacity: 0; translate: -8px 0; } to { opacity: 1; translate: 0 0; } }
-    .resume-page #projects .entries > article::before { transform: none; scale: 1 0; transition: none; animation: rail-fill linear both; animation-timeline: view(); animation-range: entry 10% cover 55%; }
-    @keyframes rail-fill { from { scale: 1 0; } to { scale: 1 1; } }
   }
 }
 @media (prefers-reduced-motion: no-preference) {
@@ -432,7 +432,7 @@ footer { display: flex; justify-content: space-between; gap: var(--space-4); mar
   a, :root.theme-transition, :root.theme-transition *, :root.theme-transition *::before, :root.theme-transition *::after { transition: none !important; }
   a:active, #theme-toggle:active { transform: none; }
   .toggle-marker { transition: none; }
-  #projects .entries > article:is(:hover, :focus-within)::before { transform: scaleY(1); transition: none; }
+  #projects .entries > article h3::before { transition: none; }
   .document-shell { animation: none !important; }
   .scroll-progress { display: none !important; }
   .caret { animation: none; }
@@ -488,7 +488,7 @@ footer { display: flex; justify-content: space-between; gap: var(--space-4); mar
   .resume-page .scroll-reveal, .resume-page .scroll-reveal.is-visible { opacity: 1; transform: none; transition: none; }
   .resume-page :is(#projects, #honors) .entries > article { animation: none !important; opacity: 1; translate: none; }
   .resume-page #projects .entries > article:is(:hover, :focus-within), .resume-page #honors .entries > article:is(:hover, :focus-within) { background: transparent; transform: none; }
-  .resume-page #projects .entries > article::before, .section-heading::after, .portrait-scan { display: none !important; }
+  #projects .entries > article h3::before, .section-heading::after, .portrait-scan { display: none !important; }
   .section-heading { border-bottom: 1px solid #777 !important; }
   .name-letter { animation: none !important; }
   .stat { padding: 0; border: 0; color: #000; font: inherit; }

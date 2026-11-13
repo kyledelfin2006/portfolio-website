@@ -2,7 +2,6 @@
 import ResumeLayout from '../layouts/ResumeLayout.astro';
 import ContentSection from '../components/ContentSection.astro';
 import AboutSkills from '../components/AboutSkills.astro';
-import AboutJourney from '../components/AboutJourney.astro';
 import { getRequiredEntry } from '../content/load';
 const pageEntry = await getRequiredEntry('pages/about', 'page-about');
 const page = pageEntry.data;
@@ -11,12 +10,10 @@ const page = pageEntry.data;
   <div class="about-sections">
     {page.sections.map((section) => section === 'technical-skills'
       ? <AboutSkills heading={page.technicalSkillsHeading} hint={page.skillsHint} usedInLabel={page.skillsUsedIn} toolkitLabel={page.skillsToolkit} skills={page.technicalSkills} />
-      : section === 'journey'
-      ? <AboutJourney heading={page.journeyHeading} entries={page.journey} />
       : <ContentSection
         section={section}
-        heading={section === 'workshops' ? page.workshopsHeading : undefined}
-        ariaLabel={section === 'workshops' ? page.workshopsAriaLabel : undefined}
+        heading={section === 'workshops' ? page.workshopsHeading : section === 'honors' ? page.honorsHeading : undefined}
+        ariaLabel={section === 'workshops' ? page.workshopsAriaLabel : section === 'honors' ? page.honorsHeading : undefined}
       />)}
   </div>
 </ResumeLayout>

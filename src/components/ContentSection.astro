@@ -8,16 +8,16 @@ import Honors from './Honors.astro';
 import AboutSection from './AboutSection.astro';
 import { getRequiredEntry } from '../content/load';
 import type { SectionId } from '../content/sections';
-interface Props { section: SectionId; heading?: string; ariaLabel?: string; compactProjects?: boolean; }
-const { section, heading, ariaLabel, compactProjects = false } = Astro.props;
+interface Props { section: SectionId; heading?: string; ariaLabel?: string; description?: string; compactProjects?: boolean; }
+const { section, heading, ariaLabel, description, compactProjects = false } = Astro.props;
 const proseSections = ['biography', 'engineering-philosophy', 'resume-and-contact'];
 const aboutEntry = proseSections.includes(section) ? await getRequiredEntry(`about/${section}`, 'about') : undefined;
 if (!aboutEntry && (!heading || !ariaLabel)) throw new Error(`Section "${section}" needs a heading and accessible label.`);
 ---
-{section === 'education' && <Education heading={heading!} ariaLabel={ariaLabel!} id={section} />}
-{section === 'experience' && <Experience heading={heading!} ariaLabel={ariaLabel!} id={section} />}
-{section === 'projects' && <Projects heading={heading!} ariaLabel={ariaLabel!} id={section} compact={compactProjects} />}
-{section === 'skills' && <Skills heading={heading!} ariaLabel={ariaLabel!} id={section} />}
-{section === 'workshops' && <Workshops heading={heading!} ariaLabel={ariaLabel!} id={section} />}
-{section === 'honors' && <Honors heading={heading!} id={section} />}
+{section === 'education' && <Education heading={heading!} ariaLabel={ariaLabel!} id={section} description={description} />}
+{section === 'experience' && <Experience heading={heading!} ariaLabel={ariaLabel!} id={section} description={description} />}
+{section === 'projects' && <Projects heading={heading!} ariaLabel={ariaLabel!} id={section} compact={compactProjects} description={description} />}
+{section === 'skills' && <Skills heading={heading!} ariaLabel={ariaLabel!} id={section} description={description} />}
+{section === 'workshops' && <Workshops heading={heading!} ariaLabel={ariaLabel!} id={section} description={description} />}
+{section === 'honors' && <Honors heading={heading!} id={section} description={description} />}
 {aboutEntry && <AboutSection entry={aboutEntry} />}

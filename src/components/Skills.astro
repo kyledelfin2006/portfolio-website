@@ -1,11 +1,11 @@
 ---
 import SectionHeading from './SectionHeading.astro';
 import { getEntries } from '../content/load';
-interface Props { heading: string; ariaLabel: string; id?: string; }
-const { heading, ariaLabel, id } = Astro.props;
+interface Props { heading: string; ariaLabel: string; id?: string; description?: string; }
+const { heading, ariaLabel, id, description } = Astro.props;
 const skills = await getEntries('skill');
 ---
 <section id={id} aria-label={ariaLabel}>
-  <SectionHeading title={heading} />
+  <SectionHeading title={heading} description={description} />
   <dl class="skills">{await Promise.all(skills.map(async ({ data, render }) => { const { Content } = await render(); return <div><dt>{data.title}:</dt> <dd><Content /></dd></div>; }))}</dl>
 </section>

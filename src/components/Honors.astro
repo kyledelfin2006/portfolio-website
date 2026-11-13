@@ -2,13 +2,13 @@
 import { getEntries, getRequiredEntry } from '../content/load';
 import SectionHeading from './SectionHeading.astro';
 import { withStats } from '../content/stats';
-interface Props { heading: string; id?: string; }
-const { heading, id } = Astro.props;
+interface Props { heading: string; id?: string; description?: string; }
+const { heading, id, description } = Astro.props;
 const honors = await getEntries('honor');
 const { data: site } = await getRequiredEntry('site', 'site');
 ---
 <section id={id} aria-label={heading}>
-  <SectionHeading title={heading} />
+  <SectionHeading title={heading} description={description} />
   <div class="entries">
     {honors.map((honor) => <article class="honor-item">
       <div class="split-row"><h3>{honor.data.title}</h3>{honor.data.meta && <span class="meta">{honor.data.meta}</span>}</div>

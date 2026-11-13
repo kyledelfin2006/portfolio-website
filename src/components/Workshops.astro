@@ -1,8 +1,8 @@
 ---
 import { getEntries, getRequiredEntry } from '../content/load';
 import SectionHeading from './SectionHeading.astro';
-interface Props { heading: string; ariaLabel: string; id?: string; }
-const { heading, ariaLabel, id } = Astro.props;
+interface Props { heading: string; ariaLabel: string; id?: string; description?: string; }
+const { heading, ariaLabel, id, description } = Astro.props;
 const workshops = await getEntries('workshop');
 const { data: site } = await getRequiredEntry('site', 'site');
 const base = import.meta.env.BASE_URL;
@@ -16,7 +16,7 @@ const summary = [certificateCount && noun(certificateCount, words.certificate, w
 const ordered = [...workshops.filter(({ data }) => !isQuiet(data)), ...workshops.filter(({ data }) => isQuiet(data))];
 ---
 <section id={id} aria-label={ariaLabel}>
-  <SectionHeading title={heading} />
+  <SectionHeading title={heading} description={description} />
   {summary.length > 0 && <p class="workshop-summary no-print">{summary.join(' · ')}</p>}
   <div class="entries">
     {await Promise.all(ordered.map(async ({ data, render }) => { const { Content } = await render(); return <article class:list={[{ 'is-quiet': isQuiet(data) }]}>

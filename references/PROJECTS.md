@@ -39,7 +39,7 @@ Libro uses explicit DTOs at the API boundary, centralized handling for applicati
 | --- | --- |
 | Category | Point-of-sale and inventory management system for coffee shops |
 | Repository | <https://github.com/kyledelfin2006/kofi-pos-and-inventory-system> |
-| Technologies | Java, Maven, Git, GitHub |
+| Technologies | Java, Maven, SQLite |
 
 ### Summary
 
@@ -49,6 +49,7 @@ Kofi is a Java-based point-of-sale and inventory management system for coffee sh
 
 - Point-of-sale for coffee shops
 - Inventory management for coffee shops
+- SQLite database
 
 ### Architecture and data
 

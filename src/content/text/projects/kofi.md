@@ -4,7 +4,7 @@ title: Kofi
 description: Java-Based Point-of-Sale and Inventory Management System for Coffee Shops
 homeSummary: Java-Based Point-of-Sale and Inventory Management System for Coffee Shops
 projectCategory: Point of Sale & Inventory
-stack: [Java, Maven, Git, GitHub]
+stack: [Java, Maven, SQLite]
 repository: https://github.com/kyledelfin2006/kofi-pos-and-inventory-system
 logo:
   path: images/kofi-logo.png
@@ -14,7 +14,7 @@ logo:
 order: 2
 highlights:
   - A Java-based point-of-sale and inventory management system built for coffee shops.
-  - Built with Java and Maven, with the source tracked in Git on GitHub.
+  - Built with Java and Maven, with SQLite as its database.
 ---
 
 ## The problem
@@ -27,7 +27,7 @@ Kofi combines point-of-sale and inventory management. The point-of-sale side han
 
 ## Tools
 
-Kofi is written in Java and built with Maven. The source is kept in Git and hosted on GitHub.
+Kofi is written in Java and built with Maven. SQLite is its database.
 
 ## Status
 

@@ -12,7 +12,7 @@ logo:
   alt: Tabang flood reporting and response logo
   width: 2000
   height: 2000
-order: 2
+order: 3
 highlights:
   - Connected resident flood reports and requests for help with responder claim-and-resolve workflows and reviewer approval.
   - Placed 6th among 25+ teams at UPV KomsaiHack 2026.

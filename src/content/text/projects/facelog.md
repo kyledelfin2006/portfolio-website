@@ -6,7 +6,7 @@ homeSummary: Offline attendance with webcam recognition, SQLite records, and per
 projectCategory: Offline Attendance
 stack: [Python, OpenCV, SQLite, Webcam, CSV]
 repository: https://github.com/DevGuild-ASU/FaceLog
-order: 3
+order: 4
 highlights:
   - Registered people from a webcam feed and recorded each recognized person once per attendance session.
   - Stored attendance in SQLite and exported session CSV files within a small Python modular monolith.

@@ -185,6 +185,7 @@ Each file under `src/content/text/honors/` keeps one honor’s summary, media, a
 - `assets/RSTW.jpeg` → `public/images/rstw-award.jpeg`
 - `assets/rstw-finalist.jpg` → `public/images/rstw-team.jpg`
 - `assets/DEVGUILD_LOGO.png` → `public/images/devguild-logo.png`
+- `assets/KOFI_LOGO.png` → `public/images/kofi-logo.png`
 - `assets/FLYRANK_LOGO.png` → `public/images/flyrank-logo.webp` (the source contains WebP data despite its `.png` filename)
 - `references/certificates/DWIA-MOST-ANALYTICAL-PROGRAMMER.pdf` → `public/certificates/DWIA-MOST-ANALYTICAL-PROGRAMMER.pdf` (full PDF) and `public/certificates/dwia-most-analytical-programmer.png` (compact first-page preview)
 - `references/certificates/DWIA-CERT-AKLAN_DELFIN.pdf` → `public/certificates/DWIA-CERT-AKLAN_DELFIN.pdf` (full PDF) and `public/certificates/dwia-python-programming-essentials.png` (compact first-page preview)

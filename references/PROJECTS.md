@@ -33,6 +33,27 @@ Libro is a library API with JWT security and PostgreSQL-backed loan tracking.
 
 Libro uses explicit DTOs at the API boundary, centralized handling for application failures, PostgreSQL for persistence, and versioned Flyway migrations for schema changes. Hibernate validates the schema at startup. Docker Compose containerizes the Spring Boot API and PostgreSQL with health-checked startup, persistent database storage, and environment-based credentials for reproducible local development.
 
+## Kofi
+
+| Field | Value |
+| --- | --- |
+| Category | Point-of-sale and inventory management system for coffee shops |
+| Repository | <https://github.com/kyledelfin2006/kofi-pos-and-inventory-system> |
+| Technologies | Java, Maven, Git, GitHub |
+
+### Summary
+
+Kofi is a Java-based point-of-sale and inventory management system for coffee shops.
+
+### Capabilities
+
+- Point-of-sale for coffee shops
+- Inventory management for coffee shops
+
+### Architecture and data
+
+Not yet recorded. Add verified details here before expanding the case study.
+
 ## Tabang
 
 | Field | Value |
